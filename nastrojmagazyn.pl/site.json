@@ -1,0 +1,16 @@
+{
+  "name": "Nastrój",
+  "url": "https://nastrojmagazyn.pl",
+  "tagline": "Magazyn o codzienności: relacje, zdrowie, uroda, dom i rozwój osobisty – bez presji, z uważnością.",
+  "theme_color": "#b5532f",
+  "category_prefix": "rubryka",
+  "per_page": 10,
+  "categories": [
+    {"slug": "codziennosc", "name": "Codzienność", "description": "Rytuały, nawyki i drobne zmiany, które sprawiają, że zwykły dzień staje się lżejszy."},
+    {"slug": "relacje", "name": "Relacje", "description": "Związki, przyjaźnie, rodzina i komunikacja – o bliskości bez poradnikowych schematów."},
+    {"slug": "zdrowie", "name": "Zdrowie", "description": "Dbanie o ciało i głowę: ruch, odpoczynek, profilaktyka i wsparcie specjalistów."},
+    {"slug": "uroda", "name": "Uroda", "description": "Pielęgnacja rozsądna i bez obietnic cudów – skóra, włosy, dłonie i codzienny makijaż."},
+    {"slug": "rozwoj", "name": "Rozwój", "description": "Nauka, czas, nawyki i praca nad sobą w tempie, które da się utrzymać."},
+    {"slug": "dom", "name": "Dom", "description": "Przytulne wnętrza, rośliny, porządki i domowe miejsca do pracy i odpoczynku."}
+  ]
+}

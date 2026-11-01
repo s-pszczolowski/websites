@@ -1,0 +1,16 @@
+{
+  "name": "Szczecin na co dzień",
+  "url": "https://szczecinnacodzien.pl",
+  "tagline": "Portal regionalny o życiu w Szczecinie i na Pomorzu Zachodnim: miasto, zdrowie, usługi i sprawy mieszkańców.",
+  "theme_color": "#13294b",
+  "category_prefix": "dzial",
+  "per_page": 8,
+  "categories": [
+    {"slug": "miasto", "name": "Miasto", "description": "Komunikacja, przestrzeń publiczna, sprawy urzędowe i codzienne funkcjonowanie Szczecina."},
+    {"slug": "zdrowie", "name": "Zdrowie", "description": "Lokalne poradniki zdrowotne: gdzie szukać pomocy, jak korzystać z opieki medycznej i profilaktyki."},
+    {"slug": "uslugi", "name": "Usługi", "description": "Praktyczne wskazówki dotyczące wyboru usług i załatwiania spraw w mieście."},
+    {"slug": "mieszkancy", "name": "Mieszkańcy", "description": "Sąsiedztwo, dom, osiedle i codzienne sprawy szczecinian."},
+    {"slug": "region", "name": "Pomorze Zachodnie", "description": "Wycieczki, przyroda i miejsca warte odwiedzenia w województwie zachodniopomorskim."},
+    {"slug": "weekend", "name": "Weekend", "description": "Pomysły na wolny czas w Szczecinie: spacery, kultura i wypoczynek."}
+  ]
+}

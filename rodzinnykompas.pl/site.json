@@ -1,0 +1,16 @@
+{
+  "name": "Rodzinny Kompas",
+  "url": "https://rodzinnykompas.pl",
+  "tagline": "Portal dla rodzin: rodzicielstwo, związek, emocje, zdrowie bliskich i praktyczne poradniki na co dzień.",
+  "theme_color": "#ef6f5e",
+  "category_prefix": "kategoria",
+  "per_page": 7,
+  "categories": [
+    {"slug": "rodzicielstwo", "name": "Rodzicielstwo", "color": "#ef6f5e", "description": "Wychowanie, codzienne wyzwania i decyzje rodziców – od przedszkolaka po nastolatka."},
+    {"slug": "zwiazek", "name": "Związek", "color": "#8c5ea8", "description": "Para w roli rodziców: komunikacja, podział obowiązków, konflikty i bliskość."},
+    {"slug": "emocje", "name": "Emocje", "color": "#4a90c2", "description": "Złość, lęk, smutek i radość – jak towarzyszyć dzieciom i sobie w trudnych emocjach."},
+    {"slug": "zdrowie-rodziny", "name": "Zdrowie rodziny", "color": "#3aa88c", "description": "Profilaktyka, choroby wieku dziecięcego i zdrowie dorosłych członków rodziny."},
+    {"slug": "szkola", "name": "Szkoła i nauka", "color": "#e39b1b", "description": "Start w szkole, nauka w domu, trudności szkolne i bezpieczeństwo w sieci."},
+    {"slug": "czas-razem", "name": "Czas razem", "color": "#d1577f", "description": "Pomysły na wspólne chwile: wycieczki, gry, gotowanie i rodzinne rytuały."}
+  ]
+}

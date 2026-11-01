@@ -1,0 +1,16 @@
+{
+  "name": "Puls Profilaktyki",
+  "url": "https://pulsprofilaktyki.pl",
+  "tagline": "Portal o zdrowiu: profilaktyka, diagnostyka, zdrowie psychiczne i fizyczne – rzetelnie i zrozumiale.",
+  "theme_color": "#0f766e",
+  "category_prefix": "temat",
+  "per_page": 9,
+  "categories": [
+    {"slug": "profilaktyka", "name": "Profilaktyka", "description": "Badania przesiewowe, szczepienia i codzienne nawyki, które pomagają zapobiegać chorobom."},
+    {"slug": "diagnostyka", "name": "Diagnostyka", "description": "Jak przygotować się do badań, jak czytać wyniki i kiedy warto skonsultować je z lekarzem."},
+    {"slug": "zdrowie-psychiczne", "name": "Zdrowie psychiczne", "description": "Stres, sen, emocje i równowaga psychiczna – wiedza oparta na aktualnych zaleceniach."},
+    {"slug": "ruch", "name": "Ruch i ciało", "description": "Aktywność fizyczna, układ ruchu i bezpieczny powrót do sprawności."},
+    {"slug": "zywienie", "name": "Żywienie", "description": "Praktyczne zasady zdrowego odżywiania bez mitów i skrajności."},
+    {"slug": "choroby-przewlekle", "name": "Choroby przewlekłe", "description": "Nadciśnienie, cukrzyca, astma i inne choroby przewlekłe – życie z chorobą i kontrola."}
+  ]
+}
