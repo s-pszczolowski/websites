@@ -30,8 +30,8 @@ PORTALS = {
         "voice": "Lubimy teksty, które zostawiają czytelnika z czymś do przemyślenia i z jedną małą rzeczą do wypróbowania jutro.",
         "extra": "## Zdrowie i uroda\n\nTeksty o zdrowiu i pielęgnacji mają charakter ogólny. Nie zastępują porady lekarza, dermatologa czy psychologa – zwłaszcza gdy problem się utrzymuje lub nasila.",
     },
-    "rodzinnykompas.pl": {
-        "name": "Rodzinny Kompas", "mail": "kontakt@rodzinnykompas.pl",
+    "rodzinnykompas.com.pl": {
+        "name": "Rodzinny Kompas", "mail": "kontakt@rodzinnykompas.com.pl",
         "about": "Rodzinny Kompas to portal dla rodziców, par i całych rodzin. Publikujemy poradniki o wychowaniu, emocjach dzieci i dorosłych, związku w czasie rodzicielstwa, zdrowiu rodziny, szkole i wspólnym spędzaniu czasu.",
         "focus": ["rodzicielstwo od przedszkola po okres nastoletni", "emocje dzieci i dorosłych", "związek i komunikacja w rodzinie", "zdrowie rodziny, szkoła i czas razem"],
         "voice": "Piszemy ciepło i praktycznie – bez oceniania rodziców i bez jednej „jedynie słusznej” metody wychowania.",

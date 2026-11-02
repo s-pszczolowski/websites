@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import sitegen  # noqa: E402
 
 EXPECTED = {"szczecinnacodzien.pl": 22, "pulsprofilaktyki.pl": 24, "nastrojmagazyn.pl": 26,
-            "rodzinnykompas.pl": 28, "wiemiwybieram.pl": 30}
+            "rodzinnykompas.com.pl": 28, "wiemiwybieram.pl": 30}
 PARTNERS = {"wamka": "https://wamka.pl/", "szram": "https://www.norbertszram.pl/"}
 START, END = date(2026, 8, 1), date(2026, 10, 31)
 PLACEHOLDERS = re.compile(r"lorem ipsum|\bTODO\b|placeholder|\bXXX\b|\{\{|\}\}|tekst zastępczy|uzupełnić", re.I)

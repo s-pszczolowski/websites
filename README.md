@@ -5,7 +5,7 @@
 | `szczecinnacodzien.pl/` | Szczecin na co dzień | portal regionalny (Szczecin, Pomorze Zachodnie) | 22 | klasyczny dziennik: winieta, pasek działów, „temat dnia”, prawa szpalta |
 | `pulsprofilaktyki.pl/` | Puls Profilaktyki | portal o zdrowiu | 24 | kliniczny: kafelki tematów, karty, spis treści i bibliografia w artykule |
 | `nastrojmagazyn.pl/` | Nastrój | magazyn lifestyle | 26 | magazyn: okładkowy temat numeru, asymetryczna siatka, inicjał w artykule |
-| `rodzinnykompas.pl/` | Rodzinny Kompas | portal rodzinny | 28 | blog rodzinny: kolorowe kategorie, poziome karty, kolumna boczna, lepki spis treści |
+| `rodzinnykompas.com.pl/` | Rodzinny Kompas | portal rodzinny | 28 | blog rodzinny: kolorowe kategorie, poziome karty, kolumna boczna, lepki spis treści |
 | `wiemiwybieram.pl/` | Wiem i Wybieram | portal poradnikowo-informacyjny | 30 | baza poradników: boczna nawigacja, numerowana lista, ramka „W skrócie” |
 
 Łącznie **130 artykułów**, każdy na własnej, jednopoziomowej podstronie (`/slug/`), z datą publikacji z okresu 1.08–31.10.2026 zapisaną na stałe w pliku treści.
@@ -41,7 +41,7 @@ Wymagania: Python 3.11+ z biblioteką Pillow; do testu przeglądarkowego Node.js
 
 ```bash
 python3 build.py                      # wszystkie portale
-python3 build.py rodzinnykompas.pl    # jeden portal
+python3 build.py rodzinnykompas.com.pl    # jeden portal
 python3 tools/verify.py               # kontrola końcowa + RAPORT.md
 ```
 

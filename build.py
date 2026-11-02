@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "tools"))
 import sitegen  # noqa: E402
 
-PORTALS = ["szczecinnacodzien.pl", "pulsprofilaktyki.pl", "nastrojmagazyn.pl", "rodzinnykompas.pl", "wiemiwybieram.pl"]
+PORTALS = ["szczecinnacodzien.pl", "pulsprofilaktyki.pl", "nastrojmagazyn.pl", "rodzinnykompas.com.pl", "wiemiwybieram.pl"]
 
 if __name__ == "__main__":
     for name in sys.argv[1:] or PORTALS:

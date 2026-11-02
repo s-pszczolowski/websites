@@ -11,7 +11,7 @@ Raport wygenerowany automatycznie przez `tools/verify.py` na podstawie zbudowany
 | Szczecin na co dzień | https://szczecinnacodzien.pl | 22 | 8 | 6 | 8 | 2026-08-01 – 2026-10-30 | 412–509 | 38 |
 | Puls Profilaktyki | https://pulsprofilaktyki.pl | 24 | 8 | 8 | 8 | 2026-08-03 – 2026-10-31 | 470–591 | 40 |
 | Nastrój | https://nastrojmagazyn.pl | 26 | 9 | 8 | 9 | 2026-08-01 – 2026-10-30 | 429–501 | 42 |
-| Rodzinny Kompas | https://rodzinnykompas.pl | 28 | 10 | 9 | 9 | 2026-08-03 – 2026-10-29 | 414–514 | 45 |
+| Rodzinny Kompas | https://rodzinnykompas.com.pl | 28 | 10 | 9 | 9 | 2026-08-03 – 2026-10-29 | 414–514 | 45 |
 | Wiem i Wybieram | https://wiemiwybieram.pl | 30 | 10 | 10 | 10 | 2026-08-02 – 2026-10-31 | 405–513 | 46 |
 | **Łącznie** | | **130** | **45** | **41** | **44** | | | |
 
@@ -25,8 +25,8 @@ Raport wygenerowany automatycznie przez `tools/verify.py` na podstawie zbudowany
 | Puls Profilaktyki | Norbert Szram | Diagnostyka znamion – na co zwracać uwagę? | https://pulsprofilaktyki.pl/diagnostyka-znamion-na-co-zwracac-uwage/ | „Norbert Szram” | https://www.norbertszram.pl/ | 770 | 2026-08-26 |
 | Nastrój | Wamka | Psychoterapia poznawczo-behawioralna – na czym polega? | https://nastrojmagazyn.pl/psychoterapia-poznawczo-behawioralna-na-czym-polega/ | „terapii poznawczo-behawioralnej w gabinecie Wamka” | https://wamka.pl/ | 802 | 2026-08-24 |
 | Nastrój | Norbert Szram | Zmiany skórne – kiedy warto skonsultować je z lekarzem? | https://nastrojmagazyn.pl/zmiany-skorne-kiedy-do-lekarza/ | „chirurga onkologa Norberta Szrama” | https://www.norbertszram.pl/ | 708 | 2026-08-13 |
-| Rodzinny Kompas | Wamka | Trudności w relacjach – kiedy rozmowa ze specjalistą może pomóc? | https://rodzinnykompas.pl/trudnosci-w-relacjach-pomoc-specjalisty/ | „wamka.pl” | https://wamka.pl/ | 750 | 2026-08-31 |
-| Rodzinny Kompas | Norbert Szram | Profilaktyka raka piersi – jakie badania mają znaczenie? | https://rodzinnykompas.pl/profilaktyka-raka-piersi-badania/ | „norbertszram.pl” | https://www.norbertszram.pl/ | 751 | 2026-09-16 |
+| Rodzinny Kompas | Wamka | Trudności w relacjach – kiedy rozmowa ze specjalistą może pomóc? | https://rodzinnykompas.com.pl/trudnosci-w-relacjach-pomoc-specjalisty/ | „wamka.pl” | https://wamka.pl/ | 750 | 2026-08-31 |
+| Rodzinny Kompas | Norbert Szram | Profilaktyka raka piersi – jakie badania mają znaczenie? | https://rodzinnykompas.com.pl/profilaktyka-raka-piersi-badania/ | „norbertszram.pl” | https://www.norbertszram.pl/ | 751 | 2026-09-16 |
 | Wiem i Wybieram | Wamka | Psychoterapia online czy w gabinecie – jak wybrać? | https://wiemiwybieram.pl/psychoterapia-online-czy-stacjonarna/ | „jakie formy spotkań oferuje Wamka” | https://wamka.pl/ | 717 | 2026-10-10 |
 | Wiem i Wybieram | Norbert Szram | Czym zajmuje się chirurg onkologiczny? | https://wiemiwybieram.pl/czym-zajmuje-sie-chirurg-onkolog/ | „lekarza Norberta Szrama” | https://www.norbertszram.pl/ | 716 | 2026-08-14 |
 
