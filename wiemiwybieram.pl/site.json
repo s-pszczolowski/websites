@@ -1,0 +1,16 @@
+{
+  "name": "Wiem i Wybieram",
+  "url": "https://wiemiwybieram.pl",
+  "tagline": "Portal poradnikowo-informacyjny: praktyczna wiedza o zdrowiu, specjalistach, prawach konsumenta, finansach i świadomych wyborach.",
+  "theme_color": "#1e3a8a",
+  "category_prefix": "poradniki",
+  "per_page": 12,
+  "categories": [
+    {"slug": "zdrowie", "name": "Zdrowie", "short": "ZD", "description": "Jak korzystać z opieki zdrowotnej, przygotować się do wizyt i bezpiecznie stosować leki."},
+    {"slug": "specjalisci", "name": "Specjaliści", "short": "SP", "description": "Do kogo się zgłosić i jak wybrać specjalistę – lekarza, terapeutę, dentystę czy dietetyka."},
+    {"slug": "konsument", "name": "Prawa konsumenta", "short": "PK", "description": "Reklamacje, zwroty, umowy i bezpieczne zakupy – wiedza, która chroni portfel."},
+    {"slug": "finanse", "name": "Finanse domowe", "short": "FD", "description": "Budżet, oszczędności, kredyty i ubezpieczenia bez żargonu."},
+    {"slug": "dom", "name": "Dom i technika", "short": "DT", "description": "Bezpieczny, energooszczędny dom i rozsądne zakupy sprzętu."},
+    {"slug": "swiadome-wybory", "name": "Świadome wybory", "short": "ŚW", "description": "Etykiety, ekologia, sezonowe zakupy i codzienne decyzje podejmowane z głową."}
+  ]
+}
