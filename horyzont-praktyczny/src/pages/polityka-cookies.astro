@@ -1,0 +1,13 @@
+---
+import Document from '../layouts/Document.astro';
+import { DEPLOY } from '../lib/deploy';
+---
+<Document title="Polityka cookies" description="Informacja o plikach cookies w portalu Horyzont Praktyczny i o tym, jak zarządzać nimi w przeglądarce." legal>
+  <h2>Pliki cookies w serwisie</h2>
+  {DEPLOY.analityka.wlaczona ? <p>Serwis korzysta z narzędzia {DEPLOY.analityka.narzedzie}; cookies analityczne zapisywane są po wyrażeniu zgody.</p>
+    : <p>W obecnej wersji portal nie zapisuje plików cookies: nie używa analityki, reklam ani wtyczek serwisów społecznościowych.</p>}
+  <h2>Zarządzanie cookies</h2>
+  <p>Ustawienia przeglądarki pozwalają przeglądać, usuwać i blokować pliki cookies. Ich blokada nie ogranicza dostępu do publikacji.</p>
+  <h2>Zmiany</h2>
+  <p>Jeśli w serwisie pojawią się narzędzia wykorzystujące cookies, dokument zostanie zaktualizowany, a tam, gdzie wymagają tego przepisy, poprosimy o zgodę.</p>
+</Document>

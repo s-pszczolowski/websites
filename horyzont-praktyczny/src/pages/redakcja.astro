@@ -1,0 +1,19 @@
+---
+import Document from '../layouts/Document.astro';
+import { TOPICS, SITE } from '../config/site';
+---
+<Document title="O portalu i redakcji" description="Czym jest Horyzont Praktyczny, jakie tematy porusza, jak dobieramy źródła i jak powstają publikacje." intro="Horyzont Praktyczny to ogólnopolski portal poradnikowo-informacyjny. Publikujemy analizy, porównania i rzeczowe wyjaśnienia, które pomagają podejmować decyzje – w domu, w firmie i w codziennych sprawach.">
+  <h2>Misja</h2>
+  <p>Hasło „{SITE.tagline}” opisuje nasz sposób pracy. Zamiast ogólnych porad szukamy konkretnych rozwiązań, pokazujemy ich wady i zalety oraz warunki, w jakich się sprawdzają. Każda publikacja zaczyna się od pytania czytelnika i kończy czymś, co można wykorzystać: tabelą porównawczą, listą kroków, kryteriami wyboru.</p>
+  <h2>Tematy</h2>
+  <ul>{TOPICS.map((t) => <li><a href={`/temat/${t.slug}/`}>{t.name}</a> – {t.lede}</li>)}</ul>
+  <h2>Standardy</h2>
+  <ul>
+    <li><strong>Źródła instytucjonalne</strong> – przepisy prawa, zalecenia instytucji publicznych i organizacji branżowych. Wskazujemy je pod tekstami.</li>
+    <li><strong>Brak fikcyjnych danych</strong> – nie publikujemy wymyślonych statystyk, cytatów, opinii ani wypowiedzi ekspertów.</li>
+    <li><strong>Ostrożność w tematach regulowanych</strong> – zdrowie, prawo i finanse opisujemy informacyjnie, wskazując, kiedy potrzebna jest indywidualna porada.</li>
+    <li><strong>Jawność współpracy</strong> – treści sponsorowane są oznaczone, a linki do partnerów mają atrybut <code>rel="sponsored"</code>.</li>
+  </ul>
+  <h2>Autorstwo</h2>
+  <p>Publikacje podpisuje {SITE.publisher}. Korekty i aktualizacje oznaczamy datą aktualizacji przy tekście.</p>
+</Document>

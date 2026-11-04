@@ -1,0 +1,20 @@
+---
+import Shell from '../../../layouts/Shell.astro';
+import Crumbs from '../../../components/Crumbs.astro';
+import Listing from '../../../components/Listing.astro';
+import { SITE } from '../../../config/site';
+import { allArticles, monthOf, monthLabel, monthsWithCounts } from '../../../lib/content';
+export async function getStaticPaths() { return monthsWithCounts(await allArticles()).map((m) => ({ params: { month: m.key } })); }
+const { month } = Astro.params;
+const items = (await allArticles()).filter((e) => monthOf(e.data.published) === month);
+const label = monthLabel(month!);
+---
+<Shell title={`Publikacje: ${label} – ${SITE.name}`} description={`Publikacje portalu ${SITE.name} z miesiąca ${label}: ${items.length} analiz, porównań i poradników.`}>
+  <div class="wrap page">
+    <Crumbs trail={[{ name: 'Publikacje', href: '/publikacje/' }, { name: label }]} />
+    <h1 class="page__title">Archiwum: {label}</h1>
+    <p class="page__intro">Liczba publikacji: {items.length}.</p>
+    <Listing items={items} />
+    <p><a class="btn btn--outline" href="/publikacje/">← Wszystkie publikacje</a></p>
+  </div>
+</Shell>

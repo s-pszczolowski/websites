@@ -1,0 +1,7 @@
+---
+import ListPage from '../../components/ListPage.astro';
+import { SITE } from '../../config/site';
+import { allArticles } from '../../lib/content';
+const list = await allArticles();
+---
+<ListPage page={1} pages={Math.ceil(list.length / SITE.pageSize)} items={list.slice(0, SITE.pageSize)} />

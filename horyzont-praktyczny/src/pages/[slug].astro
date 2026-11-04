@@ -1,0 +1,97 @@
+---
+import { render } from 'astro:content';
+import Shell from '../layouts/Shell.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Card from '../components/Card.astro';
+import TopicChip from '../components/TopicChip.astro';
+import { SITE, topic } from '../config/site';
+import { allArticles, relatedOf, href, coverOf, shareImageOf, longDate, iso, minutes, type Entry } from '../lib/content';
+
+export async function getStaticPaths() {
+  const list = await allArticles();
+  return list.map((entry, i) => ({ params: { slug: entry.id }, props: { entry, prev: list[i + 1] ?? null, next: list[i - 1] ?? null } }));
+}
+const { entry, prev, next } = Astro.props as { entry: Entry; prev: Entry | null; next: Entry | null };
+const list = await allArticles();
+const d = entry.data;
+const t = topic(d.topic);
+const { Content, headings } = await render(entry);
+const related = relatedOf(entry, list, 3);
+const taken = new Set([entry.id, ...related.map((r) => r.id)]);
+const guides = list.filter((e) => e.data.guide && !taken.has(e.id)).slice(0, 4);
+guides.forEach((g) => taken.add(g.id));
+const more = list.filter((e) => !taken.has(e.id) && e.data.topic !== d.topic).slice(0, 6);
+const sameTopic = list.filter((e) => e.data.topic === d.topic && !taken.has(e.id)).slice(0, 3);
+const toc = headings.filter((h) => h.depth === 2);
+const url = new URL(href(entry), Astro.site!).href;
+const modified = d.modified ?? d.published;
+const ld = [{
+  '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#tekst`, headline: d.title, description: d.seoDescription,
+  image: [new URL(shareImageOf(entry), Astro.site!).href], datePublished: iso(d.published), dateModified: iso(modified),
+  articleSection: t.name, inLanguage: 'pl-PL', mainEntityOfPage: url, isAccessibleForFree: true,
+  author: { '@type': 'Organization', name: SITE.publisher, url: new URL('/redakcja/', Astro.site!).href },
+  publisher: { '@id': `${new URL('/', Astro.site!).href}#wydawca` },
+}];
+---
+<Shell title={d.seoTitle} description={d.seoDescription} type="article" image={shareImageOf(entry)} ld={ld} current={d.topic}
+  times={{ published: iso(d.published), modified: iso(modified), section: t.name }}>
+  <div class="art-head" style={`--t:${t.color}`}>
+    <div class="wrap">
+      <Crumbs trail={[{ name: 'Tematy', href: '/temat/' }, { name: t.name, href: `/temat/${t.slug}/` }, { name: d.title }]} />
+      <div class="art-head__grid">
+        <div>
+          <div class="card__meta"><TopicChip slug={d.topic} /><span class="art-kind">{d.kind}</span>{d.sponsored && <span class="tag-sponsored">Artykuł sponsorowany</span>}</div>
+          <h1 class="art-title">{d.title}</h1>
+          <p class="art-lead">{d.lead}</p>
+          <dl class="facts">
+            <div><dt>Publikacja</dt><dd><time datetime={iso(d.published)}>{longDate(d.published)}</time></dd></div>
+            {d.modified && <div><dt>Aktualizacja</dt><dd><time datetime={iso(d.modified)}>{longDate(d.modified)}</time></dd></div>}
+            <div><dt>Czas lektury</dt><dd>{minutes(entry.body)} min</dd></div>
+            <div><dt>Autor</dt><dd>{SITE.publisher}</dd></div>
+          </dl>
+        </div>
+        <figure class="art-cover"><img src={coverOf(entry)} alt={d.coverAlt} width="1200" height="800" loading="eager" fetchpriority="high" /><figcaption>{d.coverAlt}</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <div class="wrap art-grid">
+    <div class="art-main">
+      <section class="summary" aria-labelledby="w-skrocie">
+        <h2 id="w-skrocie">W skrócie</h2>
+        <ul>{d.keyPoints.map((k) => <li>{k}</li>)}</ul>
+      </section>
+      {d.sponsored && (
+        <div class="callout callout--sponsor" role="note"><strong>Artykuł sponsorowany.</strong> Tekst zawiera jeden link do strony partnera, oznaczony atrybutem <code>rel="sponsored"</code>. Zasady: <a href="/tresci-sponsorowane/">Treści sponsorowane</a>.</div>
+      )}
+      <div class="rich"><Content /></div>
+      {d.sources.length > 0 && (
+        <section class="refs" aria-labelledby="zrodla"><h2 id="zrodla">Źródła i podstawy</h2><ol>{d.sources.map((s) => <li><a href={s.url} rel="noopener">{s.name}</a></li>)}</ol></section>
+      )}
+      <p class="note">{d.topic === 'zdrowie-i-medycyna' ? 'Publikacja ma charakter informacyjny i nie zastępuje konsultacji lekarskiej.' : d.topic === 'finanse-i-prawo' ? 'Publikacja ma charakter informacyjny i nie stanowi porady prawnej ani inwestycyjnej. Przepisy i warunki produktów mogą się zmieniać.' : 'Publikacja ma charakter informacyjny. Przed podjęciem decyzji sprawdź aktualne przepisy i warunki ofert.'}</p>
+      <nav class="seq" aria-label="Kolejne publikacje">
+        {prev ? <a href={href(prev)} rel="prev"><small>Wcześniejsza publikacja</small>{prev.data.title}</a> : <span></span>}
+        {next ? <a href={href(next)} rel="next"><small>Nowsza publikacja</small>{next.data.title}</a> : <span></span>}
+      </nav>
+      <p><a class="btn btn--outline" href={`/temat/${t.slug}/`}>← Wróć do tematu: {t.name}</a></p>
+    </div>
+    <aside class="art-side">
+      {toc.length > 2 && (
+        <nav class="side__box toc" aria-label="Spis treści"><p class="side__h">Spis treści</p><ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav>
+      )}
+      <section class="side__box"><p class="side__h">Polecane poradniki</p>
+        <ul class="side__list">{guides.map((g) => <li><a href={href(g)}>{g.data.title}</a></li>)}</ul>
+      </section>
+      {sameTopic.length > 0 && <section class="side__box"><p class="side__h">Także w temacie</p><ul class="side__list">{sameTopic.map((g) => <li><a href={href(g)}>{g.data.title}</a></li>)}</ul></section>}
+    </aside>
+  </div>
+  <section class="band" aria-labelledby="powiazane">
+    <div class="wrap">
+      <div class="block__head"><h2 id="powiazane" class="block__title">Powiązane publikacje</h2></div>
+      <div class="grid3">{related.map((r) => <Card entry={r} />)}</div>
+    </div>
+  </section>
+  <section class="wrap block" aria-labelledby="inne">
+    <div class="block__head"><h2 id="inne" class="block__title">Inne publikacje</h2><a class="block__more" href="/publikacje/">Wszystkie →</a></div>
+    <div class="grid2rows">{more.map((r) => <Card entry={r} layout="row" />)}</div>
+  </section>
+</Shell>

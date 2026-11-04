@@ -52,3 +52,7 @@ Każdy portal zawiera dokładnie jeden artykuł z linkiem do https://wamka.pl/ i
 ## Mapa Codzienności (Astro)
 
 Katalog `mapa-codziennosci/` zawiera szósty, osobny portal – ogólnopolski magazyn **Mapa Codzienności** („Wiedza, która przydaje się na co dzień”) zbudowany w Astro (SSG): 50 artykułów w 8 działach, 10 materiałów partnerskich z linkami do losowo wybranych klientów (`selected-clients.json`), walidator i test przeglądarkowy. Instrukcja budowania i wdrożenia: `mapa-codziennosci/README.md`, wynik kontroli: `mapa-codziennosci/RAPORT-WALIDACJI.md`.
+
+## Horyzont Praktyczny (Astro)
+
+Katalog `horyzont-praktyczny/` zawiera siódmy, niezależny portal – **Horyzont Praktyczny** („Pomysły, rozwiązania, perspektywy”): 50 artykułów w 8 tematach, 10 treści sponsorowanych z linkami do klientów z nowego, niezależnego losowania (`horyzont-praktyczny/selected-clients.json`), własny projekt graficzny, walidator i test przeglądarkowy. Instrukcje: `horyzont-praktyczny/README.md`, wynik kontroli: `horyzont-praktyczny/RAPORT-WALIDACJI.md`.

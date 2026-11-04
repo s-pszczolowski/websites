@@ -1,0 +1,155 @@
+{
+  "drawnAt": "2026-11-04T21:40:57.656Z",
+  "method": "Ważone losowanie bez zwracania (Efraimidis–Spirakis, node:crypto randomInt), po firmach",
+  "baseAddresses": 72,
+  "baseCompanies": 70,
+  "reference": {
+    "file": "../mapa-codziennosci/selected-clients.json",
+    "previouslyDrawn": [
+      "otus-podatki.pl",
+      "mediklinika.eu",
+      "gispro.pl",
+      "tenis-szczecin.pl",
+      "westtrading.pl",
+      "bollus.pl",
+      "fidesfinanse.pl",
+      "hotel-trofana.pl",
+      "elkazocsprawcy.pl",
+      "atmaclinic.pl"
+    ],
+    "weightForPreviouslyDrawn": 0.25
+  },
+  "selected": [
+    {
+      "id": "greenbasket.pl",
+      "url": "https://greenbasket.pl/",
+      "allAddresses": [
+        "https://greenbasket.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "Green Basket Management (Szczecin)",
+      "branza": "hurtownia warzyw, owoców i artykułów spożywczych dla sklepów, gastronomii i hoteli, z własnym transportem",
+      "kategoria": "biznes-i-przedsiebiorczosc",
+      "artykul": "/zaopatrzenie-gastronomii-w-warzywa-i-owoce/",
+      "anchor": "hurtownia warzyw i owoców w Szczecinie"
+    },
+    {
+      "id": "kemipol.com.pl",
+      "url": "https://www.kemipol.com.pl/",
+      "allAddresses": [
+        "https://www.kemipol.com.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "Kemipol Sp. z o.o. (Police)",
+      "branza": "producent koagulantów żelazowych i glinowych do uzdatniania wody i oczyszczania ścieków, systemy dozowania",
+      "kategoria": "technologie-i-innowacje",
+      "artykul": "/usuwanie-fosforu-ze-sciekow/",
+      "anchor": "koagulanty do uzdatniania wody i oczyszczania ścieków"
+    },
+    {
+      "id": "fosfan.pl",
+      "url": "https://fosfan.pl/",
+      "allAddresses": [
+        "https://fosfan.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "Fosfan S.A. (Szczecin)",
+      "branza": "producent nawozów mineralnych dla rolnictwa i ogrodnictwa, zaplecze B+R",
+      "kategoria": "styl-zycia-i-rozwoj",
+      "artykul": "/analiza-gleby-i-nawozenie-warzywnika/",
+      "anchor": "producent nawozów mineralnych dla rolnictwa i ogrodnictwa"
+    },
+    {
+      "id": "rt-kraft.pl",
+      "url": "https://www.rt-kraft.pl/",
+      "allAddresses": [
+        "https://www.rt-kraft.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "RT-Kraft (Szczecin)",
+      "branza": "wykonawstwo budowlane: stany surowe, fundamenty, konstrukcje żelbetowe, kosztorysowanie",
+      "kategoria": "dom-i-nieruchomosci",
+      "artykul": "/plyta-fundamentowa-czy-lawy/",
+      "anchor": "fundamenty i konstrukcje żelbetowe w Szczecinie"
+    },
+    {
+      "id": "artour.pl",
+      "url": "https://www.artour.pl/",
+      "allAddresses": [
+        "https://www.artour.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "AR-Tour (Mierzyn k. Szczecina)",
+      "branza": "przewozy osób do Niemiec, Holandii i Belgii – kursy regularne, wyjazdy indywidualne i grupowe",
+      "kategoria": "transport-i-motoryzacja",
+      "artykul": "/dojazd-do-pracy-w-niemczech-i-beneluksie/",
+      "anchor": "przewozy osób do Niemiec, Holandii i Belgii"
+    },
+    {
+      "id": "luksmasaz.pl",
+      "url": "https://www.luksmasaz.pl/",
+      "allAddresses": [
+        "https://www.luksmasaz.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "LuksMasaż (Szczecin)",
+      "branza": "gabinet masażu i rehabilitacji: terapia manualna, masaż leczniczy, rehabilitacja kręgosłupa",
+      "kategoria": "zdrowie-i-medycyna",
+      "artykul": "/terapia-manualna-i-masaz-leczniczy/",
+      "anchor": "rehabilitacja kręgosłupa w Szczecinie"
+    },
+    {
+      "id": "banach-szczecin.pl",
+      "url": "https://www.banach-szczecin.pl/",
+      "allAddresses": [
+        "https://www.banach-szczecin.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "Przedsiębiorstwo Ogólnobudowlane Banach (Police)",
+      "branza": "wyburzenia i rozbiórki, roboty ziemne, budownictwo przemysłowe, generalne wykonawstwo",
+      "kategoria": "dom-i-nieruchomosci",
+      "artykul": "/rozbiorka-budynku-formalnosci/",
+      "anchor": "wyburzenia i rozbiórki w Szczecinie i Policach"
+    },
+    {
+      "id": "greenhousedevelopment.pl",
+      "url": "https://greenhousedevelopment.pl/",
+      "allAddresses": [
+        "https://greenhousedevelopment.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "Green House Development S.A. (Warszawa)",
+      "branza": "deweloper: osiedla mieszkaniowe, apartamenty, obiekty hotelowe i komercyjne",
+      "kategoria": "finanse-i-prawo",
+      "artykul": "/zakup-mieszkania-od-dewelopera/",
+      "anchor": "deweloper mieszkań i apartamentów"
+    },
+    {
+      "id": "maszyny-pax.pl",
+      "url": "https://www.maszyny-pax.pl/",
+      "allAddresses": [
+        "https://www.maszyny-pax.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "PAX Maszyny (Dołuje k. Szczecina)",
+      "branza": "maszyny do obróbki blach: lasery fiber, prasy krawędziowe, serwis, maszyny używane",
+      "kategoria": "technologie-i-innowacje",
+      "artykul": "/laser-fiber-do-ciecia-blach/",
+      "anchor": "lasery fiber i maszyny do obróbki blach"
+    },
+    {
+      "id": "daytonacarclub.pl",
+      "url": "https://www.daytonacarclub.pl/",
+      "allAddresses": [
+        "https://www.daytonacarclub.pl/"
+      ],
+      "drawnPreviouslyInMapaCodziennosci": false,
+      "nazwa": "Daytona Car Club (Szczecin)",
+      "branza": "wypożyczalnia samochodów sportowych i premium, jazdy torowe",
+      "kategoria": "transport-i-motoryzacja",
+      "artykul": "/wynajem-samochodu-sportowego/",
+      "anchor": "wypożyczalnia samochodów sportowych w Szczecinie"
+    }
+  ],
+  "profilowanie": "Strony klientów nie były osiągalne z sieci środowiska roboczego (blokada proxy); profil działalności ustalono na podstawie wyników wyszukiwarki indeksujących strony klientów oraz rejestrów firm (listopad 2026)."
+}

@@ -1,0 +1,19 @@
+---
+import Document from '../layouts/Document.astro';
+import { DEPLOY, ownerReady } from '../lib/deploy';
+const k = DEPLOY.kontakt; const w = DEPLOY.wydawca;
+---
+<Document title="Kontakt" description="Kontakt z redakcją portalu Horyzont Praktyczny: korekty, propozycje tematów i zapytania o współpracę." legal>
+  <h2>Redakcja</h2>
+  {ownerReady ? (
+    <ul><li>E-mail: <a href={`mailto:${k.email}`}>{k.email}</a></li>{k.email_wspolpraca && <li>Współpraca: <a href={`mailto:${k.email_wspolpraca}`}>{k.email_wspolpraca}</a></li>}{k.telefon && <li>Telefon: {k.telefon}</li>}</ul>
+  ) : <p>Adres kontaktowy redakcji zostanie podany po uzupełnieniu konfiguracji wdrożeniowej serwisu.</p>}
+  <h2>Jakie sprawy kierować do redakcji</h2>
+  <ul>
+    <li><strong>Korekty</strong> – podaj adres publikacji i fragment wymagający poprawy; jeśli to możliwe, wskaż źródło.</li>
+    <li><strong>Propozycje tematów</strong> – opisz problem, który powinna rozwiązać publikacja.</li>
+    <li><strong>Współpraca</strong> – zapoznaj się z dokumentem <a href="/zasady-wspolpracy/">Zasady publikacji i współpracy</a>.</li>
+  </ul>
+  <p>Redakcja nie udziela indywidualnych porad medycznych, prawnych, podatkowych ani inwestycyjnych. W nagłych sytuacjach zagrożenia życia lub zdrowia dzwoń pod numer 112.</p>
+  {ownerReady && <><h2>Wydawca</h2><p>{w.nazwa}<br />{w.adres}{w.nip && <><br />NIP {w.nip}</>}{w.krs_lub_regon && <><br />{w.krs_lub_regon}</>}</p></>}
+</Document>

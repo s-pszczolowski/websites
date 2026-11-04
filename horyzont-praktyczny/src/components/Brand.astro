@@ -1,0 +1,11 @@
+---
+const { inverse = false } = Astro.props as { inverse?: boolean };
+---
+<a class:list={['brand', { 'brand--inverse': inverse }]} href="/" aria-label="Horyzont Praktyczny – strona główna">
+  <svg class="brand__mark" viewBox="0 0 40 40" width="34" height="34" aria-hidden="true">
+    <rect width="40" height="40" rx="9" fill="#176B91" />
+    <path d="M9 25a11 11 0 0 1 22 0Z" fill="#E59A45" />
+    <path d="M6 25h28M10 30h20" stroke="#F4F7FA" stroke-width="2.6" stroke-linecap="round" />
+  </svg>
+  <span class="brand__word">Horyzont<b>Praktyczny</b></span>
+</a>

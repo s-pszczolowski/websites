@@ -1,0 +1,16 @@
+---
+import TopicPage from '../../../../components/TopicPage.astro';
+import { TOPICS, SITE } from '../../../../config/site';
+import { allArticles } from '../../../../lib/content';
+export async function getStaticPaths() {
+  const list = await allArticles();
+  return TOPICS.flatMap((t) => {
+    const n = Math.ceil(list.filter((e) => e.data.topic === t.slug).length / SITE.topicPageSize);
+    return Array.from({ length: Math.max(0, n - 1) }, (_, i) => ({ params: { slug: t.slug, page: String(i + 2) } }));
+  });
+}
+const { slug, page } = Astro.params;
+const p = Number(page);
+const list = (await allArticles()).filter((e) => e.data.topic === slug);
+---
+<TopicPage slug={slug!} page={p} pages={Math.ceil(list.length / SITE.topicPageSize)} items={list.slice((p - 1) * SITE.topicPageSize, p * SITE.topicPageSize)} total={list.length} />

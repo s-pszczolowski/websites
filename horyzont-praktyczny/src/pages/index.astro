@@ -1,0 +1,130 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Card from '../components/Card.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Pager from '../components/Pager.astro';
+import TopicChip from '../components/TopicChip.astro';
+import { SITE, topic } from '../config/site';
+import { allArticles, href, coverOf, shortDate, iso, topicsWithCounts, listHref } from '../lib/content';
+
+const list = await allArticles();
+const shown = new Set<string>();
+const pick = (src: typeof list, n: number) => { const r = src.filter((e) => !shown.has(e.id)).slice(0, n); r.forEach((e) => shown.add(e.id)); return r; };
+const heroSet = list.filter((e) => e.data.heroOrder !== undefined).sort((a, b) => a.data.heroOrder! - b.data.heroOrder!);
+const hero = (heroSet.length >= 3 ? heroSet : list).slice(0, 3);
+hero.forEach((e) => shown.add(e.id));
+const latest = pick(list, 6);
+const by = (slug: string) => list.filter((e) => e.data.topic === slug);
+const tech = pick(by('technologie-i-innowacje'), 4);
+const home = pick(by('dom-i-nieruchomosci'), 4);
+const health = pick(by('zdrowie-i-medycyna'), 3);
+const biz = pick(by('biznes-i-przedsiebiorczosc'), 3);
+const law = pick(by('finanse-i-prawo'), 3);
+const move = pick([...by('transport-i-motoryzacja'), ...by('turystyka-i-wypoczynek')].sort((a, b) => b.data.published.getTime() - a.data.published.getTime()), 4);
+const life = pick(by('styl-zycia-i-rozwoj'), 3);
+const topics = topicsWithCounts(list).map((t) => ({ ...t, newest: list.find((e) => e.data.topic === t.slug) }));
+const firstPage = list.slice(0, SITE.pageSize);
+const pages = Math.ceil(list.length / SITE.pageSize);
+const ld = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: SITE.name, url: new URL('/', Astro.site!).href, inLanguage: 'pl-PL', description: SITE.description }];
+---
+<Shell title={`${SITE.name} – ${SITE.tagline}`} description={SITE.description} ld={ld}>
+  <section class="intro">
+    <div class="wrap intro__row">
+      <h1 class="intro__title">{SITE.name}<span>{SITE.tagline}</span></h1>
+      <p class="intro__text">Analizy, porównania i rzeczowe poradniki o technologiach, gospodarce, nieruchomościach, zdrowiu i codziennych decyzjach.</p>
+    </div>
+  </section>
+
+  <section class="wrap hero" aria-label="Wyróżnione publikacje">
+    <article class="hero__main" style={`--t:${topic(hero[0].data.topic).color}`}>
+      <a href={href(hero[0])} class="hero__img" tabindex="-1" aria-hidden="true"><img src={coverOf(hero[0])} alt="" width="1200" height="800" loading="eager" fetchpriority="high" /></a>
+      <div class="hero__body">
+        <div class="card__meta"><span class="eyebrow eyebrow--accent">Wyróżnione</span><TopicChip slug={hero[0].data.topic} /></div>
+        <h2 class="hero__title"><a href={href(hero[0])}>{hero[0].data.title}</a></h2>
+        <p class="hero__lead">{hero[0].data.lead}</p>
+        <p class="card__foot"><time datetime={iso(hero[0].data.published)}>{shortDate(hero[0].data.published)}</time><span>{hero[0].data.kind}</span></p>
+      </div>
+    </article>
+    <div class="hero__stack">
+      {hero.slice(1).map((e) => <Card entry={e} layout="lead" level="h2" lazy={false} />)}
+    </div>
+  </section>
+
+  <div class="wrap with-side">
+    <div class="with-side__main">
+      <section aria-labelledby="h-najnowsze" class="block">
+        <div class="block__head"><h2 id="h-najnowsze" class="block__title">Najnowsze publikacje</h2><a class="block__more" href="/publikacje/">Wszystkie publikacje →</a></div>
+        <div class="grid3">{latest.map((e) => <Card entry={e} />)}</div>
+      </section>
+
+      <section aria-labelledby="h-tech" class="block block--topic" style={`--t:${topic('technologie-i-innowacje').color}`}>
+        <div class="block__head"><h2 id="h-tech" class="block__title">Technologie i innowacje</h2><a class="block__more" href="/temat/technologie-i-innowacje/">Więcej z tematu →</a></div>
+        <div class="split">
+          {tech[0] && <Card entry={tech[0]} layout="lead" />}
+          <div class="stack">{tech.slice(1).map((e) => <Card entry={e} layout="row" />)}</div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-zdrowie" class="block block--topic" style={`--t:${topic('zdrowie-i-medycyna').color}`}>
+        <div class="block__head"><h2 id="h-zdrowie" class="block__title">Zdrowie i medycyna</h2><a class="block__more" href="/temat/zdrowie-i-medycyna/">Więcej z tematu →</a></div>
+        <div class="grid3">{health.map((e) => <Card entry={e} />)}</div>
+      </section>
+    </div>
+    <Sidebar exclude={hero.map((e) => e.id)} />
+  </div>
+
+  <section class="band" aria-labelledby="h-dom">
+    <div class="wrap">
+      <div class="block__head"><h2 id="h-dom" class="block__title">Dom i nieruchomości</h2><a class="block__more" href="/temat/dom-i-nieruchomosci/">Więcej z tematu →</a></div>
+      <div class="grid4">{home.map((e) => <Card entry={e} />)}</div>
+    </div>
+  </section>
+
+  <section class="wrap duo" aria-label="Biznes, finanse i prawo">
+    <div class="block block--topic" style={`--t:${topic('biznes-i-przedsiebiorczosc').color}`}>
+      <div class="block__head"><h2 class="block__title">Biznes i przedsiębiorczość</h2><a class="block__more" href="/temat/biznes-i-przedsiebiorczosc/">Więcej →</a></div>
+      <div class="stack">{biz.map((e, i) => <Card entry={e} layout="brief" index={i + 1} />)}</div>
+    </div>
+    <div class="block block--topic" style={`--t:${topic('finanse-i-prawo').color}`}>
+      <div class="block__head"><h2 class="block__title">Finanse i prawo</h2><a class="block__more" href="/temat/finanse-i-prawo/">Więcej →</a></div>
+      <div class="stack">{law.map((e, i) => <Card entry={e} layout="brief" index={i + 1} />)}</div>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="h-ruch">
+    <div class="block__head"><h2 id="h-ruch" class="block__title">W drodze: transport, motoryzacja i turystyka</h2><a class="block__more" href="/temat/transport-i-motoryzacja/">Transport i motoryzacja →</a></div>
+    <div class="grid2rows">{move.map((e) => <Card entry={e} layout="row" />)}</div>
+  </section>
+
+  <section class="wrap block block--topic" aria-labelledby="h-styl" style={`--t:${topic('styl-zycia-i-rozwoj').color}`}>
+    <div class="block__head"><h2 id="h-styl" class="block__title">Styl życia i rozwój</h2><a class="block__more" href="/temat/styl-zycia-i-rozwoj/">Więcej z tematu →</a></div>
+    <div class="grid3">{life.map((e) => <Card entry={e} />)}</div>
+  </section>
+
+  <section class="band band--dark" aria-labelledby="h-tematy">
+    <div class="wrap">
+      <div class="block__head"><h2 id="h-tematy" class="block__title">Przegląd tematów</h2><a class="block__more" href="/temat/">Wszystkie tematy →</a></div>
+      <div class="topics">
+        {topics.map((t) => (
+          <a class="topics__item" href={`/temat/${t.slug}/`} style={`--t:${t.color}`}>
+            <span class="topics__name">{t.name}</span>
+            <span class="topics__count">{t.count}</span>
+            <span class="topics__lede">{t.lede}</span>
+            {t.newest && <span class="topics__new">Najnowsze: {t.newest.data.title}</span>}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap block" aria-labelledby="h-archiwum">
+    <div class="block__head"><h2 id="h-archiwum" class="block__title">Indeks publikacji</h2></div>
+    <table class="index">
+      <thead><tr><th scope="col">Data</th><th scope="col">Tytuł</th><th scope="col">Temat</th></tr></thead>
+      <tbody>
+        {firstPage.map((e) => <tr><td><time datetime={iso(e.data.published)}>{shortDate(e.data.published)}</time></td><td><a href={href(e)}>{e.data.title}</a></td><td>{topic(e.data.topic).name}</td></tr>)}
+      </tbody>
+    </table>
+    <Pager page={1} pages={pages} link={listHref} label="Strony indeksu publikacji" />
+  </section>
+</Shell>

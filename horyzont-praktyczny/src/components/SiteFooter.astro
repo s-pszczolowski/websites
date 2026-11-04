@@ -1,0 +1,45 @@
+---
+import { TOPICS, INFO_LINKS, SITE } from '../config/site';
+import { allArticles, topicsWithCounts, monthsWithCounts, monthLabel } from '../lib/content';
+import Brand from './Brand.astro';
+const list = await allArticles();
+const topics = topicsWithCounts(list);
+const months = monthsWithCounts(list);
+---
+<footer class="ftr">
+  <section class="ftr__topics" aria-label="Tematy portalu">
+    <div class="wrap">
+      <p class="eyebrow">Tematy</p>
+      <ul class="ftr__grid">
+        {topics.map((t) => (
+          <li style={`--t:${t.color}`}><a href={`/temat/${t.slug}/`}><strong>{t.name}</strong><span>{t.count} publikacji</span></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <section class="ftr__base">
+    <div class="wrap ftr__cols">
+      <div class="ftr__about">
+        <Brand inverse />
+        <p>{SITE.tagline}. {SITE.description}</p>
+      </div>
+      <nav aria-label="Archiwum">
+        <p class="ftr__h">Archiwum</p>
+        <ul>
+          <li><a href="/publikacje/">Wszystkie publikacje</a></li>
+          {months.map((m) => <li><a href={`/publikacje/miesiac/${m.key}/`}>{monthLabel(m.key)}</a></li>)}
+          <li><a href="/mapa-serwisu/">Mapa serwisu</a></li>
+          <li><a href="/rss.xml">RSS</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="O serwisie">
+        <p class="ftr__h">O serwisie</p>
+        <ul>{INFO_LINKS.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+      </nav>
+    </div>
+    <div class="wrap ftr__legal">
+      <span>© 2026 {SITE.name}</span>
+      <span>Publikacje mają charakter informacyjny i nie zastępują indywidualnej porady specjalisty.</span>
+    </div>
+  </section>
+</footer>

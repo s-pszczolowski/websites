@@ -1,0 +1,6 @@
+---
+import { topic } from '../config/site';
+const { slug, link = true } = Astro.props as { slug: string; link?: boolean };
+const t = topic(slug);
+---
+{link ? <a class="chip" style={`--t:${t.color}`} href={`/temat/${t.slug}/`}>{t.short}</a> : <span class="chip" style={`--t:${t.color}`}>{t.short}</span>}

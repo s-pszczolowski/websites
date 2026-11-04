@@ -1,0 +1,6 @@
+---
+import Card from './Card.astro';
+import type { Entry } from '../lib/content';
+const { items } = Astro.props as { items: Entry[] };
+---
+<div class="grid3">{items.map((e) => <Card entry={e} level="h2" />)}</div>

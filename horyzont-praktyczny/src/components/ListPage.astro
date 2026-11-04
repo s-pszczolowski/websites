@@ -1,0 +1,21 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Crumbs from './Crumbs.astro';
+import Listing from './Listing.astro';
+import Pager from './Pager.astro';
+import { SITE } from '../config/site';
+import { listHref, monthsWithCounts, monthLabel, allArticles, type Entry } from '../lib/content';
+const { page, pages, items } = Astro.props as { page: number; pages: number; items: Entry[] };
+const months = monthsWithCounts(await allArticles());
+---
+<Shell title={page === 1 ? `Wszystkie publikacje – ${SITE.name}` : `Wszystkie publikacje, strona ${page} – ${SITE.name}`}
+  description={page === 1 ? `Pełna lista publikacji portalu ${SITE.name}, od najnowszych: analizy, porównania i poradniki ze wszystkich tematów.` : `Publikacje portalu ${SITE.name} od najnowszych – strona ${page} z ${pages}.`}>
+  <div class="wrap page">
+    <Crumbs trail={page === 1 ? [{ name: 'Publikacje' }] : [{ name: 'Publikacje', href: '/publikacje/' }, { name: `Strona ${page}` }]} />
+    <h1 class="page__title">Wszystkie publikacje{page > 1 && ` – strona ${page}`}</h1>
+    <p class="page__intro">Od najnowszych. Archiwum miesięczne:</p>
+    <ul class="pills">{months.map((m) => <li><a href={`/publikacje/miesiac/${m.key}/`}>{monthLabel(m.key)} · {m.count}</a></li>)}</ul>
+    <Listing items={items} />
+    <Pager page={page} pages={pages} link={listHref} />
+  </div>
+</Shell>

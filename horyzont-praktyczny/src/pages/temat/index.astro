@@ -1,0 +1,24 @@
+---
+import Shell from '../../layouts/Shell.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { SITE } from '../../config/site';
+import { allArticles, topicsWithCounts, href, shortDate } from '../../lib/content';
+const list = await allArticles();
+---
+<Shell title={`Tematy – ${SITE.name}`} description={`Osiem tematów portalu ${SITE.name}: technologie, biznes, nieruchomości, zdrowie, transport, turystyka, finanse i prawo oraz styl życia.`}>
+  <div class="wrap page">
+    <Crumbs trail={[{ name: 'Tematy' }]} />
+    <h1 class="page__title">Przegląd tematów</h1>
+    <p class="page__intro">Każdy temat prowadzimy jako osobną ścieżkę redakcyjną: od tekstów wyjaśniających po porównania rozwiązań.</p>
+    <div class="topic-index">
+      {topicsWithCounts(list).map((t) => (
+        <section class="topic-index__item" style={`--t:${t.color}`}>
+          <h2><a href={`/temat/${t.slug}/`}>{t.name}</a></h2>
+          <p>{t.lede}</p>
+          <ul>{list.filter((e) => e.data.topic === t.slug).slice(0, 5).map((e) => <li><a href={href(e)}>{e.data.title}</a> <time>{shortDate(e.data.published)}</time></li>)}</ul>
+          <a class="block__more" href={`/temat/${t.slug}/`}>Wszystkie ({t.count}) →</a>
+        </section>
+      ))}
+    </div>
+  </div>
+</Shell>

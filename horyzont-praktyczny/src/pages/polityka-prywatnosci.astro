@@ -1,0 +1,18 @@
+---
+import Document from '../layouts/Document.astro';
+import { DEPLOY, ownerReady } from '../lib/deploy';
+---
+<Document title="Polityka prywatności" description="Informacje o przetwarzaniu danych osobowych w portalu Horyzont Praktyczny: logi serwera, korespondencja i prawa użytkowników." legal>
+  <h2>Administrator</h2>
+  {ownerReady ? <p>Administratorem danych jest {DEPLOY.wydawca.nazwa}, {DEPLOY.wydawca.adres}. Kontakt: <a href={`mailto:${DEPLOY.kontakt.email}`}>{DEPLOY.kontakt.email}</a>.</p> : <p>Dane administratora zostaną wskazane przez właściciela serwisu przed jego publicznym uruchomieniem.</p>}
+  <h2>Zakres przetwarzania</h2>
+  <p>Portal jest serwisem statycznym: nie prowadzi rejestracji kont, komentarzy ani formularzy. Strona sama w sobie nie zbiera danych osobowych.</p>
+  <h2>Logi serwera</h2>
+  <p>Serwer hostingowy może zapisywać informacje techniczne o żądaniach (adres IP, czas, przeglądarka, adres podstrony) w celu zapewnienia bezpieczeństwa i ciągłości działania serwisu – na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO).</p>
+  <h2>Korespondencja</h2>
+  <p>Dane przekazane w wiadomości do redakcji przetwarzamy wyłącznie w celu odpowiedzi i przez czas prowadzenia korespondencji.</p>
+  <h2>Odbiorcy i strony zewnętrzne</h2>
+  <p>Czcionki i grafiki są serwowane z serwera portalu. Linki do serwisów zewnętrznych (źródła, partnerzy) prowadzą do stron, za których zasady prywatności odpowiadają ich administratorzy.</p>
+  <h2>Prawa</h2>
+  <p>Przysługuje Ci prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, sprzeciwu oraz skargi do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+</Document>

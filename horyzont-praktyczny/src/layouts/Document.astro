@@ -1,0 +1,25 @@
+---
+import Shell from './Shell.astro';
+import Crumbs from '../components/Crumbs.astro';
+import PreDeployNotice from '../components/PreDeployNotice.astro';
+import { INFO_LINKS, SITE } from '../config/site';
+import { ownerReady } from '../lib/deploy';
+const { title, description, intro, legal = false } = Astro.props as { title: string; description: string; intro?: string; legal?: boolean };
+---
+<Shell title={`${title} – ${SITE.name}`} description={description} noindex={legal && !ownerReady}>
+  <div class="wrap doc">
+    <Crumbs trail={[{ name: title }]} />
+    <div class="doc__grid">
+      <article class="doc__body">
+        <h1 class="doc__title">{title}</h1>
+        {intro && <p class="doc__intro">{intro}</p>}
+        {legal && <PreDeployNotice />}
+        <div class="rich"><slot /></div>
+      </article>
+      <nav class="doc__nav" aria-label="Informacje o serwisie">
+        <p class="side__h">O serwisie</p>
+        <ul>{INFO_LINKS.map((l) => <li><a href={l.href} aria-current={Astro.url.pathname === l.href ? 'page' : undefined}>{l.label}</a></li>)}</ul>
+      </nav>
+    </div>
+  </div>
+</Shell>

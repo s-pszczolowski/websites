@@ -1,0 +1,17 @@
+---
+import Document from '../layouts/Document.astro';
+import { allArticles, href } from '../lib/content';
+import { topic } from '../config/site';
+const sponsored = (await allArticles()).filter((e) => e.data.sponsored);
+---
+<Document title="Treści sponsorowane" description="Jak Horyzont Praktyczny oznacza treści sponsorowane i lista publikacji zawierających link do strony partnera." intro="Część publikacji powstaje we współpracy z firmami. Oznaczamy je tak, aby czytelnik zawsze wiedział, które teksty zawierają link do strony partnera.">
+  <h2>Oznaczenia</h2>
+  <ul>
+    <li>etykieta „Sponsorowany” na kartach i „Artykuł sponsorowany” przy tytule,</li>
+    <li>ramka informacyjna na początku tekstu,</li>
+    <li>dokładnie jeden link do partnera z atrybutem <code>rel="sponsored"</code>.</li>
+  </ul>
+  <h2>Publikacje sponsorowane ({sponsored.length})</h2>
+  <ul>{sponsored.map((e) => <li><a href={href(e)}>{e.data.title}</a> – {topic(e.data.topic).name}</li>)}</ul>
+  <p>Pozostałe publikacje są materiałami redakcyjnymi bez linków do partnerów.</p>
+</Document>

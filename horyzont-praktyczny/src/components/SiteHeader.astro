@@ -1,0 +1,35 @@
+---
+import { TOPICS } from '../config/site';
+import Brand from './Brand.astro';
+const { current } = Astro.props as { current?: string };
+---
+<header class="hdr">
+  <div class="wrap hdr__row">
+    <Brand />
+    <nav class="hdr__nav" aria-label="Tematy">
+      <ul>
+        {TOPICS.map((t) => <li><a href={`/temat/${t.slug}/`} aria-current={current === t.slug ? 'page' : undefined}>{t.short}</a></li>)}
+      </ul>
+    </nav>
+    <a class="hdr__all" href="/publikacje/">Wszystkie</a>
+    <input type="checkbox" id="drawer" class="drawer-toggle" aria-hidden="true" tabindex="-1" />
+    <label for="drawer" class="hdr__burger"><span class="sr-only">Otwórz menu</span><i></i><i></i><i></i></label>
+    <div class="drawer" aria-label="Menu mobilne">
+      <label for="drawer" class="drawer__backdrop"><span class="sr-only">Zamknij menu</span></label>
+      <nav class="drawer__panel" aria-label="Menu mobilne">
+        <div class="drawer__top"><Brand /><label for="drawer" class="drawer__close" aria-label="Zamknij menu">×</label></div>
+        <p class="drawer__label">Tematy</p>
+        <ul class="drawer__list">
+          {TOPICS.map((t) => <li><a href={`/temat/${t.slug}/`} style={`--t:${t.color}`} aria-current={current === t.slug ? 'page' : undefined}>{t.name}</a></li>)}
+        </ul>
+        <p class="drawer__label">Serwis</p>
+        <ul class="drawer__list drawer__list--plain">
+          <li><a href="/publikacje/">Wszystkie publikacje</a></li>
+          <li><a href="/temat/">Przegląd tematów</a></li>
+          <li><a href="/redakcja/">O portalu</a></li>
+          <li><a href="/kontakt/">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>

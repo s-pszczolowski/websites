@@ -1,0 +1,14 @@
+---
+const { page, pages, link, label = 'Strony' } = Astro.props as { page: number; pages: number; link: (n: number) => string; label?: string };
+const nums = Array.from({ length: pages }, (_, i) => i + 1);
+---
+{pages > 1 && (
+  <nav class="pager" aria-label={label}>
+    <span class="pager__info">Strona {page} z {pages}</span>
+    <ul>
+      {page > 1 && <li><a class="pager__nav" href={link(page - 1)} rel="prev">‹ Poprzednia</a></li>}
+      {nums.map((n) => <li>{n === page ? <span class="pager__cur" aria-current="page">{n}</span> : <a href={link(n)}>{n}</a>}</li>)}
+      {page < pages && <li><a class="pager__nav" href={link(page + 1)} rel="next">Następna ›</a></li>}
+    </ul>
+  </nav>
+)}

@@ -1,0 +1,26 @@
+---
+import { allArticles, href, coverOf, topicsWithCounts, monthsWithCounts, monthLabel } from '../lib/content';
+const { exclude = [] } = Astro.props as { exclude?: string[] };
+const list = await allArticles();
+const guides = list.filter((e) => e.data.guide && !exclude.includes(e.id)).slice(0, 5);
+const topics = topicsWithCounts(list);
+const months = monthsWithCounts(list);
+---
+<aside class="side" aria-label="Polecane i nawigacja">
+  <section class="side__box">
+    <h2 class="side__h">Polecane poradniki</h2>
+    <ol class="side__guides">
+      {guides.map((e) => (
+        <li><a href={href(e)}><img src={coverOf(e)} alt="" width="96" height="64" loading="lazy" /><span>{e.data.title}</span></a></li>
+      ))}
+    </ol>
+  </section>
+  <section class="side__box">
+    <h2 class="side__h">Tematy</h2>
+    <ul class="side__topics">{topics.map((t) => <li style={`--t:${t.color}`}><a href={`/temat/${t.slug}/`}>{t.name}</a><span>{t.count}</span></li>)}</ul>
+  </section>
+  <section class="side__box">
+    <h2 class="side__h">Archiwum</h2>
+    <ul class="side__topics">{months.map((m) => <li><a href={`/publikacje/miesiac/${m.key}/`}>{monthLabel(m.key)}</a><span>{m.count}</span></li>)}</ul>
+  </section>
+</aside>

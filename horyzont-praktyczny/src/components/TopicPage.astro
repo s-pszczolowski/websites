@@ -1,0 +1,34 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Crumbs from './Crumbs.astro';
+import Card from './Card.astro';
+import Listing from './Listing.astro';
+import Pager from './Pager.astro';
+import Sidebar from './Sidebar.astro';
+import { SITE, TOPICS, topic } from '../config/site';
+import { topicHref, type Entry } from '../lib/content';
+const { slug, page, pages, items, total } = Astro.props as { slug: string; page: number; pages: number; items: Entry[]; total: number };
+const t = topic(slug);
+const first = page === 1;
+const title = first ? `${t.name} – analizy i poradniki | ${SITE.name}` : `${t.name}, strona ${page} | ${SITE.name}`;
+const description = first ? `${t.lede} Wszystkie publikacje tematu ${t.name} w portalu ${SITE.name}.` : `Starsze publikacje tematu ${t.name} w portalu ${SITE.name} – strona ${page} z ${pages}.`;
+const ld = [{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: t.name, description: t.lede, url: new URL(topicHref(slug, page), Astro.site!).href, inLanguage: 'pl-PL' }];
+---
+<Shell title={title} description={description} current={slug} ld={ld}>
+  <header class="topic-head" style={`--t:${t.color}`}>
+    <div class="wrap">
+      <Crumbs trail={first ? [{ name: 'Tematy', href: '/temat/' }, { name: t.name }] : [{ name: 'Tematy', href: '/temat/' }, { name: t.name, href: topicHref(slug) }, { name: `Strona ${page}` }]} />
+      <p class="eyebrow">Temat · {total} publikacji</p>
+      <h1 class="topic-head__title">{t.name}{!first && <small> · strona {page}</small>}</h1>
+      <p class="topic-head__lede">{t.lede}</p>
+      <ul class="topic-tabs">{TOPICS.map((x) => <li><a href={topicHref(x.slug)} aria-current={x.slug === slug ? 'page' : undefined}>{x.short}</a></li>)}</ul>
+    </div>
+  </header>
+  <div class="wrap with-side">
+    <div class="with-side__main">
+      {first && items[0] ? (<><div class="topic-lead"><Card entry={items[0]} layout="lead" level="h2" lazy={false} /></div><Listing items={items.slice(1)} /></>) : <Listing items={items} />}
+      <Pager page={page} pages={pages} link={(n) => topicHref(slug, n)} label={`Strony tematu ${t.name}`} />
+    </div>
+    <Sidebar exclude={items.map((e) => e.id)} />
+  </div>
+</Shell>

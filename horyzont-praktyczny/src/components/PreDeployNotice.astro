@@ -1,0 +1,9 @@
+---
+import { ownerReady } from '../lib/deploy';
+---
+{!ownerReady && (
+  <div class="callout callout--warn" role="note">
+    <strong>Wersja przedwdrożeniowa.</strong> Dane wydawcy i adres kontaktowy nie zostały jeszcze uzupełnione w pliku
+    <code>deployment.config.json</code>. Ta podstrona nie jest jeszcze kompletnym dokumentem i nie jest przeznaczona do indeksowania.
+  </div>
+)}

@@ -1,0 +1,60 @@
+---
+import '@fontsource-variable/space-grotesk/wght.css';
+import '@fontsource-variable/inter/wght.css';
+import '../styles/site.css';
+import { SITE } from '../config/site';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Ld from '../components/Ld.astro';
+interface Props {
+  title: string; description: string; image?: string; type?: 'website' | 'article';
+  noindex?: boolean; ld?: object[]; current?: string;
+  times?: { published: string; modified: string; section: string };
+}
+const { title, description, image = '/img/share/portal.jpg', type = 'website', noindex = false, ld = [], current, times } = Astro.props;
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const root = new URL('/', site).href;
+const baseLd = [
+  { '@context': 'https://schema.org', '@type': 'NewsMediaOrganization', '@id': `${root}#wydawca`, name: SITE.name, url: root, slogan: SITE.tagline, logo: { '@type': 'ImageObject', url: new URL('/img/logo.png', site).href, width: 512, height: 512 } },
+  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${root}#serwis`, name: SITE.name, url: root, inLanguage: 'pl-PL', description: SITE.description, publisher: { '@id': `${root}#wydawca` } },
+];
+---
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#176B91" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/img/logo.png" />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {times && <meta property="article:published_time" content={times.published} />}
+    {times && <meta property="article:modified_time" content={times.modified} />}
+    {times && <meta property="article:section" content={times.section} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, site).href} />
+    <Ld data={[...baseLd, ...ld]} />
+  </head>
+  <body>
+    <a class="skip" href="#main">Przejdź do treści</a>
+    <SiteHeader current={current} />
+    <main id="main"><slot /></main>
+    <SiteFooter />
+  </body>
+</html>

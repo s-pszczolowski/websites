@@ -1,0 +1,9 @@
+---
+import TopicPage from '../../../components/TopicPage.astro';
+import { TOPICS, SITE } from '../../../config/site';
+import { allArticles } from '../../../lib/content';
+export async function getStaticPaths() { return TOPICS.map((t) => ({ params: { slug: t.slug } })); }
+const { slug } = Astro.params;
+const list = (await allArticles()).filter((e) => e.data.topic === slug);
+---
+<TopicPage slug={slug!} page={1} pages={Math.ceil(list.length / SITE.topicPageSize)} items={list.slice(0, SITE.topicPageSize)} total={list.length} />

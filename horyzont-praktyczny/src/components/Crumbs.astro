@@ -1,0 +1,10 @@
+---
+import Ld from './Ld.astro';
+const { trail } = Astro.props as { trail: { name: string; href?: string }[] };
+const all = [{ name: 'Start', href: '/' }, ...trail];
+const ld = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: all.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.href ?? Astro.url.pathname, Astro.site!).href })) };
+---
+<nav class="crumbs" aria-label="Ścieżka nawigacji">
+  <ol>{all.map((c, i) => <li>{i < all.length - 1 && c.href ? <a href={c.href}>{c.name}</a> : <span aria-current="page">{c.name}</span>}</li>)}</ol>
+</nav>
+<Ld data={ld} />

@@ -1,0 +1,27 @@
+---
+import TopicChip from './TopicChip.astro';
+import { href, coverOf, shortDate, iso, minutes, type Entry } from '../lib/content';
+import { topic } from '../config/site';
+interface Props { entry: Entry; layout?: 'tile' | 'lead' | 'row' | 'brief'; level?: 'h2' | 'h3'; lazy?: boolean; index?: number }
+const { entry, layout = 'tile', level = 'h3', lazy = true, index } = Astro.props;
+const d = entry.data;
+const H = level;
+const t = topic(d.topic);
+---
+<article class={`card card--${layout}`} style={`--t:${t.color}`}>
+  {layout !== 'brief' && (
+    <a class="card__img" href={href(entry)} tabindex="-1" aria-hidden="true">
+      <img src={coverOf(entry)} alt="" width="1200" height="800" loading={lazy ? 'lazy' : 'eager'} decoding="async" />
+    </a>
+  )}
+  <div class="card__text">
+    <div class="card__meta">
+      {index !== undefined && <span class="card__no">{String(index).padStart(2, '0')}</span>}
+      <TopicChip slug={d.topic} />
+      {d.sponsored && <span class="tag-sponsored">Sponsorowany</span>}
+    </div>
+    <H class="card__title"><a href={href(entry)}>{d.title}</a></H>
+    {(layout === 'tile' || layout === 'lead') && <p class="card__lead">{d.lead}</p>}
+    <p class="card__foot"><time datetime={iso(d.published)}>{shortDate(d.published)}</time><span>{d.kind}</span><span>{minutes(entry.body)} min</span></p>
+  </div>
+</article>

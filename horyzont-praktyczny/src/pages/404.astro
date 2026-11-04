@@ -1,0 +1,16 @@
+---
+import Shell from '../layouts/Shell.astro';
+import Card from '../components/Card.astro';
+import { SITE, TOPICS } from '../config/site';
+import { allArticles } from '../lib/content';
+const latest = (await allArticles()).slice(0, 3);
+---
+<Shell title={`Strona nie istnieje – ${SITE.name}`} description="Nie znaleźliśmy strony o tym adresie. Przejdź do tematów lub najnowszych publikacji." noindex>
+  <div class="wrap page page--center">
+    <p class="eyebrow eyebrow--accent">Błąd 404</p>
+    <h1 class="page__title">Nie znaleźliśmy tej strony</h1>
+    <p class="page__intro">Adres mógł zostać zmieniony lub zawiera literówkę. Wybierz temat albo zajrzyj do najnowszych publikacji.</p>
+    <ul class="pills pills--center">{TOPICS.map((t) => <li><a href={`/temat/${t.slug}/`}>{t.name}</a></li>)}</ul>
+    <div class="grid3">{latest.map((e) => <Card entry={e} />)}</div>
+  </div>
+</Shell>
