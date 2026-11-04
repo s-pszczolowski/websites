@@ -1,6 +1,6 @@
 # Raport walidacji – Puls Regionów
 
-Wygenerowano: 2026-11-04T23:12:50.385Z (skrypt `scripts/validate-content.mjs`).
+Wygenerowano: 2026-11-04T23:13:04.980Z (skrypt `scripts/validate-content.mjs`).
 
 ## Wynik: WSZYSTKIE KONTROLE ZALICZONE
 
