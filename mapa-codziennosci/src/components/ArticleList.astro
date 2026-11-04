@@ -1,0 +1,9 @@
+---
+import ArticleCard from './ArticleCard.astro';
+import type { Article } from '../lib/articles';
+interface Props { articles: Article[]; headingLevel?: 'h2' | 'h3' }
+const { articles, headingLevel = 'h2' } = Astro.props;
+---
+<div class="grid grid--list">
+  {articles.map((a) => <ArticleCard article={a} variant="horizontal" headingLevel={headingLevel} />)}
+</div>

@@ -1,0 +1,88 @@
+---
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/source-sans-3/wght.css';
+import '../styles/global.css';
+import { SITE } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import JsonLd from '../components/JsonLd.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown>[];
+  activeCategory?: string;
+  article?: { published: string; modified: string; section: string };
+}
+const { title, description, ogType = 'website', ogImage = '/images/og/default.jpg', noindex = false, jsonLd = [], activeCategory, article } = Astro.props;
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImageAbs = new URL(ogImage, site).href;
+const siteUrl = new URL('/', site).href;
+
+const baseLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${siteUrl}#organizacja`,
+    name: SITE.name,
+    url: siteUrl,
+    logo: { '@type': 'ImageObject', url: new URL('/images/logo.png', site).href, width: 512, height: 512 },
+    slogan: SITE.tagline,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#witryna`,
+    name: SITE.name,
+    url: siteUrl,
+    description: SITE.description,
+    inLanguage: 'pl-PL',
+    publisher: { '@id': `${siteUrl}#organizacja` },
+  },
+];
+---
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#20384D" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/images/logo.png" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} – najnowsze artykuły`} href="/rss.xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    {article && <meta property="article:published_time" content={article.published} />}
+    {article && <meta property="article:modified_time" content={article.modified} />}
+    {article && <meta property="article:section" content={article.section} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+    <JsonLd data={[...baseLd, ...jsonLd]} />
+  </head>
+  <body>
+    <a class="skip-link" href="#tresc">Przejdź do treści</a>
+    <Header active={activeCategory} />
+    <main id="tresc">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,39 @@
+---
+import { CATEGORIES, INFO_PAGES, SITE } from '../config/site';
+import Logo from './Logo.astro';
+const year = 2026;
+---
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <Logo light />
+      <p>{SITE.description}</p>
+      <p class="footer__note">Treści mają charakter informacyjny i nie zastępują indywidualnej porady lekarza, prawnika, doradcy podatkowego ani finansowego.</p>
+    </div>
+    <nav aria-label="Działy w stopce">
+      <h2 class="footer__title">Działy</h2>
+      <ul>{CATEGORIES.map((c) => <li><a href={`/kategoria/${c.slug}/`}>{c.name}</a></li>)}</ul>
+    </nav>
+    <nav aria-label="Archiwum w stopce">
+      <h2 class="footer__title">Archiwum</h2>
+      <ul>
+        <li><a href="/archiwum/">Wszystkie publikacje</a></li>
+        <li><a href="/archiwum/2026/10/">Październik 2026</a></li>
+        <li><a href="/archiwum/2026/09/">Wrzesień 2026</a></li>
+        <li><a href="/archiwum/2026/08/">Sierpień 2026</a></li>
+        <li><a href="/mapa-strony/">Mapa strony</a></li>
+        <li><a href="/rss.xml">Kanał RSS</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Informacje">
+      <h2 class="footer__title">Informacje</h2>
+      <ul>{INFO_PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul>
+    </nav>
+  </div>
+  <div class="footer__bottom">
+    <div class="container">
+      <span>© {year} {SITE.name}</span>
+      <span>Materiały partnerskie są oznaczane – <a href="/materialy-promocyjne/">zasady</a>.</span>
+    </div>
+  </div>
+</footer>

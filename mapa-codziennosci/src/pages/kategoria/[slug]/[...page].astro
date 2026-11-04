@@ -1,0 +1,52 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ArticleCard from '../../../components/ArticleCard.astro';
+import ArticleList from '../../../components/ArticleList.astro';
+import Pagination from '../../../components/Pagination.astro';
+import { SITE, CATEGORIES } from '../../../config/site';
+import { getArticles, categoryUrl, type Article } from '../../../lib/articles';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const all = await getArticles();
+  return CATEGORIES.flatMap((cat) =>
+    paginate(all.filter((a) => a.data.category === cat.slug), { pageSize: SITE.perCategoryPage, params: { slug: cat.slug }, props: { cat } }),
+  );
+}) satisfies GetStaticPaths;
+
+interface Props { page: Page<Article>; cat: (typeof CATEGORIES)[number] }
+const { page, cat } = Astro.props;
+const [first, ...rest] = page.data;
+const isFirst = page.currentPage === 1;
+const others = CATEGORIES.filter((c) => c.slug !== cat.slug);
+const title = isFirst ? `${cat.name} – poradniki i artykuły | ${SITE.name}` : `${cat.name} – strona ${page.currentPage} | ${SITE.name}`;
+const description = isFirst ? `${cat.description} Wszystkie artykuły działu ${cat.name} w magazynie ${SITE.name}.` : `Dział ${cat.name} w magazynie ${SITE.name} – starsze artykuły, strona ${page.currentPage} z ${page.lastPage}.`;
+const ld = [{
+  '@context': 'https://schema.org', '@type': 'CollectionPage', name: cat.name, description: cat.description,
+  url: new URL(categoryUrl(cat.slug, page.currentPage), Astro.site!).href, inLanguage: 'pl-PL',
+}];
+---
+<BaseLayout title={title} description={description} activeCategory={cat.slug} jsonLd={ld}>
+  <div class="container" style={`--cat:${cat.color}`}>
+    <Breadcrumbs items={isFirst ? [{ label: 'Działy', href: '/kategoria/' }, { label: cat.name }] : [{ label: 'Działy', href: '/kategoria/' }, { label: cat.name, href: categoryUrl(cat.slug) }, { label: `Strona ${page.currentPage}` }]} />
+    <header class="page-head page-head--cat">
+      <p class="section-head__kicker">Dział · {page.total} artykułów</p>
+      <h1 class="page-head__title">{cat.name}{!isFirst && <span class="page-head__sub"> – strona {page.currentPage}</span>}</h1>
+      <p class="page-head__lead">{cat.description}</p>
+    </header>
+    {isFirst && first ? (
+      <>
+        <div class="cat-lead"><ArticleCard article={first} variant="horizontal" headingLevel="h2" eager /></div>
+        <div class="grid grid--3">{rest.map((a) => <ArticleCard article={a} headingLevel="h2" />)}</div>
+      </>
+    ) : (
+      <ArticleList articles={page.data} />
+    )}
+    <Pagination current={page.currentPage} last={page.lastPage} urlFor={(p) => categoryUrl(cat.slug, p)} label={`Paginacja działu ${cat.name}`} />
+    <nav class="other-cats" aria-label="Pozostałe działy">
+      <p class="toc__title">Pozostałe działy</p>
+      <ul class="chips">{others.map((c) => <li><a href={categoryUrl(c.slug)}>{c.name}</a></li>)}</ul>
+    </nav>
+  </div>
+</BaseLayout>

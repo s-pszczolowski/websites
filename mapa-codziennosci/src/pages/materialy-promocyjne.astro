@@ -1,0 +1,19 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+import { getArticles, articleUrl } from '../lib/articles';
+import { categoryBySlug } from '../config/site';
+const partner = (await getArticles()).filter((a) => a.data.sponsored);
+---
+<InfoLayout title="Materiały promocyjne" description="Jak oznaczamy materiały partnerskie w magazynie Mapa Codzienności i które artykuły zawierają link do strony partnera." lead="Część artykułów powstaje we współpracy z firmami. Oznaczamy je tak, by nie było wątpliwości, gdzie kończy się tekst redakcyjny, a zaczyna informacja o partnerze.">
+  <h2>Jak rozpoznać materiał partnerski</h2>
+  <ul>
+    <li>etykieta <strong>„Materiał partnerski”</strong> przy tytule, na kartach artykułów i w ramce na początku tekstu,</li>
+    <li>dokładnie jeden link do strony partnera, oznaczony atrybutem <code>rel="sponsored"</code>,</li>
+    <li>pozostała treść artykułu ma charakter poradnikowy i jest przydatna niezależnie od wyboru konkretnej firmy.</li>
+  </ul>
+  <h2>Artykuły partnerskie w serwisie ({partner.length})</h2>
+  <ul>
+    {partner.map((a) => <li><a href={articleUrl(a)}>{a.data.title}</a> – {categoryBySlug(a.data.category).name}</li>)}
+  </ul>
+  <p>Pozostałe publikacje są materiałami redakcyjnymi i nie zawierają linków do stron partnerów.</p>
+</InfoLayout>

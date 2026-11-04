@@ -1,0 +1,20 @@
+{
+  "_opis": "Dane wymagane przed uruchomieniem publicznej wersji portalu. Uzupełnia je rzeczywisty właściciel serwisu. Dopóki pola mają wartość null, podstrony Kontakt, Polityka prywatności i Polityka cookies są oznaczane jako wersja przedwdrożeniowa (noindex), a polecenie npm run build:production kończy się błędem.",
+  "administrator": {
+    "nazwa": null,
+    "adres": null,
+    "nip": null,
+    "regon_lub_krs": null
+  },
+  "kontakt": {
+    "email_redakcji": null,
+    "email_wspolpraca": null,
+    "telefon": null
+  },
+  "redaktor_naczelny": null,
+  "analityka": {
+    "uzywana": false,
+    "narzedzie": null
+  },
+  "daty_publikacji_potwierdzone": false
+}

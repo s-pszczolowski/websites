@@ -1,0 +1,16 @@
+---
+interface Props { current: number; last: number; urlFor: (page: number) => string; label?: string }
+const { current, last, urlFor, label = 'Paginacja' } = Astro.props;
+const pages = Array.from({ length: last }, (_, i) => i + 1);
+---
+{last > 1 && (
+  <nav class="pagination" aria-label={label}>
+    {current > 1 ? <a class="pagination__step" href={urlFor(current - 1)} rel="prev">← Nowsze</a> : <span class="pagination__step is-disabled">← Nowsze</span>}
+    <ol>
+      {pages.map((p) => (
+        <li>{p === current ? <span aria-current="page">{p}</span> : <a href={urlFor(p)}>{p}</a>}</li>
+      ))}
+    </ol>
+    {current < last ? <a class="pagination__step" href={urlFor(current + 1)} rel="next">Starsze →</a> : <span class="pagination__step is-disabled">Starsze →</span>}
+  </nav>
+)}

@@ -1,0 +1,25 @@
+---
+import JsonLd from './JsonLd.astro';
+interface Props { items: { label: string; href?: string }[] }
+const { items } = Astro.props;
+const site = Astro.site!;
+const trail = [{ label: 'Strona główna', href: '/' }, ...items];
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.label,
+    item: new URL(it.href ?? Astro.url.pathname, site).href,
+  })),
+};
+---
+<nav class="breadcrumbs" aria-label="Okruszki">
+  <ol>
+    {trail.map((it, i) => (
+      <li>{i < trail.length - 1 && it.href ? <a href={it.href}>{it.label}</a> : <span aria-current="page">{it.label}</span>}</li>
+    ))}
+  </ol>
+</nav>
+<JsonLd data={ld} />

@@ -1,0 +1,32 @@
+---
+import { categoryBySlug } from '../config/site';
+import { articleUrl, formatDate, imageUrl, isoDate, type Article } from '../lib/articles';
+
+interface Props {
+  article: Article;
+  variant?: 'default' | 'horizontal' | 'compact' | 'overlay' | 'text';
+  headingLevel?: 'h2' | 'h3';
+  showLead?: boolean;
+  eager?: boolean;
+}
+const { article, variant = 'default', headingLevel = 'h3', showLead = true, eager = false } = Astro.props;
+const cat = categoryBySlug(article.data.category);
+const H = headingLevel;
+const url = articleUrl(article);
+---
+<article class={`card card--${variant}`} style={`--cat:${cat.color}`}>
+  {variant !== 'text' && (
+    <a href={url} class="card__media" tabindex="-1" aria-hidden="true">
+      <img src={imageUrl(article)} alt="" width="1200" height="675" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    </a>
+  )}
+  <div class="card__body">
+    <p class="card__meta">
+      <a class="card__cat" href={`/kategoria/${cat.slug}/`}>{cat.short}</a>
+      {article.data.sponsored && <span class="badge-partner">Materiał partnerski</span>}
+      <time datetime={isoDate(article.data.date)}>{formatDate(article.data.date)}</time>
+    </p>
+    <H class="card__title"><a href={url}>{article.data.title}</a></H>
+    {showLead && variant !== 'compact' && <p class="card__lead">{article.data.lead}</p>}
+  </div>
+</article>

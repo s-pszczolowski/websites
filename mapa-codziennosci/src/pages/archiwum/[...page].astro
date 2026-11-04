@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ArticleList from '../../components/ArticleList.astro';
+import Pagination from '../../components/Pagination.astro';
+import { SITE } from '../../config/site';
+import { getArticles, monthKey, MONTHS_PL, type Article } from '../../lib/articles';
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const all = await getArticles();
+  return paginate(all, { pageSize: SITE.perPage });
+}) satisfies GetStaticPaths;
+
+interface Props { page: Page<Article> }
+const { page } = Astro.props;
+const all = await getArticles();
+const months = [...new Map(all.map((a) => { const { y, m } = monthKey(a.data.date); return [`${y}/${m}`, { y, m, count: all.filter((b) => { const k = monthKey(b.data.date); return k.y === y && k.m === m; }).length }]; })).values()];
+const title = page.currentPage > 1 ? `Archiwum publikacji – strona ${page.currentPage} z ${page.lastPage} | ${SITE.name}` : `Archiwum publikacji | ${SITE.name}`;
+const description = page.currentPage > 1
+  ? `Wszystkie artykuły magazynu ${SITE.name}, od najnowszych do najstarszych – strona ${page.currentPage} z ${page.lastPage}.`
+  : `Pełne archiwum magazynu ${SITE.name}: wszystkie poradniki i artykuły od najnowszych do najstarszych, z podziałem na miesiące.`;
+---
+<BaseLayout title={title} description={description}>
+  <div class="container">
+    <Breadcrumbs items={page.currentPage > 1 ? [{ label: 'Archiwum', href: '/archiwum/' }, { label: `Strona ${page.currentPage}` }] : [{ label: 'Archiwum' }]} />
+    <header class="page-head">
+      <p class="section-head__kicker">Wszystkie teksty</p>
+      <h1 class="page-head__title">Archiwum publikacji{page.currentPage > 1 && ` – strona ${page.currentPage}`}</h1>
+      <p class="page-head__lead">Artykuły od najnowszych do najstarszych. Możesz też przeglądać archiwum według miesięcy:</p>
+      <ul class="chips">
+        {months.map((mo) => <li><a href={`/archiwum/${mo.y}/${mo.m}/`}>{MONTHS_PL[Number(mo.m) - 1]} {mo.y} ({mo.count})</a></li>)}
+      </ul>
+    </header>
+    <ArticleList articles={page.data} />
+    <Pagination current={page.currentPage} last={page.lastPage} urlFor={(p) => (p === 1 ? '/archiwum/' : `/archiwum/${p}/`)} />
+  </div>
+</BaseLayout>

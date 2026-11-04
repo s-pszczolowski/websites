@@ -1,0 +1,19 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+import { DEPLOY } from '../lib/deployment';
+const analytics = DEPLOY.analityka;
+---
+<InfoLayout title="Polityka cookies" description="Informacja o plikach cookies w serwisie Mapa Codzienności: jakie pliki są używane i jak nimi zarządzać w przeglądarce." requiresOwnerData>
+  <h2>Czy serwis używa plików cookies?</h2>
+  {analytics.uzywana ? (
+    <p>Serwis korzysta z narzędzia analitycznego {analytics.narzedzie}. Pliki cookies analityczne są zapisywane wyłącznie po wyrażeniu zgody.</p>
+  ) : (
+    <p>W obecnej wersji serwis nie zapisuje w przeglądarce plików cookies – nie korzysta z narzędzi analitycznych, reklamowych ani z wtyczek serwisów społecznościowych. Strony są statycznymi plikami HTML, a czcionki i ilustracje pochodzą z tego samego serwera.</p>
+  )}
+  <h2>Cookies podmiotów trzecich</h2>
+  <p>Po kliknięciu linku do innego serwisu (np. źródła lub strony partnera) obowiązują zasady cookies tamtej witryny.</p>
+  <h2>Jak zarządzać plikami cookies</h2>
+  <p>Każda przeglądarka pozwala przeglądać, usuwać i blokować pliki cookies w ustawieniach prywatności. Ograniczenie cookies nie wpływa na możliwość czytania artykułów w tym serwisie.</p>
+  <h2>Zmiany</h2>
+  <p>Jeżeli w serwisie zostaną wprowadzone narzędzia zapisujące pliki cookies, ten dokument zostanie zaktualizowany, a tam, gdzie wymagają tego przepisy, poprosimy o zgodę przed ich użyciem.</p>
+</InfoLayout>

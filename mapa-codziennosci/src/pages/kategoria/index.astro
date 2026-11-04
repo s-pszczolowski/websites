@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { SITE } from '../../config/site';
+import { getArticles, countByCategory, articleUrl } from '../../lib/articles';
+const all = await getArticles();
+const cats = countByCategory(all);
+---
+<BaseLayout title={`Działy magazynu | ${SITE.name}`} description={`Osiem działów magazynu ${SITE.name}: dom i ogród, zdrowie, rodzina, finanse, podróże, praca, technologie oraz motoryzacja i aktywność.`}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Działy' }]} />
+    <header class="page-head">
+      <h1 class="page-head__title">Działy magazynu</h1>
+      <p class="page-head__lead">Każdy dział to osobna redakcyjna ścieżka – od praktycznych list kontrolnych po teksty wyjaśniające.</p>
+    </header>
+    <div class="cat-index">
+      {cats.map((c) => (
+        <section class="cat-index__item" style={`--cat:${c.color}`}>
+          <h2><a href={`/kategoria/${c.slug}/`}>{c.name}</a> <span>({c.count})</span></h2>
+          <p>{c.description}</p>
+          <ul>{all.filter((a) => a.data.category === c.slug).slice(0, 4).map((a) => <li><a href={articleUrl(a)}>{a.data.title}</a></li>)}</ul>
+        </section>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

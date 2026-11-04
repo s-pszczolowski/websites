@@ -1,0 +1,16 @@
+---
+interface Props { as?: 'div' | 'p'; light?: boolean }
+const { light = false } = Astro.props;
+---
+<a href="/" class:list={['logo', { 'logo--light': light }]} aria-label="Mapa Codzienności – strona główna">
+  <svg class="logo__mark" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+    <rect x="2" y="2" width="44" height="44" rx="11" fill="#20384D" />
+    <path d="M10 33 L18 15 L25 27 L30 19 L38 33 Z" fill="#718D79" />
+    <circle cx="33" cy="13" r="4.5" fill="#D8AC66" />
+    <path d="M10 37 H38" stroke="#F7F5F0" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="3 4" />
+  </svg>
+  <span class="logo__text">
+    <span class="logo__name">Mapa <em>Codzienności</em></span>
+    <span class="logo__tag">Wiedza, która przydaje się na co dzień</span>
+  </span>
+</a>

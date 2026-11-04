@@ -1,0 +1,26 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+import { DEPLOY, ownerDataComplete } from '../lib/deployment';
+const a = DEPLOY.administrator;
+const k = DEPLOY.kontakt;
+---
+<InfoLayout title="Polityka prywatności" description="Zasady przetwarzania danych osobowych w serwisie Mapa Codzienności: logi serwera, korespondencja, prawa osób, których dane dotyczą." requiresOwnerData>
+  <h2>Administrator danych</h2>
+  {ownerDataComplete ? (
+    <p>Administratorem danych osobowych jest {a.nazwa}, {a.adres}{a.nip && `, NIP ${a.nip}`}. Kontakt w sprawach danych osobowych: <a href={`mailto:${k.email_redakcji}`}>{k.email_redakcji}</a>.</p>
+  ) : (
+    <p>Dane administratora zostaną wskazane w tym miejscu przez właściciela serwisu przed jego publicznym uruchomieniem.</p>
+  )}
+  <h2>Serwis bez kont i formularzy</h2>
+  <p>Serwis jest stroną statyczną. Nie wymaga zakładania konta, nie zawiera formularzy rejestracyjnych, komentarzy ani newslettera. Za pomocą samej strony nie zbieramy danych osobowych.</p>
+  <h2>Logi serwera</h2>
+  <p>Serwer hostingowy może automatycznie zapisywać podstawowe informacje techniczne o połączeniu, takie jak adres IP, data i godzina żądania, typ przeglądarki i adres odwiedzanej podstrony. Dane te służą zapewnieniu bezpieczeństwa i prawidłowego działania serwisu (prawnie uzasadniony interes administratora, art. 6 ust. 1 lit. f RODO) i są przechowywane przez okres wynikający z ustawień hostingu.</p>
+  <h2>Korespondencja</h2>
+  <p>Jeżeli napiszesz do redakcji, dane zawarte w wiadomości (np. imię, adres e-mail, treść) przetwarzamy wyłącznie w celu udzielenia odpowiedzi i prowadzenia korespondencji, przez czas potrzebny do jej zakończenia.</p>
+  <h2>Pliki cookies i narzędzia zewnętrzne</h2>
+  <p>Informacje o plikach cookies znajdziesz w dokumencie <a href="/polityka-cookies/">Polityka cookies</a>. Serwis w obecnej postaci nie ładuje zewnętrznych skryptów reklamowych ani śledzących, a czcionki są serwowane z tego samego serwera co strona.</p>
+  <h2>Linki zewnętrzne</h2>
+  <p>Artykuły zawierają odnośniki do innych serwisów – instytucji publicznych, źródeł oraz partnerów. Po przejściu na inną stronę obowiązują zasady prywatności jej administratora.</p>
+  <h2>Twoje prawa</h2>
+  <p>Przysługuje Ci prawo dostępu do danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo sprzeciwu oraz prawo wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+</InfoLayout>

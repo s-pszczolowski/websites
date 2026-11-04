@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { SITE, CATEGORIES } from '../config/site';
+import { getArticles } from '../lib/articles';
+const latest = (await getArticles()).slice(0, 3);
+---
+<BaseLayout title={`Nie znaleziono strony | ${SITE.name}`} description="Strona o podanym adresie nie istnieje. Sprawdź najnowsze artykuły lub wybierz dział magazynu." noindex>
+  <div class="container">
+    <header class="page-head page-head--center">
+      <p class="section-head__kicker">Błąd 404</p>
+      <h1 class="page-head__title">Ta ścieżka nie prowadzi do żadnej strony</h1>
+      <p class="page-head__lead">Adres mógł się zmienić albo zawierać literówkę. Wybierz dział lub zajrzyj do najnowszych tekstów.</p>
+      <ul class="chips chips--center">{CATEGORIES.map((c) => <li><a href={`/kategoria/${c.slug}/`}>{c.name}</a></li>)}</ul>
+    </header>
+    <div class="grid grid--3">{latest.map((a) => <ArticleCard article={a} />)}</div>
+  </div>
+</BaseLayout>

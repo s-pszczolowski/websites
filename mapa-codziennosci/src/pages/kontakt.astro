@@ -1,0 +1,32 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+import { DEPLOY, ownerDataComplete } from '../lib/deployment';
+const k = DEPLOY.kontakt;
+const a = DEPLOY.administrator;
+---
+<InfoLayout title="Kontakt" description="Jak skontaktować się z redakcją magazynu Mapa Codzienności: uwagi do artykułów, propozycje tematów i zapytania o współpracę." lead="Chętnie przyjmujemy uwagi do publikacji, propozycje tematów i zgłoszenia nieaktualnych informacji." requiresOwnerData>
+  <h2>Redakcja</h2>
+  {ownerDataComplete ? (
+    <ul>
+      <li>E-mail redakcji: <a href={`mailto:${k.email_redakcji}`}>{k.email_redakcji}</a></li>
+      {k.email_wspolpraca && <li>Współpraca: <a href={`mailto:${k.email_wspolpraca}`}>{k.email_wspolpraca}</a></li>}
+      {k.telefon && <li>Telefon: {k.telefon}</li>}
+    </ul>
+  ) : (
+    <p>Adresy kontaktowe redakcji zostaną opublikowane w tym miejscu po uzupełnieniu konfiguracji wdrożeniowej serwisu.</p>
+  )}
+  <h2>Jak napisać, żeby szybko uzyskać odpowiedź</h2>
+  <ul>
+    <li><strong>Korekta lub sprostowanie</strong> – w temacie wpisz „Korekta”, a w treści podaj adres artykułu i fragment, którego dotyczy uwaga.</li>
+    <li><strong>Propozycja tematu</strong> – opisz w kilku zdaniach, jakie pytanie powinien rozstrzygnąć tekst i dla kogo byłby przydatny.</li>
+    <li><strong>Współpraca</strong> – zapoznaj się najpierw z dokumentem <a href="/zasady-publikacji-i-wspolpracy/">Zasady publikacji i współpracy</a>.</li>
+  </ul>
+  <h2>Ważne</h2>
+  <p>Redakcja nie udziela indywidualnych porad medycznych, prawnych ani finansowych. W sytuacji zagrożenia życia lub zdrowia dzwoń pod numer alarmowy 112.</p>
+  {ownerDataComplete && (
+    <>
+      <h2>Wydawca</h2>
+      <p>{a.nazwa}<br />{a.adres}{a.nip && <><br />NIP: {a.nip}</>}{a.regon_lub_krs && <><br />{a.regon_lub_krs}</>}</p>
+    </>
+  )}
+</InfoLayout>

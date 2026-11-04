@@ -1,0 +1,141 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { SITE, categoryBySlug } from '../config/site';
+import { getArticles, relatedFor, formatDate, isoDate, imageUrl, ogImageUrl, readingMinutes, articleUrl, type Article } from '../lib/articles';
+
+export async function getStaticPaths() {
+  const all = await getArticles();
+  return all.map((article, i) => ({
+    params: { slug: article.id },
+    props: { article, newer: all[i - 1] ?? null, older: all[i + 1] ?? null },
+  }));
+}
+
+interface Props { article: Article; newer: Article | null; older: Article | null }
+const { article, newer, older } = Astro.props;
+const all = await getArticles();
+const { Content, headings } = await render(article);
+const d = article.data;
+const cat = categoryBySlug(d.category);
+const related = relatedFor(article, all, 3);
+const relatedIds = new Set(related.map((r) => r.id));
+const more = all.filter((a) => a.id !== article.id && !relatedIds.has(a.id) && a.data.category !== d.category).slice(0, 4);
+const fromCategory = all.filter((a) => a.data.category === d.category && a.id !== article.id && !relatedIds.has(a.id)).slice(0, 4);
+const site = Astro.site!;
+const url = new URL(articleUrl(article), site).href;
+const modified = d.updated ?? d.date;
+const toc = headings.filter((h) => h.depth === 2);
+const minutes = readingMinutes(article.body);
+
+const ld = [{
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  '@id': `${url}#artykul`,
+  headline: d.title,
+  description: d.metaDescription,
+  image: [new URL(ogImageUrl(article), site).href],
+  datePublished: isoDate(d.date),
+  dateModified: isoDate(modified),
+  inLanguage: 'pl-PL',
+  articleSection: cat.name,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  author: { '@type': 'Organization', name: SITE.publisherName, url: new URL('/o-portalu/', site).href },
+  publisher: { '@id': `${new URL('/', site).href}#organizacja` },
+  isAccessibleForFree: true,
+}];
+---
+<BaseLayout
+  title={d.metaTitle}
+  description={d.metaDescription}
+  ogType="article"
+  ogImage={ogImageUrl(article)}
+  jsonLd={ld}
+  activeCategory={d.category}
+  article={{ published: isoDate(d.date), modified: isoDate(modified), section: cat.name }}
+>
+  <article class="article" style={`--cat:${cat.color}`}>
+    <div class="container container--narrow">
+      <Breadcrumbs items={[{ label: cat.name, href: `/kategoria/${cat.slug}/` }, { label: d.title }]} />
+      <header class="article__header">
+        <p class="article__meta">
+          <a class="article__cat" href={`/kategoria/${cat.slug}/`}>{cat.name}</a>
+          <span class="article__format">{d.format}</span>
+          {d.sponsored && <span class="badge-partner">Materiał partnerski</span>}
+        </p>
+        <h1 class="article__title">{d.title}</h1>
+        <p class="article__lead">{d.lead}</p>
+        <p class="article__byline">
+          <span>{SITE.publisherName}</span>
+          <span aria-hidden="true">·</span>
+          <time datetime={isoDate(d.date)}>{formatDate(d.date)}</time>
+          {d.updated && <><span aria-hidden="true">·</span><span>aktualizacja: <time datetime={isoDate(d.updated)}>{formatDate(d.updated)}</time></span></>}
+          <span aria-hidden="true">·</span>
+          <span>{minutes} min czytania</span>
+        </p>
+      </header>
+    </div>
+    <figure class="article__figure container">
+      <img src={imageUrl(article)} alt={d.imageAlt} width="1200" height="675" loading="eager" fetchpriority="high" decoding="async" />
+      <figcaption>Ilustracja: {d.imageAlt}</figcaption>
+    </figure>
+    <div class="container article__layout">
+      <aside class="article__aside">
+        {toc.length > 2 && (
+          <nav class="toc" aria-label="Spis treści">
+            <p class="toc__title">W tym artykule</p>
+            <ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </nav>
+        )}
+        <a class="back-to-cat" href={`/kategoria/${cat.slug}/`}>← Wszystkie artykuły: {cat.name}</a>
+      </aside>
+      <div class="article__main">
+        {d.sponsored && (
+          <aside class="notice notice--partner" role="note">
+            <strong>Materiał partnerski.</strong> Artykuł zawiera jeden link do strony partnera, oznaczony atrybutem
+            <code>rel="sponsored"</code>. Zasady takich publikacji opisujemy na stronie <a href="/materialy-promocyjne/">Materiały promocyjne</a>.
+          </aside>
+        )}
+        <div class="prose">
+          <Content />
+        </div>
+        {d.sources.length > 0 && (
+          <section class="sources" aria-labelledby="zrodla">
+            <h2 id="zrodla">Źródła i dalsza lektura</h2>
+            <ul>{d.sources.map((s) => <li><a href={s.url} rel="noopener">{s.title}</a></li>)}</ul>
+          </section>
+        )}
+        <p class="disclaimer">Artykuł ma charakter informacyjny. {['zdrowie'].includes(d.category) ? 'Nie zastępuje porady lekarza – w razie niepokojących objawów skontaktuj się ze specjalistą.' : 'Przed podjęciem ważnych decyzji sprawdź aktualne przepisy i warunki ofert lub skonsultuj się ze specjalistą.'}</p>
+        <nav class="post-nav" aria-label="Sąsiednie artykuły">
+          {newer ? <a class="post-nav__item" href={articleUrl(newer)} rel="prev"><span>Nowszy artykuł</span>{newer.data.title}</a> : <span />}
+          {older ? <a class="post-nav__item post-nav__item--next" href={articleUrl(older)} rel="next"><span>Starszy artykuł</span>{older.data.title}</a> : <span />}
+        </nav>
+      </div>
+    </div>
+  </article>
+
+  <section class="band band--tint" aria-labelledby="powiazane">
+    <div class="container">
+      <h2 id="powiazane" class="section-head__title">Powiązane artykuły</h2>
+      <div class="grid grid--3">
+        {related.map((r) => <ArticleCard article={r} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="inne">
+    <div class="container two-col">
+      <div>
+        <h2 id="inne" class="section-head__title">Więcej w dziale {cat.name}</h2>
+        <div class="stack">{fromCategory.map((r) => <ArticleCard article={r} variant="compact" />)}</div>
+        <p><a class="button button--ghost" href={`/kategoria/${cat.slug}/`}>Przejdź do działu {cat.name}</a></p>
+      </div>
+      <div>
+        <h2 class="section-head__title">Inne publikacje</h2>
+        <div class="stack">{more.map((r) => <ArticleCard article={r} variant="text" showLead={false} />)}</div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,133 @@
+{
+  "drawnAt": "2026-11-04T20:26:38.884Z",
+  "method": "Fisher–Yates shuffle, node:crypto randomInt (CSPRNG), losowanie bez zwracania po firmach",
+  "baseAddresses": 72,
+  "baseCompanies": 70,
+  "groupedCompanies": [
+    "royal-garden-wilanow",
+    "vreespol"
+  ],
+  "selected": [
+    {
+      "id": "otus-podatki.pl",
+      "url": "https://otus-podatki.pl/",
+      "allAddresses": [
+        "https://otus-podatki.pl/"
+      ],
+      "nazwa": "Kancelaria Rachunkowo-Podatkowa Otus (Szczecin)",
+      "branza": "biuro rachunkowe: księgowość, podatki, kadry i płace",
+      "kategoria": "biznes-i-finanse",
+      "artykul": "/jak-wybrac-biuro-rachunkowe/",
+      "anchor": "biuro rachunkowe w Szczecinie"
+    },
+    {
+      "id": "mediklinika.eu",
+      "url": "https://mediklinika.eu/",
+      "allAddresses": [
+        "https://mediklinika.eu/"
+      ],
+      "nazwa": "Mediklinika (Szczecin, ul. Mickiewicza)",
+      "branza": "przychodnia wielospecjalistyczna – konsultacje lekarzy wielu specjalności",
+      "kategoria": "zdrowie",
+      "artykul": "/jak-przygotowac-sie-do-wizyty-u-specjalisty/",
+      "anchor": "przychodnia wielospecjalistyczna w Szczecinie"
+    },
+    {
+      "id": "gispro.pl",
+      "url": "https://www.gispro.pl/",
+      "allAddresses": [
+        "https://www.gispro.pl/"
+      ],
+      "nazwa": "GISPRO S.A. (Szczecin)",
+      "branza": "fotogrametria, teledetekcja, geodezja, kartografia, ortofotomapy, skaning laserowy, modele 3D dla inwestycji",
+      "kategoria": "technologie-i-przemysl",
+      "artykul": "/dane-geoprzestrzenne-w-inwestycjach/",
+      "anchor": "usługi fotogrametryczne i skaning laserowy"
+    },
+    {
+      "id": "tenis-szczecin.pl",
+      "url": "https://www.tenis-szczecin.pl/",
+      "allAddresses": [
+        "https://www.tenis-szczecin.pl/"
+      ],
+      "nazwa": "Akademia tenisa (Szczecin)",
+      "branza": "szkółka tenisowa dla dzieci, lekcje dla dorosłych, treningi indywidualne, wynajem kortów",
+      "kategoria": "motoryzacja-i-aktywnosc",
+      "artykul": "/nauka-tenisa-od-podstaw/",
+      "anchor": "lekcje tenisa w Szczecinie"
+    },
+    {
+      "id": "westtrading.pl",
+      "url": "https://sklep.westtrading.pl/",
+      "allAddresses": [
+        "https://sklep.westtrading.pl/"
+      ],
+      "nazwa": "West Trading – sklep internetowy (Szczecin)",
+      "branza": "sklep internetowy: chemia gospodarcza, kawa, napoje, artykuły spożywcze, higiena",
+      "kategoria": "dom-i-ogrod",
+      "artykul": "/zapasy-domowe-planowanie-zakupow/",
+      "anchor": "sklep internetowy z chemią gospodarczą i kawą"
+    },
+    {
+      "id": "bollus.pl",
+      "url": "https://www.bollus.pl/",
+      "allAddresses": [
+        "https://www.bollus.pl/"
+      ],
+      "nazwa": "Akademia Piłkarska Bolluś (Szczecin-Gumieńce)",
+      "branza": "szkółka piłkarska dla dzieci w wieku ok. 2–9 lat",
+      "kategoria": "rodzina-i-styl-zycia",
+      "artykul": "/pilka-nozna-dla-przedszkolaka/",
+      "anchor": "szkółka piłkarska dla dzieci w Szczecinie"
+    },
+    {
+      "id": "fidesfinanse.pl",
+      "url": "https://www.fidesfinanse.pl/",
+      "allAddresses": [
+        "https://www.fidesfinanse.pl/"
+      ],
+      "nazwa": "Fides Finanse (Szczecin)",
+      "branza": "multiagencja ubezpieczeniowo-finansowa: ubezpieczenia na życie, dla firm, leasing, kredyty",
+      "kategoria": "biznes-i-finanse",
+      "artykul": "/ubezpieczenie-na-zycie-jak-wybrac/",
+      "anchor": "multiagencja ubezpieczeniowa w Szczecinie"
+    },
+    {
+      "id": "hotel-trofana.pl",
+      "url": "https://www.hotel-trofana.pl/",
+      "allAddresses": [
+        "https://www.hotel-trofana.pl/"
+      ],
+      "nazwa": "Hotel Trofana (Międzyzdroje)",
+      "branza": "hotel w centrum Międzyzdrojów przy molo i plaży, z basenem i strefą wellness & spa",
+      "kategoria": "podroze-i-regiony",
+      "artykul": "/weekend-nad-baltykiem-poza-sezonem/",
+      "anchor": "hotel ze strefą wellness w Międzyzdrojach"
+    },
+    {
+      "id": "elkazocsprawcy.pl",
+      "url": "https://elkazocsprawcy.pl/",
+      "allAddresses": [
+        "https://elkazocsprawcy.pl/"
+      ],
+      "nazwa": "Elka z OC sprawcy (Szczecin, Poznań)",
+      "branza": "bezgotówkowe samochody zastępcze do nauki jazdy („L”) dla OSK w ramach OC sprawcy",
+      "kategoria": "motoryzacja-i-aktywnosc",
+      "artykul": "/auto-zastepcze-dla-szkoly-jazdy-z-oc-sprawcy/",
+      "anchor": "samochód zastępczy do nauki jazdy z OC sprawcy"
+    },
+    {
+      "id": "atmaclinic.pl",
+      "url": "https://www.atmaclinic.pl/",
+      "allAddresses": [
+        "https://www.atmaclinic.pl/"
+      ],
+      "nazwa": "Atma Clinic (Złotniki, gm. Suchy Las k. Poznania)",
+      "branza": "kosmetologia i medycyna estetyczna: zabiegi laserowe, usuwanie owłosienia, pielęgnacja",
+      "kategoria": "zdrowie",
+      "artykul": "/depilacja-laserowa-przygotowanie/",
+      "anchor": "zabiegi laserowe pod Poznaniem"
+    }
+  ],
+  "profilowanie": "Strony klientów nie były osiągalne z sieci środowiska roboczego (blokada proxy); profil działalności ustalono na podstawie wyników wyszukiwarki indeksujących strony klientów oraz rejestrów firm (listopad 2026)."
+}

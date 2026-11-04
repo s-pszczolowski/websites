@@ -48,3 +48,7 @@ python3 tools/verify.py               # kontrola końcowa + RAPORT.md
 ## Artykuły partnerskie
 
 Każdy portal zawiera dokładnie jeden artykuł z linkiem do https://wamka.pl/ i jeden do https://www.norbertszram.pl/. Są oznaczone jako materiał sponsorowany (etykieta przy tytule i ramka na początku tekstu), a linki mają `rel="sponsored noopener"`. Linki występują wyłącznie w treści tych artykułów – nie ma ich w menu, stopkach ani kolumnach bocznych. Szczegóły i adresy: `RAPORT.md`.
+
+## Mapa Codzienności (Astro)
+
+Katalog `mapa-codziennosci/` zawiera szósty, osobny portal – ogólnopolski magazyn **Mapa Codzienności** („Wiedza, która przydaje się na co dzień”) zbudowany w Astro (SSG): 50 artykułów w 8 działach, 10 materiałów partnerskich z linkami do losowo wybranych klientów (`selected-clients.json`), walidator i test przeglądarkowy. Instrukcja budowania i wdrożenia: `mapa-codziennosci/README.md`, wynik kontroli: `mapa-codziennosci/RAPORT-WALIDACJI.md`.

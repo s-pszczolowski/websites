@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { CATEGORIES, INFO_PAGES, SITE } from '../config/site';
+import { getArticles, articleUrl } from '../lib/articles';
+const all = await getArticles();
+---
+<BaseLayout title={`Mapa strony | ${SITE.name}`} description={`Pełna lista podstron magazynu ${SITE.name}: działy, wszystkie artykuły oraz strony informacyjne.`}>
+  <div class="container">
+    <Breadcrumbs items={[{ label: 'Mapa strony' }]} />
+    <header class="page-head"><h1 class="page-head__title">Mapa strony</h1></header>
+    <div class="cat-index">
+      {CATEGORIES.map((c) => (
+        <section class="cat-index__item" style={`--cat:${c.color}`}>
+          <h2><a href={`/kategoria/${c.slug}/`}>{c.name}</a></h2>
+          <ul>{all.filter((a) => a.data.category === c.slug).map((a) => <li><a href={articleUrl(a)}>{a.data.title}</a></li>)}</ul>
+        </section>
+      ))}
+      <section class="cat-index__item">
+        <h2>Informacje</h2>
+        <ul>{INFO_PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}<li><a href="/archiwum/">Archiwum</a></li></ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

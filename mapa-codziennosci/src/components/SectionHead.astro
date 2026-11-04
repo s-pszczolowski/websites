@@ -1,0 +1,12 @@
+---
+interface Props { title: string; href?: string; linkLabel?: string; kicker?: string; color?: string; level?: 'h2' | 'h3' }
+const { title, href, linkLabel = 'Zobacz wszystkie', kicker, color, level = 'h2' } = Astro.props;
+const H = level;
+---
+<div class="section-head" style={color ? `--cat:${color}` : undefined}>
+  <div>
+    {kicker && <p class="section-head__kicker">{kicker}</p>}
+    <H class="section-head__title">{title}</H>
+  </div>
+  {href && <a class="section-head__link" href={href}>{linkLabel} <span aria-hidden="true">→</span></a>}
+</div>

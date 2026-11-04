@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Pagination from '../components/Pagination.astro';
+import { SITE, CATEGORIES, categoryBySlug } from '../config/site';
+import { getArticles, articleUrl, formatDate, isoDate, imageUrl, countByCategory } from '../lib/articles';
+
+const all = await getArticles();
+const used = new Set<string>();
+const take = (list: typeof all, n: number) => {
+  const out = list.filter((a) => !used.has(a.id)).slice(0, n);
+  out.forEach((a) => used.add(a.id));
+  return out;
+};
+
+const hero = all.find((a) => a.data.featured && !a.data.sponsored) ?? all[0];
+used.add(hero.id);
+const heroSide = take(all, 3);
+const latest = take(all, 6);
+const inCat = (slug: string) => all.filter((a) => a.data.category === slug);
+const home = take(inCat('dom-i-ogrod'), 4);
+const health = take(inCat('zdrowie'), 4);
+const money = take(inCat('biznes-i-finanse'), 3);
+const travel = take(inCat('podroze-i-regiony'), 3);
+const work = take([...inCat('praca-i-rozwoj'), ...inCat('technologie-i-przemysl')].sort((a, b) => b.data.date.getTime() - a.data.date.getTime()), 4);
+const recommended = all.filter((a) => a.data.recommended).slice(0, 5);
+const cats = countByCategory(all).map((c) => ({ ...c, latest: all.find((a) => a.data.category === c.slug) }));
+const perPage = SITE.perPage;
+const lastPage = Math.ceil(all.length / perPage);
+const archiveFirst = all.slice(0, perPage);
+const heroCat = categoryBySlug(hero.data.category);
+
+const ld = [{
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${SITE.name} – ${SITE.tagline}`,
+  url: new URL('/', Astro.site!).href,
+  inLanguage: 'pl-PL',
+}];
+---
+<BaseLayout title={`${SITE.name} – ${SITE.tagline}`} description={SITE.description} jsonLd={ld}>
+  <h1 class="visually-hidden">{SITE.name} – magazyn internetowy: {SITE.tagline.toLowerCase()}</h1>
+
+  <section class="hero container" aria-label="Temat wydania">
+    <article class="hero__main" style={`--cat:${heroCat.color}`}>
+      <a href={articleUrl(hero)} class="hero__media" tabindex="-1" aria-hidden="true">
+        <img src={imageUrl(hero)} alt="" width="1200" height="675" loading="eager" fetchpriority="high" />
+      </a>
+      <div class="hero__body">
+        <p class="hero__kicker">Temat wydania · <a href={`/kategoria/${heroCat.slug}/`}>{heroCat.name}</a></p>
+        <h2 class="hero__title"><a href={articleUrl(hero)}>{hero.data.title}</a></h2>
+        <p class="hero__lead">{hero.data.lead}</p>
+        <p class="hero__date"><time datetime={isoDate(hero.data.date)}>{formatDate(hero.data.date)}</time></p>
+      </div>
+    </article>
+    <div class="hero__side">
+      <p class="hero__side-title">Właśnie opublikowane</p>
+      {heroSide.map((a, i) => (
+        <article class="numbered">
+          <span class="numbered__n" aria-hidden="true">0{i + 1}</span>
+          <div>
+            <p class="card__meta"><a class="card__cat" style={`--cat:${categoryBySlug(a.data.category).color}`} href={`/kategoria/${a.data.category}/`}>{categoryBySlug(a.data.category).short}</a> <time datetime={isoDate(a.data.date)}>{formatDate(a.data.date)}</time></p>
+            <h3 class="numbered__title"><a href={articleUrl(a)}>{a.data.title}</a></h3>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="najnowsze">
+    <div class="container">
+      <div class="section-head"><div><p class="section-head__kicker">Na bieżąco</p><h2 id="najnowsze" class="section-head__title">Najnowsze publikacje</h2></div><a class="section-head__link" href="/archiwum/">Archiwum <span aria-hidden="true">→</span></a></div>
+      <div class="grid grid--3">{latest.map((a) => <ArticleCard article={a} />)}</div>
+    </div>
+  </section>
+
+  <section class="band band--tint" aria-label="Dom i ogród">
+    <div class="container">
+      <SectionHead kicker="Dział" title="Dom i ogród" href="/kategoria/dom-i-ogrod/" color={categoryBySlug('dom-i-ogrod').color} />
+      <div class="mosaic">
+        {home[0] && <div class="mosaic__big"><ArticleCard article={home[0]} variant="overlay" /></div>}
+        <div class="mosaic__list">{home.slice(1).map((a) => <ArticleCard article={a} variant="horizontal" showLead={false} />)}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-label="Zdrowie i profilaktyka">
+    <div class="container two-col two-col--wide">
+      <div>
+        <SectionHead kicker="Dział" title="Zdrowie i profilaktyka" href="/kategoria/zdrowie/" color={categoryBySlug('zdrowie').color} />
+        <div class="grid grid--2">{health.map((a) => <ArticleCard article={a} variant="default" />)}</div>
+      </div>
+      <aside class="picks" aria-labelledby="polecane">
+        <p class="section-head__kicker">Wybór redakcji</p>
+        <h2 id="polecane" class="section-head__title">Polecane materiały</h2>
+        <p class="picks__intro">Teksty, które naszym zdaniem warto przeczytać w pierwszej kolejności – praktyczne i aktualne przez cały rok.</p>
+        <ol class="picks__list">
+          {recommended.map((a) => (
+            <li><a href={articleUrl(a)}>{a.data.title}</a><span>{categoryBySlug(a.data.category).name}</span></li>
+          ))}
+        </ol>
+      </aside>
+    </div>
+  </section>
+
+  <section class="band band--navy" aria-label="Biznes i finanse">
+    <div class="container">
+      <SectionHead kicker="Dział" title="Biznes i finanse" href="/kategoria/biznes-i-finanse/" color="#D8AC66" />
+      <div class="grid grid--3">{money.map((a) => <ArticleCard article={a} variant="text" />)}</div>
+    </div>
+  </section>
+
+  <section class="band" aria-label="Podróże i regiony">
+    <div class="container">
+      <SectionHead kicker="Dział" title="Podróże i regiony" href="/kategoria/podroze-i-regiony/" color={categoryBySlug('podroze-i-regiony').color} />
+      <div class="grid grid--3 grid--tall">{travel.map((a) => <ArticleCard article={a} variant="overlay" />)}</div>
+    </div>
+  </section>
+
+  <section class="band band--tint" aria-label="Praca, technologie i przemysł">
+    <div class="container">
+      <SectionHead kicker="Działy" title="Praca, technologie i przemysł" href="/kategoria/technologie-i-przemysl/" linkLabel="Technologie i przemysł" color={categoryBySlug('technologie-i-przemysl').color} />
+      <div class="grid grid--4">{work.map((a) => <ArticleCard article={a} variant="compact" />)}</div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="dzialy">
+    <div class="container">
+      <div class="section-head"><div><p class="section-head__kicker">Przegląd</p><h2 id="dzialy" class="section-head__title">Działy magazynu</h2></div><a class="section-head__link" href="/kategoria/">Wszystkie działy <span aria-hidden="true">→</span></a></div>
+      <div class="cat-tiles">
+        {cats.map((c) => (
+          <a class="cat-tile" href={`/kategoria/${c.slug}/`} style={`--cat:${c.color}`}>
+            <span class="cat-tile__name">{c.name}</span>
+            <span class="cat-tile__desc">{c.description}</span>
+            <span class="cat-tile__count">{c.count} artykułów{c.latest && ` · najnowszy: ${c.latest.data.title}`}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--tint" aria-labelledby="archiwum">
+    <div class="container">
+      <div class="section-head"><div><p class="section-head__kicker">Wszystkie teksty</p><h2 id="archiwum" class="section-head__title">Archiwum publikacji</h2></div></div>
+      <ul class="index-list">
+        {archiveFirst.map((a) => (
+          <li>
+            <time datetime={isoDate(a.data.date)}>{formatDate(a.data.date)}</time>
+            <a href={articleUrl(a)}>{a.data.title}</a>
+            <span class="index-list__cat">{categoryBySlug(a.data.category).name}</span>
+          </li>
+        ))}
+      </ul>
+      <Pagination current={1} last={lastPage} urlFor={(p) => (p === 1 ? '/archiwum/' : `/archiwum/${p}/`)} label="Paginacja archiwum" />
+    </div>
+  </section>
+</BaseLayout>

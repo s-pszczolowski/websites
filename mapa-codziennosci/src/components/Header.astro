@@ -1,0 +1,42 @@
+---
+import { CATEGORIES } from '../config/site';
+import Logo from './Logo.astro';
+interface Props { active?: string }
+const { active } = Astro.props;
+const today = new Intl.DateTimeFormat('pl-PL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Warsaw' });
+---
+<header class="site-header">
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <span class="topbar__label">Magazyn poradnikowy</span>
+      <nav class="topbar__links" aria-label="Na skróty">
+        <a href="/archiwum/">Archiwum</a>
+        <a href="/kategoria/">Działy</a>
+        <a href="/o-portalu/">O portalu</a>
+        <a href="/kontakt/">Kontakt</a>
+      </nav>
+    </div>
+  </div>
+  <div class="container masthead">
+    <Logo />
+    <details class="menu-toggle">
+      <summary aria-label="Pokaż menu działów"><span></span><span></span><span></span></summary>
+      <nav class="mobile-nav" aria-label="Działy (menu mobilne)">
+        <ul>
+          {CATEGORIES.map((c) => <li><a href={`/kategoria/${c.slug}/`} aria-current={active === c.slug ? 'page' : undefined}>{c.name}</a></li>)}
+          <li class="mobile-nav__extra"><a href="/archiwum/">Archiwum publikacji</a></li>
+          <li class="mobile-nav__extra"><a href="/o-portalu/">O portalu</a></li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+  <nav class="catnav" aria-label="Działy">
+    <div class="container">
+      <ul class="catnav__list">
+        {CATEGORIES.map((c) => (
+          <li><a href={`/kategoria/${c.slug}/`} style={`--cat:${c.color}`} aria-current={active === c.slug ? 'page' : undefined}>{c.name}</a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>

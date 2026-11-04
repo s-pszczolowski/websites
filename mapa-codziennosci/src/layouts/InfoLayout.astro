@@ -1,0 +1,29 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import InfoNotice from '../components/InfoNotice.astro';
+import { INFO_PAGES, SITE } from '../config/site';
+import { ownerDataComplete } from '../lib/deployment';
+interface Props { title: string; description: string; lead?: string; requiresOwnerData?: boolean }
+const { title, description, lead, requiresOwnerData = false } = Astro.props;
+const noindex = requiresOwnerData && !ownerDataComplete;
+---
+<BaseLayout title={`${title} | ${SITE.name}`} description={description} noindex={noindex}>
+  <div class="container info-layout">
+    <div class="info-layout__main">
+      <Breadcrumbs items={[{ label: title }]} />
+      <header class="page-head">
+        <h1 class="page-head__title">{title}</h1>
+        {lead && <p class="page-head__lead">{lead}</p>}
+      </header>
+      {requiresOwnerData && <InfoNotice />}
+      <div class="prose"><slot /></div>
+    </div>
+    <aside class="info-layout__aside">
+      <nav aria-label="Podstrony informacyjne">
+        <p class="toc__title">Informacje o serwisie</p>
+        <ul>{INFO_PAGES.map((p) => <li><a href={p.href} aria-current={Astro.url.pathname === p.href ? 'page' : undefined}>{p.label}</a></li>)}</ul>
+      </nav>
+    </aside>
+  </div>
+</BaseLayout>

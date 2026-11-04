@@ -1,0 +1,24 @@
+---
+import InfoLayout from '../layouts/InfoLayout.astro';
+import { CATEGORIES, SITE } from '../config/site';
+---
+<InfoLayout title="O portalu" description="Czym jest magazyn Mapa Codzienności, dla kogo piszemy, jak dobieramy tematy i jak pracuje redakcja." lead="Mapa Codzienności to ogólnopolski magazyn internetowy o sprawach, z którymi mierzymy się na co dzień – w domu, w pracy, w podróży i w kontaktach z usługodawcami.">
+  <h2>Po co powstał ten magazyn</h2>
+  <p>Wiele codziennych decyzji wymaga wiedzy, której nie mamy pod ręką: jak przygotować się do wizyty u specjalisty, w jakiej kolejności zaplanować remont, co sprawdzić w umowie kredytowej albo jak bezpiecznie podróżować z psem. Chcemy, żeby odpowiedzi na takie pytania były zebrane w jednym miejscu, napisane zrozumiałym językiem i uporządkowane tak, by dało się z nich od razu skorzystać.</p>
+  <p>Hasło „{SITE.tagline}” traktujemy dosłownie. Każdy tekst ma odpowiadać na konkretne pytanie czytelnika i kończyć się czymś praktycznym: listą kontrolną, planem działania, zestawieniem lub wskazaniem, gdzie szukać rzetelnych informacji.</p>
+  <h2>Działy</h2>
+  <ul>
+    {CATEGORIES.map((c) => <li><a href={`/kategoria/${c.slug}/`}>{c.name}</a> – {c.description}</li>)}
+  </ul>
+  <h2>Jak pracujemy</h2>
+  <ul>
+    <li><strong>Praktyczność przed objętością.</strong> Nie wydłużamy tekstów na siłę. Liczy się to, czy po lekturze wiesz, co zrobić.</li>
+    <li><strong>Źródła.</strong> W tematach zdrowotnych, prawnych i finansowych opieramy się na informacjach instytucji publicznych, przepisach i zaleceniach organizacji specjalistycznych. Wskazujemy je pod artykułami.</li>
+    <li><strong>Bez wymyślonych danych.</strong> Nie publikujemy zmyślonych statystyk, cytatów ani wypowiedzi ekspertów. Jeśli czegoś nie da się jednoznacznie rozstrzygnąć, piszemy o tym wprost.</li>
+    <li><strong>Oznaczanie współpracy.</strong> Materiały powstałe we współpracy z partnerami są wyraźnie oznaczone, a linki do ich stron mają atrybut <code>rel="sponsored"</code>. Więcej: <a href="/materialy-promocyjne/">Materiały promocyjne</a>.</li>
+  </ul>
+  <h2>Czego nie robimy</h2>
+  <p>Nie udzielamy indywidualnych porad medycznych, prawnych, podatkowych ani inwestycyjnych. Artykuły pomagają zrozumieć temat i przygotować się do rozmowy ze specjalistą, ale tej rozmowy nie zastępują.</p>
+  <h2>Uwagi i sprostowania</h2>
+  <p>Jeśli zauważysz błąd lub nieaktualną informację, napisz do nas – dane kontaktowe znajdziesz na stronie <a href="/kontakt/">Kontakt</a>. Poprawki nanosimy w treści artykułu i oznaczamy datą aktualizacji.</p>
+</InfoLayout>
