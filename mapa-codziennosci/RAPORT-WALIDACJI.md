@@ -1,6 +1,6 @@
 # Raport walidacji – Mapa Codzienności
 
-Wygenerowano: 2026-11-04T21:14:18.679Z (skrypt `scripts/validate-content.mjs`).
+Wygenerowano: 2026-11-04T21:26:51.854Z (skrypt `scripts/validate-content.mjs`).
 
 ## Wynik: WSZYSTKIE KONTROLE ZALICZONE
 
