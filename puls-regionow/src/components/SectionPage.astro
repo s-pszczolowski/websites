@@ -1,0 +1,33 @@
+---
+import Page from '../layouts/Page.astro';
+import Crumbs from './Crumbs.astro';
+import Story from './Story.astro';
+import StoryGrid from './StoryGrid.astro';
+import Paging from './Paging.astro';
+import Picks from './Picks.astro';
+import { PORTAL, SECTIONS, sectionOf } from '../config/portal';
+import { sectionLink, type Story as S } from '../lib/news';
+const { slug, now, total, items, count } = Astro.props as { slug: string; now: number; total: number; items: S[]; count: number };
+const s = sectionOf(slug);
+const first = now === 1;
+---
+<Page title={first ? `${s.label} – wiadomości i poradniki | ${PORTAL.name}` : `${s.label} – strona ${now} | ${PORTAL.name}`}
+  description={first ? `${s.intro} Wszystkie publikacje działu ${s.label} w portalu ${PORTAL.name}.` : `Dział ${s.label} w portalu ${PORTAL.name}: starsze publikacje, strona ${now} z ${total}.`}
+  active={slug} ld={[{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: s.label, description: s.intro, url: new URL(sectionLink(slug, now), Astro.site!).href, inLanguage: 'pl-PL' }]}>
+  <div class="frame">
+    <Crumbs path={first ? [{ name: 'Działy', href: '/dzial/' }, { name: s.label }] : [{ name: 'Działy', href: '/dzial/' }, { name: s.label, href: sectionLink(slug) }, { name: `Strona ${now}` }]} />
+    <header class="desk-head" style={`--tint:${s.tint}`}>
+      <h1>{s.label}{!first && <small> – strona {now}</small>}</h1>
+      <p>{s.intro}</p>
+      <p class="desk-head__count">{count} publikacji w dziale</p>
+    </header>
+    <div class="body-side">
+      <div class="body-side__main">
+        {first && items[0] ? <><div class="desk-lead"><Story story={items[0]} shape="lead" h="h2" eager /></div><StoryGrid items={items.slice(1)} /></> : <StoryGrid items={items} />}
+        <Paging now={now} total={total} to={(n) => sectionLink(slug, n)} label={`Strony działu ${s.label}`} />
+        <nav class="other-desks" aria-label="Inne działy"><h2 class="label-bar label-bar--dark">Inne działy</h2><ul>{SECTIONS.filter((x) => x.slug !== slug).map((x) => <li style={`--tint:${x.tint}`}><a href={sectionLink(x.slug)}>{x.label}</a></li>)}</ul></nav>
+      </div>
+      <Picks skip={items.map((x) => x.id)} />
+    </div>
+  </div>
+</Page>

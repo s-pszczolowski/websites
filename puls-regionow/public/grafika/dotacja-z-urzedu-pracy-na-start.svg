@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+<defs><pattern id="r" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="2.2" fill="#2E4B7A" fill-opacity=".16"/></pattern></defs>
+<rect width="1200" height="750" fill="#eaedf2"/><rect width="1200" height="750" fill="url(#r)"/>
+<rect x="560" y="70" width="520" height="610" fill="#FFFFFF" fill-opacity=".72"/>
+<circle cx="170" cy="271" r="73" fill="#E8B75B" fill-opacity=".9"/>
+<rect x="0" y="633" width="1200" height="8" fill="#2E4B7A" fill-opacity=".5"/>
+<g transform="translate(520 80) scale(1)"><path d="M110 520 V290 L300 160 L490 290 V520 Z" fill="#E3CDA8"/><rect x="150" y="330" width="40" height="190" rx="0" fill="#FFFFFF"/><rect x="235" y="330" width="40" height="190" rx="0" fill="#FFFFFF"/><rect x="320" y="330" width="40" height="190" rx="0" fill="#FFFFFF"/><rect x="405" y="330" width="40" height="190" rx="0" fill="#FFFFFF"/><path d="M90 290 L300 140 L510 290 Z" fill="#192A3A"/><circle cx="300" cy="230" r="30" fill="#E8B75B"/><ellipse cx="470" cy="520" rx="60" ry="16" fill="#E8B75B"/><ellipse cx="480" cy="498" rx="60" ry="16" fill="#E8B75B"/><ellipse cx="490" cy="476" rx="60" ry="16" fill="#E8B75B"/></g>
+<rect x="0" y="0" width="1200" height="14" fill="#2E4B7A"/><rect x="0" y="736" width="1200" height="14" fill="#192A3A"/>
+</svg>

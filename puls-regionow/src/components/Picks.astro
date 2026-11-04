@@ -1,0 +1,21 @@
+---
+import { stories, link, picture, sectionCounts } from '../lib/news';
+const { skip = [] } = Astro.props as { skip?: string[] };
+const all = await stories();
+const picks = all.filter((s) => s.data.pick && !skip.includes(s.id)).slice(0, 5);
+const residents = all.filter((s) => s.data.residents && !skip.includes(s.id)).slice(0, 4);
+---
+<aside class="picks" aria-label="Polecane przez redakcję">
+  <section class="picks__block">
+    <h2 class="label-bar">Polecane przez redakcję</h2>
+    <ol class="picks__list">{picks.map((s) => <li><a href={link(s)}><img src={picture(s)} alt="" width="88" height="88" loading="lazy" /><span>{s.data.title}</span></a></li>)}</ol>
+  </section>
+  <section class="picks__block picks__block--residents">
+    <h2 class="label-bar label-bar--amber">Poradniki dla mieszkańców</h2>
+    <ul class="picks__plain">{residents.map((s) => <li><a href={link(s)}>{s.data.title}</a></li>)}</ul>
+  </section>
+  <section class="picks__block">
+    <h2 class="label-bar label-bar--dark">Działy</h2>
+    <ul class="picks__sections">{sectionCounts(all).map((s) => <li style={`--tint:${s.tint}`}><a href={`/dzial/${s.slug}/`}>{s.label}</a><b>{s.count}</b></li>)}</ul>
+  </section>
+</aside>

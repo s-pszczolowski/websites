@@ -1,0 +1,16 @@
+---
+import Page from '../layouts/Page.astro';
+import Story from '../components/Story.astro';
+import { PORTAL, SECTIONS } from '../config/portal';
+import { stories } from '../lib/news';
+const latest = (await stories()).slice(0, 3);
+---
+<Page title={`Nie znaleziono strony | ${PORTAL.name}`} description="Strona o tym adresie nie istnieje. Wybierz dział portalu lub przejdź do najnowszych publikacji." noindex>
+  <div class="frame notfound">
+    <p class="kicker"><span class="kicker__section" style="--tint:#B33434">Błąd 404</span></p>
+    <h1 class="headline">Nie ma takiej strony</h1>
+    <p class="standfirst">Adres mógł się zmienić. Sprawdź działy lub najnowsze publikacje.</p>
+    <ul class="other-desks__inline">{SECTIONS.map((s) => <li><a href={`/dzial/${s.slug}/`}>{s.label}</a></li>)}</ul>
+    <div class="cols-3">{latest.map((s) => <Story story={s} shape="box" />)}</div>
+  </div>
+</Page>

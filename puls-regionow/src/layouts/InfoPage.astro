@@ -1,0 +1,22 @@
+---
+import Page from './Page.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Prelaunch from '../components/Prelaunch.astro';
+import { PAGES, PORTAL } from '../config/portal';
+import { ownerFilled } from '../lib/owner';
+const { title, description, lead, legal = false } = Astro.props as { title: string; description: string; lead?: string; legal?: boolean };
+---
+<Page title={`${title} | ${PORTAL.name}`} description={description} noindex={legal && !ownerFilled}>
+  <div class="frame">
+    <Crumbs path={[{ name: title }]} />
+    <div class="info">
+      <nav class="info__nav" aria-label="Informacje o portalu"><h2 class="label-bar label-bar--dark">O portalu</h2><ul>{PAGES.map((p) => <li><a href={p.href} aria-current={Astro.url.pathname === p.href ? 'page' : undefined}>{p.label}</a></li>)}</ul></nav>
+      <article class="info__body">
+        <h1 class="headline">{title}</h1>
+        {lead && <p class="standfirst">{lead}</p>}
+        {legal && <Prelaunch />}
+        <div class="copy"><slot /></div>
+      </article>
+    </div>
+  </div>
+</Page>

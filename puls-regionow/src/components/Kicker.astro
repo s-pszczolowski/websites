@@ -1,0 +1,10 @@
+---
+import { sectionOf, regionOf } from '../config/portal';
+const { section, region, sponsored = false } = Astro.props as { section: string; region?: string; sponsored?: boolean };
+const s = sectionOf(section);
+---
+<p class="kicker">
+  <a class="kicker__section" href={`/dzial/${s.slug}/`} style={`--tint:${s.tint}`}>{s.nav}</a>
+  {region && <a class="kicker__region" href={`/region/${region}/`}>{regionOf(region).label}</a>}
+  {sponsored && <span class="kicker__sponsored">Sponsorowany</span>}
+</p>

@@ -1,0 +1,9 @@
+---
+import ListPage from '../../components/ListPage.astro';
+import { PORTAL } from '../../config/portal';
+import { stories } from '../../lib/news';
+export async function getStaticPaths() { const n = Math.ceil((await stories()).length / PORTAL.perList); return Array.from({ length: n - 1 }, (_, i) => ({ params: { page: String(i + 2) } })); }
+const n = Number(Astro.params.page);
+const all = await stories();
+---
+<ListPage now={n} total={Math.ceil(all.length / PORTAL.perList)} items={all.slice((n - 1) * PORTAL.perList, n * PORTAL.perList)} />

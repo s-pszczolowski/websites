@@ -1,0 +1,9 @@
+---
+import SectionPage from '../../../components/SectionPage.astro';
+import { SECTIONS, PORTAL } from '../../../config/portal';
+import { stories } from '../../../lib/news';
+export const getStaticPaths = () => SECTIONS.map((s) => ({ params: { slug: s.slug } }));
+const { slug } = Astro.params;
+const list = (await stories()).filter((s) => s.data.section === slug);
+---
+<SectionPage slug={slug!} now={1} total={Math.ceil(list.length / PORTAL.perSection)} items={list.slice(0, PORTAL.perSection)} count={list.length} />

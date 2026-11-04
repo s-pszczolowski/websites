@@ -1,0 +1,25 @@
+{
+  "name": "puls-regionow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Puls Regionów – regionalny portal informacyjno-poradnikowy (Astro, SSG)",
+  "scripts": {
+    "dev": "astro dev",
+    "images": "node scripts/generate-images.mjs",
+    "build": "node scripts/generate-images.mjs && astro build",
+    "build:production": "node scripts/check-deploy-config.mjs && npm run build && node scripts/validate-content.mjs",
+    "validate": "node scripts/validate-content.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "preview": "astro preview",
+    "draw-clients": "node scripts/draw-clients.mjs"
+  },
+  "engines": { "node": ">=18.20.8" },
+  "dependencies": {
+    "@fontsource-variable/newsreader": "5.3.0",
+    "@fontsource-variable/oswald": "5.3.0",
+    "@fontsource-variable/public-sans": "5.3.0",
+    "astro": "5.18.2"
+  },
+  "devDependencies": { "sharp": "0.34.5" }
+}

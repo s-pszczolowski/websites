@@ -1,0 +1,19 @@
+---
+import Kicker from './Kicker.astro';
+import { link, picture, dateShort, isoDate, type Story } from '../lib/news';
+type Shape = 'lead' | 'wide' | 'box' | 'square' | 'line' | 'text';
+const { story, shape = 'box', h = 'h3', eager = false, showRegion = true } = Astro.props as { story: Story; shape?: Shape; h?: 'h2' | 'h3'; eager?: boolean; showRegion?: boolean };
+const d = story.data;
+const H = h;
+---
+<article class={`story story--${shape}`}>
+  {shape !== 'text' && shape !== 'line' && (
+    <a class="story__pic" href={link(story)} tabindex="-1" aria-hidden="true"><img src={picture(story)} alt="" width="1200" height="750" loading={eager ? 'eager' : 'lazy'} decoding="async" /></a>
+  )}
+  <div class="story__body">
+    <Kicker section={d.section} region={showRegion ? d.region : undefined} sponsored={d.sponsored} />
+    <H class="story__title"><a href={link(story)}>{d.title}</a></H>
+    {(shape === 'lead' || shape === 'wide' || shape === 'box') && <p class="story__lead">{d.lead}</p>}
+    <p class="story__date"><time datetime={isoDate(d.date)}>{dateShort(d.date)}</time> · {d.genre}</p>
+  </div>
+</article>

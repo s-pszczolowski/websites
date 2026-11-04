@@ -1,0 +1,18 @@
+---
+import InfoPage from '../layouts/InfoPage.astro';
+import { OWNER, ownerFilled } from '../lib/owner';
+const r = OWNER.redakcja; const w = OWNER.wydawca;
+---
+<InfoPage title="Kontakt z redakcją" description="Jak skontaktować się z redakcją portalu Puls Regionów: sprostowania, propozycje tematów z regionu i zapytania o współpracę." legal>
+  <h2>Redakcja</h2>
+  {ownerFilled ? <ul><li>E-mail: <a href={`mailto:${r.email}`}>{r.email}</a></li>{r.email_reklama && <li>Reklama i współpraca: <a href={`mailto:${r.email_reklama}`}>{r.email_reklama}</a></li>}{r.telefon && <li>Telefon: {r.telefon}</li>}{r.redaktor_naczelny && <li>Redaktor naczelny: {r.redaktor_naczelny}</li>}</ul>
+    : <p>Adres e-mail redakcji zostanie opublikowany po uzupełnieniu konfiguracji wdrożeniowej portalu.</p>}
+  <h2>W jakich sprawach pisać</h2>
+  <ul>
+    <li><strong>Sprostowania i poprawki</strong> – wskaż adres artykułu, fragment i źródło aktualnej informacji.</li>
+    <li><strong>Tematy z regionu</strong> – opisz sprawę, której dotyczy temat, i wskaż, gdzie można sprawdzić fakty.</li>
+    <li><strong>Współpraca</strong> – najpierw zapoznaj się z dokumentem <a href="/wspolpraca/">Zasady publikacji i współpracy</a>.</li>
+  </ul>
+  <p>Redakcja nie udziela indywidualnych porad medycznych ani prawnych. W sytuacji zagrożenia życia lub zdrowia dzwoń pod numer 112.</p>
+  {ownerFilled && <><h2>Wydawca</h2><p>{w.nazwa}<br />{w.adres}{w.nip && <><br />NIP {w.nip}</>}{w.krs_regon && <><br />{w.krs_regon}</>}</p></>}
+</InfoPage>

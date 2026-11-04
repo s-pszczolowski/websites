@@ -1,0 +1,13 @@
+---
+import InfoPage from '../layouts/InfoPage.astro';
+import { stories, link } from '../lib/news';
+import { sectionOf } from '../config/portal';
+const list = (await stories()).filter((s) => s.data.sponsored);
+---
+<InfoPage title="Artykuły sponsorowane" description="Jak Puls Regionów oznacza artykuły sponsorowane i lista publikacji zawierających link do strony partnera." lead="Część publikacji powstaje we współpracy z firmami. Wszystkie są wyraźnie oznaczone.">
+  <h2>Oznaczenia</h2>
+  <ul><li>etykieta „Sponsorowany” przy kategorii na kartach i w artykule,</li><li>ramka „Artykuł sponsorowany” przed treścią,</li><li>jeden link do partnera z atrybutem <code>rel="sponsored"</code>.</li></ul>
+  <h2>Lista artykułów sponsorowanych ({list.length})</h2>
+  <ul>{list.map((s) => <li><a href={link(s)}>{s.data.title}</a> – {sectionOf(s.data.section).label}</li>)}</ul>
+  <p>Pozostałe publikacje są materiałami redakcyjnymi bez linków do partnerów.</p>
+</InfoPage>

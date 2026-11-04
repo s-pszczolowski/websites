@@ -1,0 +1,18 @@
+---
+import Page from '../layouts/Page.astro';
+import Crumbs from '../components/Crumbs.astro';
+import { PORTAL, SECTIONS, REGIONS, PAGES } from '../config/portal';
+import { stories, link } from '../lib/news';
+const all = await stories();
+---
+<Page title={`Mapa serwisu | ${PORTAL.name}`} description={`Wszystkie podstrony portalu ${PORTAL.name}: działy, wydania regionalne, artykuły i informacje o serwisie.`}>
+  <div class="frame">
+    <Crumbs path={[{ name: 'Mapa serwisu' }]} />
+    <h1 class="headline">Mapa serwisu</h1>
+    <div class="desk-index">
+      {SECTIONS.map((s) => <section style={`--tint:${s.tint}`}><h2><a href={`/dzial/${s.slug}/`}>{s.label}</a></h2><ul>{all.filter((x) => x.data.section === s.slug).map((x) => <li><a href={link(x)}>{x.data.title}</a></li>)}</ul></section>)}
+      <section><h2>Wydania regionalne</h2><ul>{REGIONS.map((r) => <li><a href={`/region/${r.slug}/`}>{r.label}</a></li>)}</ul></section>
+      <section><h2>Portal</h2><ul><li><a href="/najnowsze/">Najnowsze publikacje</a></li><li><a href="/dzial/">Działy</a></li>{PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul></section>
+    </div>
+  </div>
+</Page>

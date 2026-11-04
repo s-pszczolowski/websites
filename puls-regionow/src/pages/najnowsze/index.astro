@@ -1,0 +1,7 @@
+---
+import ListPage from '../../components/ListPage.astro';
+import { PORTAL } from '../../config/portal';
+import { stories } from '../../lib/news';
+const all = await stories();
+---
+<ListPage now={1} total={Math.ceil(all.length / PORTAL.perList)} items={all.slice(0, PORTAL.perList)} />

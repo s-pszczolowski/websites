@@ -1,0 +1,89 @@
+---
+import Page from '../layouts/Page.astro';
+import Story from '../components/Story.astro';
+import Picks from '../components/Picks.astro';
+import Paging from '../components/Paging.astro';
+import { PORTAL, sectionOf } from '../config/portal';
+import { stories, link, dateShort, isoDate, listLink, sectionCounts } from '../lib/news';
+
+const all = await stories();
+const used = new Set<string>();
+const take = (src: typeof all, n: number) => { const r = src.filter((s) => !used.has(s.id)).slice(0, n); r.forEach((s) => used.add(s.id)); return r; };
+const topSet = all.filter((s) => s.data.top !== undefined).sort((a, b) => a.data.top! - b.data.top!);
+const [lead, ...beside] = take(topSet.length >= 3 ? topSet : all, 3);
+const ticker = all.slice(0, 6);
+const headlines = take(all, 5);
+const sec = (slug: string) => all.filter((s) => s.data.section === slug);
+const reg = (slug: string) => all.filter((s) => s.data.region === slug);
+const szczecin = take(sec('szczecin-i-pomorze-zachodnie'), 5);
+const coast = take(reg('wybrzeze'), 4);
+const residents = take(all.filter((s) => s.data.residents), 4);
+const health = take(sec('zdrowie-i-specjalisci'), 3);
+const business = take(sec('lokalny-biznes-i-gospodarka'), 3);
+const home = take(sec('dom-remonty-i-nieruchomosci'), 4);
+const country = take(reg('polska'), 4);
+const pages = Math.ceil(all.length / PORTAL.perList);
+---
+<Page title={`${PORTAL.name} – ${PORTAL.motto}`} description={PORTAL.about} ld={[{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: PORTAL.name, url: new URL('/', Astro.site!).href, inLanguage: 'pl-PL' }]}>
+  <h1 class="sr-only">{PORTAL.name} – regionalny portal informacyjno-poradnikowy</h1>
+  <div class="ticker"><div class="frame ticker__row"><span class="ticker__label">Na skróty</span><ul>{ticker.map((s) => <li><a href={link(s)}>{s.data.title}</a></li>)}</ul></div></div>
+
+  <section class="frame front" aria-label="Najważniejsze publikacje">
+    <div class="front__lead"><Story story={lead} shape="lead" h="h2" eager /></div>
+    <div class="front__beside">{beside.map((s) => <Story story={s} shape="square" h="h2" eager />)}</div>
+    <div class="front__headlines">
+      <h2 class="label-bar">Najnowsze</h2>
+      <ol>{headlines.map((s) => <li><time datetime={isoDate(s.data.date)}>{dateShort(s.data.date)}</time><a href={link(s)}>{s.data.title}</a><span style={`--tint:${sectionOf(s.data.section).tint}`}>{sectionOf(s.data.section).nav}</span></li>)}</ol>
+      <a class="more" href="/najnowsze/">Wszystkie publikacje »</a>
+    </div>
+  </section>
+
+  <div class="frame body-side">
+    <div class="body-side__main">
+      <section class="region-block" aria-labelledby="r-szczecin">
+        <header class="region-head"><h2 id="r-szczecin">Szczecin i Pomorze Zachodnie</h2><a href="/dzial/szczecin-i-pomorze-zachodnie/">Cały dział »</a></header>
+        <div class="split-71">
+          <Story story={szczecin[0]} shape="wide" h="h3" />
+          <div class="stack">{szczecin.slice(1).map((s) => <Story story={s} shape="line" />)}</div>
+        </div>
+      </section>
+
+      <section class="region-block" aria-labelledby="r-wybrzeze">
+        <header class="region-head region-head--sea"><h2 id="r-wybrzeze">Nad Bałtykiem</h2><a href="/region/wybrzeze/">Wydanie: Wybrzeże »</a></header>
+        <div class="cols-4">{coast.map((s) => <Story story={s} shape="box" showRegion={false} />)}</div>
+      </section>
+
+      <section class="residents" aria-labelledby="h-poradniki">
+        <header class="region-head region-head--amber"><h2 id="h-poradniki">Poradniki dla mieszkańców</h2></header>
+        <ol class="residents__list">{residents.map((s, i) => <li><span class="residents__no">{i + 1}</span><div><Story story={s} shape="text" /></div></li>)}</ol>
+      </section>
+
+      <div class="cols-2 duo">
+        <section aria-labelledby="h-zdrowie"><header class="region-head"><h2 id="h-zdrowie">Zdrowie i specjaliści</h2><a href="/dzial/zdrowie-i-specjalisci/">Więcej »</a></header>{health.map((s, i) => <Story story={s} shape={i === 0 ? 'box' : 'line'} />)}</section>
+        <section aria-labelledby="h-biznes"><header class="region-head"><h2 id="h-biznes">Lokalny biznes</h2><a href="/dzial/lokalny-biznes-i-gospodarka/">Więcej »</a></header>{business.map((s, i) => <Story story={s} shape={i === 0 ? 'box' : 'line'} />)}</section>
+      </div>
+    </div>
+    <Picks skip={[lead.id, ...beside.map((s) => s.id)]} />
+  </div>
+
+  <section class="band" aria-labelledby="h-dom">
+    <div class="frame"><header class="region-head"><h2 id="h-dom">Dom, remonty i nieruchomości</h2><a href="/dzial/dom-remonty-i-nieruchomosci/">Cały dział »</a></header>
+      <div class="cols-4">{home.map((s) => <Story story={s} shape="square" />)}</div></div>
+  </section>
+
+  <section class="frame region-block" aria-labelledby="h-polska">
+    <header class="region-head region-head--dark"><h2 id="h-polska">Polska i inne regiony</h2><a href="/region/polska/">Wydanie ogólnopolskie »</a></header>
+    <div class="cols-2">{country.map((s) => <Story story={s} shape="wide" />)}</div>
+  </section>
+
+  <section class="frame region-block" aria-labelledby="h-dzialy">
+    <header class="region-head region-head--dark"><h2 id="h-dzialy">Działy portalu</h2><a href="/dzial/">Przegląd działów »</a></header>
+    <ul class="desk">{sectionCounts(all).map((s) => <li style={`--tint:${s.tint}`}><a href={`/dzial/${s.slug}/`}><strong>{s.label}</strong><span>{s.intro}</span><em>{s.count} publikacji</em></a></li>)}</ul>
+  </section>
+
+  <section class="frame region-block" aria-labelledby="h-archiwum">
+    <header class="region-head"><h2 id="h-archiwum">Wszystkie publikacje</h2></header>
+    <ul class="digest">{all.slice(0, PORTAL.perList).map((s) => <li><time datetime={isoDate(s.data.date)}>{dateShort(s.data.date)}</time><a href={link(s)}>{s.data.title}</a></li>)}</ul>
+    <Paging now={1} total={pages} to={listLink} label="Strony wszystkich publikacji" />
+  </section>
+</Page>

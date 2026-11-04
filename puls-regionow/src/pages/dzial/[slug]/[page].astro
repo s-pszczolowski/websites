@@ -1,0 +1,13 @@
+---
+import SectionPage from '../../../components/SectionPage.astro';
+import { SECTIONS, PORTAL } from '../../../config/portal';
+import { stories } from '../../../lib/news';
+export async function getStaticPaths() {
+  const all = await stories();
+  return SECTIONS.flatMap((s) => { const n = Math.ceil(all.filter((x) => x.data.section === s.slug).length / PORTAL.perSection); return Array.from({ length: Math.max(0, n - 1) }, (_, i) => ({ params: { slug: s.slug, page: String(i + 2) } })); });
+}
+const { slug, page } = Astro.params;
+const n = Number(page);
+const list = (await stories()).filter((s) => s.data.section === slug);
+---
+<SectionPage slug={slug!} now={n} total={Math.ceil(list.length / PORTAL.perSection)} items={list.slice((n - 1) * PORTAL.perSection, n * PORTAL.perSection)} count={list.length} />

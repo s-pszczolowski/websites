@@ -1,0 +1,19 @@
+---
+import Page from '../../../layouts/Page.astro';
+import Crumbs from '../../../components/Crumbs.astro';
+import StoryGrid from '../../../components/StoryGrid.astro';
+import { PORTAL } from '../../../config/portal';
+import { stories, months, monthName, yearMonth } from '../../../lib/news';
+export async function getStaticPaths() { return months(await stories()).map((m) => ({ params: { rok: m.ym.slice(0, 4), miesiac: m.ym.slice(5) } })); }
+const ym = `${Astro.params.rok}-${Astro.params.miesiac}`;
+const items = (await stories()).filter((s) => yearMonth(s.data.date) === ym);
+const label = monthName(ym);
+---
+<Page title={`Archiwum: ${label} | ${PORTAL.name}`} description={`Publikacje portalu ${PORTAL.name} z miesiąca ${label} – ${items.length} artykułów o sprawach regionu i codziennym życiu.`}>
+  <div class="frame">
+    <Crumbs path={[{ name: 'Najnowsze', href: '/najnowsze/' }, { name: label }]} />
+    <h1 class="headline">Archiwum: {label}</h1>
+    <p class="month-links">Liczba publikacji: {items.length}. <a href="/najnowsze/">« Wszystkie publikacje</a></p>
+    <StoryGrid items={items} />
+  </div>
+</Page>

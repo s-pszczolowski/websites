@@ -1,0 +1,20 @@
+---
+import Page from '../layouts/Page.astro';
+import Crumbs from './Crumbs.astro';
+import StoryGrid from './StoryGrid.astro';
+import Paging from './Paging.astro';
+import { PORTAL } from '../config/portal';
+import { stories, listLink, months, monthName, type Story as S } from '../lib/news';
+const { now, total, items } = Astro.props as { now: number; total: number; items: S[] };
+const ms = months(await stories());
+---
+<Page title={now === 1 ? `Najnowsze publikacje | ${PORTAL.name}` : `Najnowsze publikacje – strona ${now} | ${PORTAL.name}`}
+  description={now === 1 ? `Wszystkie publikacje portalu ${PORTAL.name} od najnowszych: sprawy Szczecina, Pomorza Zachodniego, wybrzeża i całej Polski.` : `Publikacje portalu ${PORTAL.name} od najnowszych – strona ${now} z ${total}.`}>
+  <div class="frame">
+    <Crumbs path={now === 1 ? [{ name: 'Najnowsze' }] : [{ name: 'Najnowsze', href: '/najnowsze/' }, { name: `Strona ${now}` }]} />
+    <h1 class="headline">Najnowsze publikacje{now > 1 && ` – strona ${now}`}</h1>
+    <p class="month-links">Archiwum miesięczne: {ms.map((m) => <a href={`/najnowsze/${m.ym.slice(0, 4)}/${m.ym.slice(5)}/`}>{monthName(m.ym)} ({m.count})</a>)}</p>
+    <StoryGrid items={items} />
+    <Paging now={now} total={total} to={listLink} />
+  </div>
+</Page>

@@ -1,0 +1,7 @@
+---
+const { size = 'big' } = Astro.props as { size?: 'big' | 'small' };
+---
+<a href="/" class={`wordmark wordmark--${size}`} aria-label="Puls Regionów – strona główna">
+  <span class="wordmark__name">Puls<svg class="wordmark__pulse" viewBox="0 0 64 24" aria-hidden="true"><path d="M0 14h18l5-11 7 19 6-14 4 6h24" fill="none" stroke="#B33434" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round"/></svg>Regionów</span>
+  {size === 'big' && <span class="wordmark__motto">Ludzie, miejsca, sprawy codzienne</span>}
+</a>

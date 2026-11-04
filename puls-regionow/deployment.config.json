@@ -1,0 +1,7 @@
+{
+  "_instrukcja": "Uzupełnia rzeczywisty właściciel przed publicznym uruchomieniem. Dopóki pola są puste, strony Kontakt, Polityka prywatności i Polityka cookies mają oznaczenie wersji przedwdrożeniowej (noindex), a npm run build:production kończy się błędem.",
+  "wydawca": { "nazwa": null, "adres": null, "nip": null, "krs_regon": null },
+  "redakcja": { "email": null, "email_reklama": null, "telefon": null, "redaktor_naczelny": null },
+  "analityka": { "aktywna": false, "narzedzie": null },
+  "daty_publikacji_potwierdzone": false
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" width="1200" height="750">
+<defs><pattern id="r" width="14" height="14" patternUnits="userSpaceOnUse"><circle cx="7" cy="7" r="2.2" fill="#1F6F78" fill-opacity=".16"/></pattern></defs>
+<rect width="1200" height="750" fill="#e9f1f2"/><rect width="1200" height="750" fill="url(#r)"/>
+<rect x="340" y="70" width="520" height="610" fill="#FFFFFF" fill-opacity=".72"/>
+<circle cx="170" cy="254" r="80" fill="#E8B75B" fill-opacity=".9"/>
+<rect x="0" y="617" width="1200" height="8" fill="#1F6F78" fill-opacity=".5"/>
+<g transform="translate(300 80) scale(1)"><path d="M300 70 L500 140 V300 C 500 430 410 500 300 540 C 190 500 100 430 100 300 V140 Z" fill="#1F6F78"/><rect x="170" y="280" width="220" height="50" rx="10" fill="#FFFFFF"/><rect x="390" y="292" width="70" height="26" rx="4" fill="#192A3A"/><rect x="130" y="270" width="40" height="70" rx="6" fill="#192A3A"/><rect x="200" y="292" width="120" height="26" rx="4" fill="#E8B75B"/></g>
+<rect x="0" y="0" width="1200" height="14" fill="#1F6F78"/><rect x="0" y="736" width="1200" height="14" fill="#192A3A"/>
+</svg>

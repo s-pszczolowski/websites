@@ -1,0 +1,18 @@
+---
+import InfoPage from '../layouts/InfoPage.astro';
+import { OWNER, ownerFilled } from '../lib/owner';
+---
+<InfoPage title="Polityka prywatności" description="Zasady przetwarzania danych osobowych w portalu Puls Regionów: logi serwera, korespondencja z redakcją i prawa użytkowników." legal>
+  <h2>Administrator danych</h2>
+  {ownerFilled ? <p>Administratorem danych jest {OWNER.wydawca.nazwa}, {OWNER.wydawca.adres}. Kontakt: <a href={`mailto:${OWNER.redakcja.email}`}>{OWNER.redakcja.email}</a>.</p> : <p>Dane administratora zostaną podane przez właściciela portalu przed jego publicznym uruchomieniem.</p>}
+  <h2>Jakie dane przetwarzamy</h2>
+  <p>Portal jest serwisem statycznym – bez kont użytkowników, komentarzy i formularzy. Sama strona nie zbiera danych osobowych.</p>
+  <h2>Logi serwera</h2>
+  <p>Serwer może zapisywać dane techniczne żądań (adres IP, data i godzina, przeglądarka, adres podstrony) w celu zapewnienia bezpieczeństwa i działania serwisu – na podstawie prawnie uzasadnionego interesu administratora (art. 6 ust. 1 lit. f RODO).</p>
+  <h2>Korespondencja</h2>
+  <p>Dane z wiadomości wysłanych do redakcji przetwarzamy wyłącznie w celu odpowiedzi i prowadzenia korespondencji.</p>
+  <h2>Serwisy zewnętrzne</h2>
+  <p>Czcionki i grafiki są serwowane z serwera portalu. Linki do innych stron (źródła, partnerzy) prowadzą do serwisów, za których zasady prywatności odpowiadają ich administratorzy.</p>
+  <h2>Prawa użytkowników</h2>
+  <p>Przysługuje Ci prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, sprzeciwu i skargi do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+</InfoPage>

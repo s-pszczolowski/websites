@@ -1,0 +1,9 @@
+---
+import Ld from './Ld.astro';
+const { path } = Astro.props as { path: { name: string; href?: string }[] };
+const full = [{ name: 'Strona główna', href: '/' }, ...path];
+---
+<nav class="crumbs" aria-label="Jesteś tutaj">
+  <ol>{full.map((c, i) => <li>{c.href && i < full.length - 1 ? <a href={c.href}>{c.name}</a> : <span aria-current="page">{c.name}</span>}</li>)}</ol>
+</nav>
+<Ld json={{ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: full.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: new URL(c.href ?? Astro.url.pathname, Astro.site!).href })) }} />

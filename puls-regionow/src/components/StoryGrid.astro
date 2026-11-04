@@ -1,0 +1,6 @@
+---
+import Story from './Story.astro';
+import type { Story as S } from '../lib/news';
+const { items } = Astro.props as { items: S[] };
+---
+<div class="cols-2">{items.map((s) => <Story story={s} shape="wide" h="h2" />)}</div>

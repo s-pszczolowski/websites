@@ -1,0 +1,28 @@
+---
+import { PORTAL, PAGES } from '../config/portal';
+import { stories, sectionCounts, regionCounts, months, monthName, link } from '../lib/news';
+import Wordmark from './Wordmark.astro';
+const all = await stories();
+const secs = sectionCounts(all);
+---
+<footer class="foot">
+  <div class="foot__sections">
+    <div class="frame foot__sections-grid">
+      {secs.map((s) => (
+        <section style={`--tint:${s.tint}`}>
+          <h2><a href={`/dzial/${s.slug}/`}>{s.label}</a> <small>{s.count}</small></h2>
+          <ul>{all.filter((x) => x.data.section === s.slug).slice(0, 3).map((x) => <li><a href={link(x)}>{x.data.title}</a></li>)}</ul>
+        </section>
+      ))}
+    </div>
+  </div>
+  <div class="foot__base">
+    <div class="frame foot__base-grid">
+      <div class="foot__about"><Wordmark size="small" /><p>{PORTAL.about}</p><p class="foot__muted">Publikacje mają charakter informacyjny i nie zastępują porady lekarza, prawnika ani doradcy podatkowego.</p></div>
+      <nav aria-label="Regiony"><h2>Regiony</h2><ul>{regionCounts(all).map((r) => <li><a href={`/region/${r.slug}/`}>{r.label} ({r.count})</a></li>)}</ul></nav>
+      <nav aria-label="Archiwum"><h2>Archiwum</h2><ul><li><a href="/najnowsze/">Wszystkie publikacje</a></li>{months(all).map((m) => <li><a href={`/najnowsze/${m.ym.slice(0, 4)}/${m.ym.slice(5)}/`}>{monthName(m.ym)}</a></li>)}<li><a href="/dzial/">Wszystkie działy</a></li><li><a href="/mapa-serwisu/">Mapa serwisu</a></li><li><a href="/rss.xml">Kanał RSS</a></li></ul></nav>
+      <nav aria-label="O portalu"><h2>O portalu</h2><ul>{PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul></nav>
+    </div>
+    <div class="frame foot__legal"><span>© 2026 {PORTAL.name}</span><span>Artykuły sponsorowane są oznaczone – <a href="/artykuly-sponsorowane/">zasady</a></span></div>
+  </div>
+</footer>

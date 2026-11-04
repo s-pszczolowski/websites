@@ -1,0 +1,27 @@
+---
+import { SECTIONS, REGIONS } from '../config/portal';
+import Wordmark from './Wordmark.astro';
+const { active } = Astro.props as { active?: string };
+---
+<header class="mast">
+  <div class="mast__regions">
+    <div class="frame mast__regions-row">
+      <span class="mast__regions-label">Wydania regionalne:</span>
+      <ul>{REGIONS.map((r) => <li><a href={`/region/${r.slug}/`} aria-current={active === `region:${r.slug}` ? 'page' : undefined}>{r.label}</a></li>)}</ul>
+      <a class="mast__latest" href="/najnowsze/">Najnowsze</a>
+    </div>
+  </div>
+  <div class="frame mast__brand"><Wordmark /></div>
+  <nav class="newsbar" aria-label="Działy portalu">
+    <div class="frame newsbar__row">
+      <input class="newsbar__toggle" type="checkbox" id="menu-dzialy" />
+      <label class="newsbar__button" for="menu-dzialy"><span class="newsbar__icon" aria-hidden="true"></span>Działy</label>
+      <a class="newsbar__home" href="/" aria-label="Strona główna">Start</a>
+      <ul class="newsbar__list">
+        {SECTIONS.map((s) => <li><a href={`/dzial/${s.slug}/`} aria-current={active === s.slug ? 'page' : undefined}>{s.nav}</a></li>)}
+        <li class="newsbar__extra"><a href="/najnowsze/">Wszystkie publikacje</a></li>
+        {REGIONS.map((r) => <li class="newsbar__extra"><a href={`/region/${r.slug}/`}>Region: {r.label}</a></li>)}
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,19 @@
+---
+import Page from '../../layouts/Page.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import { PORTAL } from '../../config/portal';
+import { stories, sectionCounts, link, dateShort } from '../../lib/news';
+const all = await stories();
+---
+<Page title={`Działy | ${PORTAL.name}`} description={`Osiem działów portalu ${PORTAL.name}: Szczecin i Pomorze Zachodnie, dom, zdrowie, lokalny biznes, turystyka, transport, rodzina oraz technologie i usługi.`}>
+  <div class="frame">
+    <Crumbs path={[{ name: 'Działy' }]} />
+    <h1 class="headline">Działy portalu</h1>
+    <div class="desk-index">
+      {sectionCounts(all).map((s) => (
+        <section style={`--tint:${s.tint}`}><h2><a href={`/dzial/${s.slug}/`}>{s.label}</a> <small>{s.count}</small></h2><p>{s.intro}</p>
+          <ul>{all.filter((x) => x.data.section === s.slug).slice(0, 5).map((x) => <li><a href={link(x)}>{x.data.title}</a> <time>{dateShort(x.data.date)}</time></li>)}</ul></section>
+      ))}
+    </div>
+  </div>
+</Page>

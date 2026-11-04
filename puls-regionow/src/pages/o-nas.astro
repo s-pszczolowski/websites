@@ -1,0 +1,19 @@
+---
+import InfoPage from '../layouts/InfoPage.astro';
+import { SECTIONS, REGIONS, PORTAL } from '../config/portal';
+---
+<InfoPage title="O portalu" description="Czym jest Puls Regionów, o czym piszemy, jak pracuje redakcja i jak dbamy o rzetelność informacji regionalnych." lead={PORTAL.about}>
+  <h2>Region i kraj</h2>
+  <p>Najwięcej miejsca poświęcamy Szczecinowi, Pomorzu Zachodniemu i wybrzeżu Bałtyku, ale piszemy też o sprawach ogólnopolskich i innych regionach. Każdy tekst oznaczamy wydaniem regionalnym: {REGIONS.map((r, i) => <><a href={`/region/${r.slug}/`}>{r.label}</a>{i < REGIONS.length - 1 ? ', ' : '.'}</>)}</p>
+  <h2>Działy</h2>
+  <ul>{SECTIONS.map((s) => <li><a href={`/dzial/${s.slug}/`}>{s.label}</a> – {s.intro}</li>)}</ul>
+  <h2>Jak pracujemy</h2>
+  <ul>
+    <li><strong>Bez fikcyjnych relacji.</strong> Nie publikujemy wymyślonych wydarzeń, wypowiedzi mieszkańców, wywiadów ani decyzji samorządów. Gdy piszemy o regionie, opieramy się na sprawdzalnych faktach i wskazujemy źródła.</li>
+    <li><strong>Praktyczność.</strong> Każda publikacja ma pomóc mieszkańcom w konkretnej sprawie – od formalności po wybór usługi.</li>
+    <li><strong>Źródła.</strong> Pod tekstami podajemy instytucje i dokumenty, w których można sprawdzić aktualne informacje.</li>
+    <li><strong>Jawność współpracy.</strong> Artykuły sponsorowane są oznaczone, a link do partnera ma atrybut <code>rel="sponsored"</code>.</li>
+  </ul>
+  <h2>Autorstwo i poprawki</h2>
+  <p>Teksty podpisuje {PORTAL.newsroom}. Zauważone błędy poprawiamy i oznaczamy datą aktualizacji. Uwagi można przesłać przez stronę <a href="/kontakt/">Kontakt z redakcją</a>.</p>
+</InfoPage>

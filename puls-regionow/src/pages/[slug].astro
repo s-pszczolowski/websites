@@ -1,0 +1,62 @@
+---
+import { render } from 'astro:content';
+import Page from '../layouts/Page.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Kicker from '../components/Kicker.astro';
+import Story from '../components/Story.astro';
+import { PORTAL, sectionOf, regionOf } from '../config/portal';
+import { stories, link, picture, sharePicture, dateLong, isoDate, readTime, relatedTo, type Story as S } from '../lib/news';
+export async function getStaticPaths() {
+  const all = await stories();
+  return all.map((story, i) => ({ params: { slug: story.id }, props: { story, older: all[i + 1] ?? null, newer: all[i - 1] ?? null } }));
+}
+const { story, older, newer } = Astro.props as { story: S; older: S | null; newer: S | null };
+const all = await stories();
+const d = story.data;
+const sec = sectionOf(d.section);
+const reg = regionOf(d.region);
+const { Content, headings } = await render(story);
+const toc = headings.filter((h) => h.depth === 2);
+const related = relatedTo(story, all);
+const seen = new Set([story.id, ...related.map((r) => r.id)]);
+const picks = all.filter((s) => s.data.pick && !seen.has(s.id)).slice(0, 4); picks.forEach((s) => seen.add(s.id));
+const sameRegion = all.filter((s) => s.data.region === d.region && !seen.has(s.id)).slice(0, 4); sameRegion.forEach((s) => seen.add(s.id));
+const others = all.filter((s) => !seen.has(s.id) && s.data.section !== d.section).slice(0, 4);
+const site = Astro.site!;
+const url = new URL(link(story), site).href;
+const mod = d.updated ?? d.date;
+---
+<Page title={d.metaTitle} description={d.metaDescription} kind="article" image={sharePicture(story)} active={d.section}
+  articleMeta={{ published: isoDate(d.date), modified: isoDate(mod), section: sec.label }}
+  ld={[{ '@context': 'https://schema.org', '@type': 'NewsArticle', '@id': `${url}#artykul`, headline: d.title, description: d.metaDescription, image: [new URL(sharePicture(story), site).href], datePublished: isoDate(d.date), dateModified: isoDate(mod), articleSection: sec.label, contentLocation: { '@type': 'Place', name: reg.label }, inLanguage: 'pl-PL', mainEntityOfPage: url, author: { '@type': 'Organization', name: PORTAL.newsroom, url: new URL('/o-nas/', site).href }, publisher: { '@id': `${new URL('/', site).href}#redakcja` } }]}>
+  <div class="frame">
+    <Crumbs path={[{ name: sec.label, href: `/dzial/${sec.slug}/` }, { name: d.title }]} />
+    <div class="article">
+      <article class="article__main">
+        <header class="article__head">
+          <Kicker section={d.section} region={d.region} sponsored={d.sponsored} />
+          <h1 class="headline">{d.title}</h1>
+          <p class="standfirst">{d.lead}</p>
+          <p class="byline"><span>{PORTAL.newsroom}</span><span><time datetime={isoDate(d.date)}>{dateLong(d.date)}</time></span>{d.updated && <span>aktualizacja: <time datetime={isoDate(d.updated)}>{dateLong(d.updated)}</time></span>}<span>{d.genre}</span><span>{readTime(story.body)} min czytania</span></p>
+        </header>
+        <figure class="article__figure"><img src={picture(story)} alt={d.pictureAlt} width="1200" height="750" loading="eager" fetchpriority="high" /><figcaption>{d.pictureAlt}</figcaption></figure>
+        {d.sponsored && <p class="sponsor-note" role="note"><strong>Artykuł sponsorowany.</strong> Tekst zawiera jeden link do strony partnera oznaczony atrybutem <code>rel="sponsored"</code>. Więcej: <a href="/artykuly-sponsorowane/">zasady publikacji sponsorowanych</a>.</p>}
+        {toc.length > 2 && <nav class="inpage" aria-label="Spis treści"><strong>W artykule:</strong><ol>{toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav>}
+        <div class="copy"><Content /></div>
+        <section class="where" aria-labelledby="gdzie-sprawdzic"><h2 id="gdzie-sprawdzic">Gdzie sprawdzić informacje</h2><ul>{d.sources.map((s) => <li><a href={s.url} rel="noopener">{s.label}</a></li>)}</ul></section>
+        <p class="disclaimer">{d.section === 'zdrowie-i-specjalisci' ? 'Artykuł ma charakter informacyjny i nie zastępuje konsultacji z lekarzem.' : 'Artykuł ma charakter informacyjny. Przepisy, ceny i rozkłady mogą się zmieniać – przed decyzją sprawdź aktualne informacje u źródła.'}</p>
+        <nav class="neighbours" aria-label="Sąsiednie publikacje">
+          {newer ? <a href={link(newer)} rel="prev"><small>Nowsza publikacja</small>{newer.data.title}</a> : <span></span>}
+          {older ? <a href={link(older)} rel="next"><small>Starsza publikacja</small>{older.data.title}</a> : <span></span>}
+        </nav>
+        <p class="back"><a href={`/dzial/${sec.slug}/`}>« Wróć do działu {sec.label}</a> · <a href={`/region/${reg.slug}/`}>Region: {reg.label}</a></p>
+      </article>
+      <aside class="article__side" aria-label="Polecane">
+        <section><h2 class="label-bar">Polecane przez redakcję</h2><ul class="side-list">{picks.map((s) => <li><a href={link(s)}>{s.data.title}</a></li>)}</ul></section>
+        {sameRegion.length > 0 && <section><h2 class="label-bar label-bar--amber">Z regionu: {reg.label}</h2><ul class="side-list">{sameRegion.map((s) => <li><a href={link(s)}>{s.data.title}</a></li>)}</ul></section>}
+      </aside>
+    </div>
+    <section class="region-block" aria-labelledby="powiazane"><header class="region-head"><h2 id="powiazane">Powiązane artykuły</h2></header><div class="cols-3">{related.map((r) => <Story story={r} shape="box" />)}</div></section>
+    <section class="region-block" aria-labelledby="inne"><header class="region-head region-head--dark"><h2 id="inne">Inne publikacje</h2></header><div class="cols-4">{others.map((r) => <Story story={r} shape="square" />)}</div></section>
+  </div>
+</Page>

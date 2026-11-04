@@ -56,3 +56,7 @@ Katalog `mapa-codziennosci/` zawiera szósty, osobny portal – ogólnopolski ma
 ## Horyzont Praktyczny (Astro)
 
 Katalog `horyzont-praktyczny/` zawiera siódmy, niezależny portal – **Horyzont Praktyczny** („Pomysły, rozwiązania, perspektywy”): 50 artykułów w 8 tematach, 10 treści sponsorowanych z linkami do klientów z nowego, niezależnego losowania (`horyzont-praktyczny/selected-clients.json`), własny projekt graficzny, walidator i test przeglądarkowy. Instrukcje: `horyzont-praktyczny/README.md`, wynik kontroli: `horyzont-praktyczny/RAPORT-WALIDACJI.md`.
+
+## Puls Regionów (Astro)
+
+Katalog `puls-regionow/` zawiera ósmy, niezależny portal – **Puls Regionów** („Ludzie, miejsca, sprawy codzienne”): regionalny serwis informacyjno-poradnikowy (Szczecin, Pomorze Zachodnie, wybrzeże Bałtyku i inne regiony), 50 artykułów w 8 działach i 4 wydaniach regionalnych, 10 artykułów sponsorowanych z linkami do klientów z trzeciego, niezależnego losowania (`puls-regionow/selected-clients.json`), projekt w stylu prasowym, walidator i test przeglądarkowy. Instrukcje: `puls-regionow/README.md`, wynik kontroli: `puls-regionow/RAPORT-WALIDACJI.md`.

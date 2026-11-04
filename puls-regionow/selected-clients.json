@@ -1,0 +1,150 @@
+{
+  "drawnAt": "2026-11-04T22:27:22.342Z",
+  "method": "Fisher–Yates, node:crypto randomInt, jednakowe szanse dla wszystkich firm z pełnej bazy",
+  "baseAddresses": 72,
+  "baseCompanies": 70,
+  "attempts": 1,
+  "diversityAnalysis": {
+    "note": "Wyniki poprzednich losowań użyte wyłącznie do analizy – bez wpływu na szanse firm.",
+    "overlapWithPrevious": {
+      "mapa-codziennosci": [
+        "atmaclinic.pl",
+        "tenis-szczecin.pl"
+      ],
+      "horyzont-praktyczny": []
+    }
+  },
+  "selected": [
+    {
+      "id": "fructus.pl",
+      "url": "https://fructus.pl/",
+      "allAddresses": [
+        "https://fructus.pl/"
+      ],
+      "nazwa": "Fructus – nawozy ogrodnicze (marka producentów ze Szczecina)",
+      "branza": "nawozy ogrodnicze, w tym nawozy jesienne do trawników, drzew i krzewów",
+      "kategoria": "rodzina-i-codzienne-zycie",
+      "artykul": "/rodzinny-ogrod-dzialkowy-zasady/",
+      "anchor": "jesienne nawozy do trawnika i drzew owocowych",
+      "obszar": "Sprzedaż produktów ogólnopolska – artykuł ma zasięg ogólnopolski (region: polska)."
+    },
+    {
+      "id": "studnie-szczecin.pl",
+      "url": "https://www.studnie-szczecin.pl/",
+      "allAddresses": [
+        "https://www.studnie-szczecin.pl/"
+      ],
+      "nazwa": "Studnie głębinowe (Szczecin)",
+      "branza": "wiercenie studni głębinowych dla domów, rolnictwa i firm",
+      "kategoria": "dom-remonty-i-nieruchomosci",
+      "artykul": "/studnia-glebinowa-przy-domu/",
+      "anchor": "wiercenie studni głębinowych na Pomorzu Zachodnim",
+      "obszar": "Usługa terenowa – w tekście wskazano obszar Pomorza Zachodniego."
+    },
+    {
+      "id": "dombud-szczecin.pl",
+      "url": "https://www.dombud-szczecin.pl/",
+      "allAddresses": [
+        "https://www.dombud-szczecin.pl/"
+      ],
+      "nazwa": "DOM-BUD (Szczecin)",
+      "branza": "roboty ziemne, niwelacja terenu, wynajem wywrotek i sprzętu",
+      "kategoria": "dom-remonty-i-nieruchomosci",
+      "artykul": "/przygotowanie-dzialki-pod-budowe/",
+      "anchor": "niwelację terenu i wynajem wywrotek w Szczecinie",
+      "obszar": "Usługa lokalna – w kotwicy i tekście wskazano Szczecin."
+    },
+    {
+      "id": "ubezpieczeniedlagewerbe.pl",
+      "url": "https://www.ubezpieczeniedlagewerbe.pl/",
+      "allAddresses": [
+        "https://www.ubezpieczeniedlagewerbe.pl/"
+      ],
+      "nazwa": "Ubezpieczenie dla Gewerbe – serwis doradczy",
+      "branza": "pośrednictwo i doradztwo w ubezpieczeniu zdrowotnym w Niemczech dla osób prowadzących Gewerbe",
+      "kategoria": "lokalny-biznes-i-gospodarka",
+      "artykul": "/gewerbe-w-niemczech-ubezpieczenie-zdrowotne/",
+      "anchor": "ubezpieczenie zdrowotne dla osób z Gewerbe",
+      "obszar": "Usługa dla Polaków pracujących w Niemczech – artykuł osadzony na pograniczu (region: pomorze-zachodnie)."
+    },
+    {
+      "id": "luxuryfloor.pl",
+      "url": "https://luxuryfloor.pl/",
+      "allAddresses": [
+        "https://luxuryfloor.pl/"
+      ],
+      "nazwa": "Luxury Floor (Szczecin)",
+      "branza": "dostawa i montaż podłóg sportowych, tanecznych i drewnianych",
+      "kategoria": "technologie-i-uslugi",
+      "artykul": "/podlogi-sportowe-w-halach-i-salach/",
+      "anchor": "podłogi sportowe i baletowe",
+      "obszar": "Firma ze Szczecina realizująca obiekty w różnych częściach Polski – artykuł ogólnopolski."
+    },
+    {
+      "id": "smsnet.pl",
+      "url": "https://www.smsnet.pl/",
+      "allAddresses": [
+        "https://www.smsnet.pl/"
+      ],
+      "nazwa": "SMSNET – operator telewizji kablowej i internetu",
+      "branza": "telewizja kablowa, internet światłowodowy, telefon",
+      "kategoria": "technologie-i-uslugi",
+      "artykul": "/internet-i-telewizja-w-bloku/",
+      "anchor": "światłowód i telewizję kablową w Szczecinie",
+      "obszar": "Usługa dostępna w wybranych lokalizacjach – w kotwicy wskazano Szczecin, w tekście zaznaczono konieczność sprawdzenia dostępności pod adresem."
+    },
+    {
+      "id": "ogrody-iwanczyk.pl",
+      "url": "https://www.ogrody-iwanczyk.pl/",
+      "allAddresses": [
+        "https://www.ogrody-iwanczyk.pl/"
+      ],
+      "nazwa": "Ogrody Iwańczyk (Szczecin)",
+      "branza": "projektowanie, zakładanie i pielęgnacja ogrodów",
+      "kategoria": "szczecin-i-pomorze-zachodnie",
+      "artykul": "/ogrod-w-klimacie-pomorza-zachodniego/",
+      "anchor": "projektowanie i zakładanie ogrodów w Szczecinie",
+      "obszar": "Usługa lokalna – w kotwicy wskazano Szczecin."
+    },
+    {
+      "id": "atmaclinic.pl",
+      "url": "https://www.atmaclinic.pl/",
+      "allAddresses": [
+        "https://www.atmaclinic.pl/"
+      ],
+      "nazwa": "Atma Clinic (Złotniki, gm. Suchy Las k. Poznania)",
+      "branza": "klinika medycyny estetycznej i trychologii lekarskiej, leczenie wypadania włosów",
+      "kategoria": "zdrowie-i-specjalisci",
+      "artykul": "/wypadanie-wlosow-przyczyny-i-leczenie/",
+      "anchor": "leczenie wypadania włosów pod Poznaniem",
+      "obszar": "Placówka spoza regionu – kotwica i tekst wskazują okolice Poznania; artykuł ogólnopolski (region: polska)."
+    },
+    {
+      "id": "nauboczu.pl",
+      "url": "https://nauboczu.pl/",
+      "allAddresses": [
+        "https://nauboczu.pl/"
+      ],
+      "nazwa": "Restauracja Na Uboczu (Szczecin)",
+      "branza": "restauracja, przyjęcia okolicznościowe, wesela, stypy, catering",
+      "kategoria": "rodzina-i-codzienne-zycie",
+      "artykul": "/przyjecie-rodzinne-w-restauracji/",
+      "anchor": "salą na przyjęcia rodzinne w Szczecinie",
+      "obszar": "Usługa lokalna – w kotwicy wskazano Szczecin."
+    },
+    {
+      "id": "tenis-szczecin.pl",
+      "url": "https://www.tenis-szczecin.pl/",
+      "allAddresses": [
+        "https://www.tenis-szczecin.pl/"
+      ],
+      "nazwa": "Akademia tenisa (Szczecin)",
+      "branza": "wynajem kortów, szkółka tenisowa, treningi dla dorosłych",
+      "kategoria": "turystyka-i-wypoczynek",
+      "artykul": "/korty-tenisowe-gra-rekreacyjna/",
+      "anchor": "korty tenisowe do wynajęcia w Szczecinie",
+      "obszar": "Usługa lokalna – w kotwicy wskazano Szczecin; kotwica inna niż w portalu Mapa Codzienności."
+    }
+  ],
+  "profilowanie": "Strony klientów były niedostępne z tego środowiska (proxy 403 / brak DNS) – profile branżowe ustalono na podstawie wyników wyszukiwarki; przed publikacją zalecana ręczna weryfikacja."
+}

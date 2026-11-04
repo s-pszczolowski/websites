@@ -1,0 +1,12 @@
+---
+import InfoPage from '../layouts/InfoPage.astro';
+import { OWNER } from '../lib/owner';
+---
+<InfoPage title="Polityka cookies" description="Informacja o plikach cookies w portalu Puls Regionów i o zarządzaniu nimi w ustawieniach przeglądarki." legal>
+  <h2>Czy portal używa cookies?</h2>
+  {OWNER.analityka.aktywna ? <p>Portal korzysta z narzędzia {OWNER.analityka.narzedzie}; cookies analityczne zapisywane są po wyrażeniu zgody.</p> : <p>W obecnej wersji portal nie zapisuje plików cookies: nie ma analityki, reklam ani wtyczek serwisów społecznościowych.</p>}
+  <h2>Ustawienia przeglądarki</h2>
+  <p>W ustawieniach przeglądarki możesz przeglądać, usuwać i blokować cookies. Nie ogranicza to dostępu do publikacji.</p>
+  <h2>Zmiany</h2>
+  <p>Wprowadzenie narzędzi wykorzystujących cookies spowoduje aktualizację tego dokumentu i – tam, gdzie to wymagane – prośbę o zgodę.</p>
+</InfoPage>
