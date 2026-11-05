@@ -1,0 +1,15 @@
+---
+import RubricPage from '../../../components/RubricPage.astro';
+import { RUBRICS } from '../../../config/magazine';
+import { allStories, pageCount } from '../../../lib/stories';
+export async function getStaticPaths() {
+  const all = await allStories();
+  return RUBRICS.flatMap((r) => {
+    const total = pageCount(all.filter((s) => s.data.rubric === r.slug).length);
+    return Array.from({ length: total - 1 }, (_, i) => ({ params: { slug: r.slug, page: `strona-${i + 2}` }, props: { n: i + 2 } }));
+  });
+}
+const { slug } = Astro.params;
+const { n } = Astro.props as { n: number };
+---
+<RubricPage slug={slug!} page={n} />

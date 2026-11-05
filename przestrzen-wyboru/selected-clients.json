@@ -1,0 +1,161 @@
+{
+  "drawnAt": "2026-11-04T23:17:46.436Z",
+  "method": "Fisher–Yates, node:crypto randomInt, jednakowe szanse dla wszystkich firm z pełnej bazy",
+  "baseAddresses": 72,
+  "baseCompanies": 70,
+  "attempts": 1,
+  "diversityAnalysis": {
+    "note": "Wyniki poprzednich losowań użyte wyłącznie do analizy – bez wpływu na szanse firm.",
+    "overlapWithPrevious": {
+      "mapa-codziennosci": [
+        "fidesfinanse.pl"
+      ],
+      "horyzont-praktyczny": [
+        "fosfan.pl"
+      ],
+      "puls-regionow": []
+    }
+  },
+  "selected": [
+    {
+      "id": "komornik8.szczecin.pl",
+      "url": "https://komornik8.szczecin.pl/",
+      "allAddresses": [
+        "https://komornik8.szczecin.pl/"
+      ],
+      "nazwa": "Kancelaria komornicza przy sądzie rejonowym w Szczecinie",
+      "branza": "egzekucja sądowa – komornik sądowy",
+      "kategoria": "swiadome-zakupy-i-uslugi",
+      "artykul": "/dluznik-nie-oddaje-pieniedzy/",
+      "anchor": "kancelaria komornicza w Szczecinie",
+      "obszar": "Szczecin; w tekście opisano zasady wyboru komornika w obszarze sądu apelacyjnego i wyjątki.",
+      "uwagi": "Branża spoza lifestyle'u – osadzona w szerszym kontekście decyzji konsumenckich (odzyskiwanie należności). Wzmianka neutralna, informacyjna; komornik jako zawód zaufania publicznego ma ograniczenia w reklamie – zalecana akceptacja formy publikacji przez kancelarię."
+    },
+    {
+      "id": "fabrykazieleni.pl",
+      "url": "https://fabrykazieleni.pl/",
+      "allAddresses": [
+        "https://fabrykazieleni.pl/"
+      ],
+      "nazwa": "Fabryka Zieleni S.A. (Szczecin)",
+      "branza": "producent nawozów ogrodniczych (m.in. marka Fructus)",
+      "kategoria": "dom-i-wnetrza",
+      "artykul": "/rosliny-w-mieszkaniu-caly-rok/",
+      "anchor": "nawozy do roślin domowych i balkonowych",
+      "obszar": "Sprzedaż ogólnopolska – artykuł uniwersalny.",
+      "uwagi": "Temat inny niż w poprzednich portalach (rośliny doniczkowe zamiast nawożenia jesiennego działki)."
+    },
+    {
+      "id": "fosfan.pl",
+      "url": "https://fosfan.pl/",
+      "allAddresses": [
+        "https://fosfan.pl/"
+      ],
+      "nazwa": "Fosfan S.A. (Szczecin)",
+      "branza": "producent nawozów mineralnych dla rolnictwa i ogrodnictwa",
+      "kategoria": "swiadome-zakupy-i-uslugi",
+      "artykul": "/etykieta-nawozu-jak-czytac/",
+      "anchor": "nawozy mineralne do ogrodu i upraw",
+      "obszar": "Sprzedaż ogólnopolska – artykuł uniwersalny.",
+      "uwagi": "Temat inny niż w Horyzoncie Praktycznym (analiza gleby): świadomy zakup i czytanie etykiety, ochrona wód. Inny akcent niż tekst o Fabryce Zieleni."
+    },
+    {
+      "id": "fidesfinanse.pl",
+      "url": "https://www.fidesfinanse.pl/",
+      "allAddresses": [
+        "https://www.fidesfinanse.pl/"
+      ],
+      "nazwa": "Fides Finanse (Szczecin)",
+      "branza": "multiagencja ubezpieczeniowo-finansowa",
+      "kategoria": "podroze-i-odpoczynek",
+      "artykul": "/koszty-rezygnacji-z-podrozy-ubezpieczenie/",
+      "anchor": "ubezpieczenia podróżne dobierane w multiagencji",
+      "obszar": "Szczecin; w tekście wskazano, że to biuro w Szczecinie.",
+      "uwagi": "Temat inny niż w Mapie Codzienności (ubezpieczenie na życie) – koszty rezygnacji z podróży."
+    },
+    {
+      "id": "nawigator-rewal.pl",
+      "url": "https://www.nawigator-rewal.pl/",
+      "allAddresses": [
+        "https://www.nawigator-rewal.pl/"
+      ],
+      "nazwa": "Nawigator (Rewal) – hotel ze strefą spa",
+      "branza": "hotel z restauracją i strefą wellness przy plaży",
+      "kategoria": "podroze-i-odpoczynek",
+      "artykul": "/weekend-ze-spa-poza-sezonem/",
+      "anchor": "hotel ze spa w Rewalu",
+      "obszar": "Wybrzeże zachodniopomorskie – Rewal; tekst ogólny o wypoczynku poza sezonem na całym wybrzeżu.",
+      "uwagi": "Opis oferty ograniczony do informacji potwierdzonych w serwisach rezerwacyjnych (blisko plaży, restauracja, spa)."
+    },
+    {
+      "id": "pracowniasmaku.pl",
+      "url": "https://pracowniasmaku.pl/",
+      "allAddresses": [
+        "https://pracowniasmaku.pl/"
+      ],
+      "nazwa": "Pracownia Smaku (Szczecin)",
+      "branza": "lokal gastronomiczny – jedzenie przygotowywane na miejscu",
+      "kategoria": "swiadome-zakupy-i-uslugi",
+      "artykul": "/ratowanie-zywnosci-paczki-z-nadwyzkami/",
+      "anchor": "Pracownia Smaku w Szczecinie",
+      "obszar": "Szczecin.",
+      "uwagi": "Profil ustalony tylko częściowo (lokal gastronomiczny w Szczecinie, obecny w aplikacji do ratowania żywności) – dlatego anchor nazwowy i ostrożny opis bez szczegółów oferty."
+    },
+    {
+      "id": "fizjoterapiasportowa.pl",
+      "url": "https://fizjoterapiasportowa.pl/",
+      "allAddresses": [
+        "https://fizjoterapiasportowa.pl/"
+      ],
+      "nazwa": "Gabinet Fizjoterapii Tomasz Strzałkowski (Szczecin)",
+      "branza": "fizjoterapia sportowa, pourazowa i pooperacyjna",
+      "kategoria": "zdrowie-i-dobre-samopoczucie",
+      "artykul": "/bol-barku-kiedy-do-fizjoterapeuty/",
+      "anchor": "fizjoterapia sportowa w Szczecinie",
+      "obszar": "Szczecin.",
+      "uwagi": "Treść medyczna z objawami alarmowymi i zastrzeżeniem informacyjnym; bez obietnic skuteczności."
+    },
+    {
+      "id": "rewim.pl",
+      "url": "https://sklep.rewim.pl/",
+      "allAddresses": [
+        "https://sklep.rewim.pl/"
+      ],
+      "nazwa": "REWIM (Szczecin)",
+      "branza": "polski producent wykończeń do pomieszczeń mokrych i suchych: panele ścienne, listwy",
+      "kategoria": "dom-i-wnetrza",
+      "artykul": "/panele-scienne-w-lazience/",
+      "anchor": "panele ścienne i listwy do łazienki",
+      "obszar": "Sprzedaż ogólnopolska (sklep internetowy) – artykuł uniwersalny.",
+      "uwagi": "Adres docelowy z bazy: sklep.rewim.pl."
+    },
+    {
+      "id": "klimapol.net.pl",
+      "url": "https://klimapol.net.pl/",
+      "allAddresses": [
+        "https://klimapol.net.pl/"
+      ],
+      "nazwa": "Klimapol (Police / Szczecin)",
+      "branza": "klimatyzacja, wentylacja, chłodnictwo – montaż i serwis",
+      "kategoria": "dom-i-wnetrza",
+      "artykul": "/klimatyzacja-w-domu-komfort-i-serwis/",
+      "anchor": "montaż i serwis klimatyzacji w Szczecinie i Policach",
+      "obszar": "Szczecin i Police – wskazane w kotwicy.",
+      "uwagi": "Nie mylić z firmą o podobnej nazwie z Legnicy (klimapol.eu)."
+    },
+    {
+      "id": "ariwo.com.pl",
+      "url": "https://www.ariwo.com.pl/",
+      "allAddresses": [
+        "https://www.ariwo.com.pl/"
+      ],
+      "nazwa": "ARIWO – Akademia Rozwoju i Wizerunku Osobistego",
+      "branza": "szkolenia z rozwoju osobistego, wizerunku i autoprezentacji",
+      "kategoria": "rozwoj-osobisty-i-kariera",
+      "artykul": "/autoprezentacja-na-rozmowie-o-prace/",
+      "anchor": "szkolenia z wizerunku i autoprezentacji",
+      "obszar": "Pomorze Zachodnie (Szczecin / Kołobrzeg – w źródłach pojawiają się oba adresy)."
+    }
+  ],
+  "profilowanie": "Strony klientów były niedostępne z tego środowiska (proxy 403). Profile ustalono na podstawie wyników wyszukiwarki (katalogi firm, rejestry, serwisy rezerwacyjne, strony podstron klientów widoczne w wynikach). Przed publikacją zalecana ręczna weryfikacja opisów."
+}

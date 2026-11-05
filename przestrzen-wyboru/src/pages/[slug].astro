@@ -1,0 +1,85 @@
+---
+import { render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Trail from '../components/Trail.astro';
+import Picture from '../components/Picture.astro';
+import StoryCard from '../components/StoryCard.astro';
+import RubricLabel from '../components/RubricLabel.astro';
+import { MAGAZINE, rubric } from '../config/magazine';
+import { allStories, storyUrl, rubricUrl, longDate, isoDate, minutes, relatedTo, shareImage, visual, type Story } from '../lib/stories';
+
+export async function getStaticPaths() {
+  const all = await allStories();
+  return all.map((story) => ({ params: { slug: story.id }, props: { story } }));
+}
+const { story } = Astro.props as { story: Story };
+const d = story.data;
+const r = rubric(d.rubric);
+const { Content, headings } = await render(story);
+const h2 = headings.filter((h) => h.depth === 2);
+const showToc = d.toc && h2.length >= 4;
+const related = await relatedTo(story);
+const site = Astro.site!;
+const url = new URL(storyUrl(story), site).href;
+const modified = d.revised ?? d.published;
+const careful = ['zdrowie-i-dobre-samopoczucie', 'uroda-i-pielegnacja'].includes(d.rubric);
+const ld = {
+  '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#tekst`, mainEntityOfPage: url, headline: d.title, description: d.seo.description,
+  image: [new URL(visual(story.id, 1600), site).href, new URL(shareImage(story.id), site).href], datePublished: isoDate(d.published), dateModified: isoDate(modified),
+  articleSection: r.title, inLanguage: 'pl-PL', wordCount: story.body?.split(/\s+/).filter(Boolean).length,
+  author: { '@type': 'Organization', name: MAGAZINE.team, url: new URL('/o-magazynie/', site).href },
+  publisher: { '@id': new URL('/#wydawca', site).href }, isPartOf: { '@id': new URL('/#magazyn', site).href },
+  ...(d.sponsored ? { sponsor: { '@type': 'Organization', url: `https://${d.partner}/` } } : {}),
+};
+---
+<Base title={`${d.seo.title} | ${MAGAZINE.name}`} description={d.seo.description} image={shareImage(story.id)} imageAlt={d.visualAlt} type="article" current={d.rubric}
+  article={{ published: isoDate(d.published), modified: isoDate(modified), section: r.title }} ld={[ld]}>
+  <article class="story">
+    <div class="shell story__top"><Trail items={[{ name: r.title, href: rubricUrl(r.slug) }, { name: d.title }]} /></div>
+    <header class="story__head">
+      <RubricLabel slug={d.rubric} sponsored={d.sponsored} />
+      <h1 class="story__title">{d.title}</h1>
+      <p class="story__standfirst">{d.standfirst}</p>
+      <p class="story__meta">
+        <span>{MAGAZINE.team}</span>
+        <span><time datetime={isoDate(d.published)}>{longDate(d.published)}</time></span>
+        <span>{d.format}</span>
+        <span>{minutes(story.body)} min czytania</span>
+      </p>
+    </header>
+    <figure class="story__figure">
+      <Picture slug={story.id} alt={d.visualAlt} ratio="wide" sizes="(min-width: 1240px) 1200px, 100vw" eager />
+      <figcaption>Ilustracja: {d.visualAlt}.</figcaption>
+    </figure>
+
+    <div class="story__layout">
+      {showToc && (
+        <nav class="contents" aria-labelledby="w-tekscie">
+          <details open>
+            <summary id="w-tekscie">W tym tekście</summary>
+            <ol>{h2.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+          </details>
+        </nav>
+      )}
+      <div class="story__body">
+        {d.sponsored && <aside class="disclosure" role="note"><strong>Artykuł sponsorowany.</strong> Tekst powstał we współpracy z partnerem i zawiera jeden oznaczony odnośnik do jego strony (rel="sponsored"). Treść poradnikowa została przygotowana według zasad redakcyjnych magazynu. <a href="/materialy-partnerskie/">Jak oznaczamy materiały partnerskie</a></aside>}
+        <div class="prose prose--story"><Content /></div>
+        {careful && <p class="caution">Tekst ma charakter informacyjny i nie zastępuje konsultacji z lekarzem, farmaceutą ani innym specjalistą. W razie niepokojących objawów skontaktuj się z lekarzem.</p>}
+        <section class="sources" aria-labelledby="zrodla">
+          <h2 id="zrodla">Źródła i dalsza lektura</h2>
+          <ul>{d.sources.map((s) => <li><a href={s.url} rel="noopener">{s.name}</a></li>)}</ul>
+        </section>
+        <p class="story__back"><a href={rubricUrl(r.slug)}>← Wróć do rubryki {r.title}</a></p>
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="further" aria-labelledby="czytaj-dalej">
+      <div class="shell">
+        <h2 id="czytaj-dalej" class="section-title"><span>Czytaj dalej</span></h2>
+        <div class="further__grid">{related.slice(0, 3).map((s) => <StoryCard story={s} variant="square" />)}</div>
+      </div>
+    </section>
+  )}
+</Base>

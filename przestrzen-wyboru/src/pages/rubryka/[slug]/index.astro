@@ -1,0 +1,7 @@
+---
+import RubricPage from '../../../components/RubricPage.astro';
+import { RUBRICS } from '../../../config/magazine';
+export function getStaticPaths() { return RUBRICS.map((r) => ({ params: { slug: r.slug } })); }
+const { slug } = Astro.params;
+---
+<RubricPage slug={slug!} page={1} />

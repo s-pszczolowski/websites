@@ -1,0 +1,17 @@
+---
+import Paper from '../layouts/Paper.astro';
+import { rubric } from '../config/magazine';
+import { allStories, storyUrl, longDate } from '../lib/stories';
+const sponsored = (await allStories()).filter((s) => s.data.sponsored);
+---
+<Paper title="Materiały partnerskie" description="Jak Przestrzeń Wyboru oznacza artykuły sponsorowane i odnośniki do partnerów oraz lista wszystkich opublikowanych materiałów partnerskich." lede="Przejrzystość wobec czytelników jest dla nas ważniejsza niż wygląd reklamy.">
+  <h2>Jak oznaczamy materiały</h2>
+  <ul>
+    <li>na listach tekstów – etykieta „Partner”,</li>
+    <li>w artykule – etykieta „Materiał partnerski” przy rubryce i ramka „Artykuł sponsorowany” przed treścią,</li>
+    <li>odnośnik do partnera – atrybut <code>rel="sponsored noopener"</code>, jeden w całym tekście,</li>
+    <li>linki do partnerów nie pojawiają się w menu, stopce ani w blokach polecanych tekstów.</li>
+  </ul>
+  <h2>Opublikowane materiały partnerskie ({sponsored.length})</h2>
+  <ul>{sponsored.map((s) => <li><a href={storyUrl(s)}>{s.data.title}</a> – {rubric(s.data.rubric).title}, {longDate(s.data.published)}</li>)}</ul>
+</Paper>

@@ -1,0 +1,9 @@
+---
+import { visual, visualSet } from '../lib/stories';
+interface Props { slug: string; alt: string; sizes?: string; eager?: boolean; ratio?: 'wide' | 'tall' | 'square' | 'classic'; class?: string }
+const { slug, alt, sizes = '(min-width: 1100px) 50vw, 100vw', eager = false, ratio = 'classic', class: cls = '' } = Astro.props;
+---
+<div class:list={['photo', `photo--${ratio}`, cls]}>
+  <img src={visual(slug, 960)} srcset={visualSet(slug)} sizes={sizes} alt={alt} width="1600" height="1000"
+    loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} fetchpriority={eager ? 'high' : undefined} />
+</div>

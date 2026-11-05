@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import StoryCard from '../components/StoryCard.astro';
+import { allStories, archiveUrl } from '../lib/stories';
+const picks = (await allStories()).filter((s) => s.data.worthReading).slice(0, 3);
+---
+<Base title="Nie znaleziono strony | Przestrzeń Wyboru" description="Strona, której szukasz, nie istnieje lub została przeniesiona. Zobacz najnowsze teksty magazynu Przestrzeń Wyboru." noindex>
+  <div class="shell lost">
+    <p class="lost__code">404</p>
+    <h1>Tej strony tu nie ma</h1>
+    <p>Adres mógł się zmienić albo zawierać literówkę. Wróć na <a href="/">stronę główną</a> lub przejrzyj <a href={archiveUrl()}>wszystkie teksty</a>.</p>
+    <div class="further__grid">{picks.map((s) => <StoryCard story={s} variant="square" />)}</div>
+  </div>
+</Base>

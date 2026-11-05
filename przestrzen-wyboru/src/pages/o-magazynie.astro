@@ -1,0 +1,21 @@
+---
+import Paper from '../layouts/Paper.astro';
+import { RUBRICS } from '../config/magazine';
+import { rubricUrl } from '../lib/stories';
+import { deployment } from '../lib/publisher';
+---
+<Paper title="O magazynie" description="Przestrzeń Wyboru to magazyn o świadomym stylu życia: zdrowie, psychologia, dom, uroda, podróże, rodzina, rozwój i rozsądne decyzje konsumenckie." lede="Świadome decyzje. Lepsza codzienność – piszemy o wyborach, które składają się na zwykły dzień.">
+  <p>Przestrzeń Wyboru to internetowy magazyn dla osób, które chcą żyć trochę uważniej: lepiej spać i więcej się ruszać, mądrzej urządzać mieszkanie, rozumieć składy kosmetyków, spokojniej rozmawiać z bliskimi i rozsądniej wydawać pieniądze. Piszemy językiem magazynu, ale trzymamy się faktów.</p>
+  <h2>Jak pracujemy</h2>
+  <ul>
+    <li>Teksty o zdrowiu opieramy na materiałach instytucji publicznych i organizacji naukowych – listę źródeł znajdziesz pod każdym artykułem.</li>
+    <li>Nie publikujemy wymyślonych historii, cytatów, opinii klientów ani „ekspertów”, których nie ma.</li>
+    <li>Nie obiecujemy efektów, których nikt nie może zagwarantować – ani w poradach, ani w materiałach partnerskich.</li>
+    <li>Materiały przygotowane we współpracy z partnerami są wyraźnie oznaczone, a linki do partnerów mają atrybut <code>rel="sponsored"</code>.</li>
+  </ul>
+  <h2>Rubryki</h2>
+  <ul>{RUBRICS.map((r) => <li><a href={rubricUrl(r.slug)}>{r.title}</a> – {r.lede}</li>)}</ul>
+  <h2>Redakcja</h2>
+  <p>{deployment.redakcja.redaktor_prowadzacy ? `Redaktor prowadzący: ${deployment.redakcja.redaktor_prowadzacy}.` : 'Teksty podpisuje zespół redakcyjny magazynu. Skład redakcji zostanie podany przez wydawcę przed publicznym uruchomieniem serwisu.'}</p>
+  {!deployment.daty_demonstracyjne_zastapione && <p><em>Serwis jest w wersji przedpremierowej – daty przy tekstach mają charakter demonstracyjny.</em></p>}
+</Paper>

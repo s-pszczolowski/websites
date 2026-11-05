@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Trail from './Trail.astro';
+import Pager from './Pager.astro';
+import Picture from './Picture.astro';
+import { MAGAZINE, rubric } from '../config/magazine';
+import { allStories, archiveUrl, monthsOf, monthUrl, monthLabel, pageCount, pageSlice, storyUrl, longDate, isoDate, ymOf, rubricUrl } from '../lib/stories';
+interface Props { page?: number; month?: string }
+const { page = 1, month } = Astro.props;
+const all = await allStories();
+const months = monthsOf(all);
+const source = month ? all.filter((s) => ymOf(s.data.published) === month) : all;
+const total = month ? 1 : pageCount(all.length, MAGAZINE.archivePerPage);
+const items = month ? source : pageSlice(all, page, MAGAZINE.archivePerPage);
+const heading = month ? `Teksty: ${monthLabel(month)}` : page === 1 ? 'Wszystkie teksty' : `Wszystkie teksty – strona ${page}`;
+const description = month ? `Teksty magazynu ${MAGAZINE.name} opublikowane w okresie: ${monthLabel(month)} (${items.length}).` : page === 1 ? `Wszystkie teksty magazynu ${MAGAZINE.name} od najnowszego – zdrowie, relacje, dom, uroda, podróże, rodzina, rozwój i świadome zakupy.` : `Archiwum magazynu ${MAGAZINE.name} – strona ${page} z ${total}.`;
+const crumbs = month ? [{ name: 'Wszystkie teksty', href: archiveUrl() }, { name: monthLabel(month) }] : page === 1 ? [{ name: 'Wszystkie teksty' }] : [{ name: 'Wszystkie teksty', href: archiveUrl() }, { name: `Strona ${page}` }];
+---
+<Base title={`${heading} | ${MAGAZINE.name}`} description={description}>
+  <div class="shell">
+    <Trail items={crumbs} />
+    <header class="rubric-head"><h1>{heading}</h1><p class="rubric-head__lede">Teksty ułożone od najnowszego do najstarszego.</p></header>
+    <nav class="months" aria-label="Archiwum miesięczne"><a href={archiveUrl()} aria-current={!month && page === 1 ? 'page' : undefined}>Wszystkie</a>{months.map((m) => <a href={monthUrl(m.ym)} aria-current={m.ym === month ? 'page' : undefined}>{monthLabel(m.ym)} <span>({m.count})</span></a>)}</nav>
+    <ol class="ledger">
+      {items.map((s) => (
+        <li class="ledger__item">
+          <a class="ledger__media" href={storyUrl(s)} tabindex="-1" aria-hidden="true"><Picture slug={s.id} alt={s.data.visualAlt} ratio="classic" sizes="(min-width: 700px) 240px, 40vw" /></a>
+          <div>
+            <p class="ledger__meta"><time datetime={isoDate(s.data.published)}>{longDate(s.data.published)}</time> · <a href={rubricUrl(s.data.rubric)}>{rubric(s.data.rubric).title}</a>{s.data.sponsored && <span class="tile__partner">Partner</span>}</p>
+            <h2 class="ledger__title"><a href={storyUrl(s)}>{s.data.title}</a></h2>
+            <p class="ledger__lead">{s.data.standfirst}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    {!month && <Pager current={page} total={total} url={archiveUrl} label="Strony archiwum" />}
+  </div>
+</Base>

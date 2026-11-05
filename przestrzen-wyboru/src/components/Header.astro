@@ -1,0 +1,22 @@
+---
+import Logo from './Logo.astro';
+import { MAGAZINE, RUBRICS } from '../config/magazine';
+import { rubricUrl } from '../lib/stories';
+const { current } = Astro.props as { current?: string };
+---
+<header class="masthead">
+  <a class="skip" href="#tresc">Przejdź do treści</a>
+  <div class="masthead__row shell">
+    <a class="masthead__aside" href="/spis-tresci/">Spis treści</a>
+    <div class="masthead__brand">
+      <Logo as={Astro.url.pathname === '/' ? 'div' : 'p'} />
+      <p class="masthead__tagline">{MAGAZINE.tagline}</p>
+    </div>
+    <a class="masthead__aside masthead__aside--end" href="/wszystkie-teksty/">Wszystkie teksty</a>
+  </div>
+  <nav class="rubrics" aria-label="Rubryki magazynu">
+    <ul class="rubrics__list shell">
+      {RUBRICS.map((r) => <li><a href={rubricUrl(r.slug)} aria-current={current === r.slug ? 'page' : undefined}>{r.short}</a></li>)}
+    </ul>
+  </nav>
+</header>

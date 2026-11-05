@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import Picture from '../components/Picture.astro';
+import StoryCard from '../components/StoryCard.astro';
+import RubricLabel from '../components/RubricLabel.astro';
+import { MAGAZINE, RUBRICS, rubric } from '../config/magazine';
+import { allStories, storyUrl, rubricUrl, archiveUrl, longDate, isoDate, minutes, rubricsWithCounts, monthsOf, monthUrl, monthLabel } from '../lib/stories';
+
+const all = await allStories();
+const used = new Set<string>();
+const take = (list: typeof all, n: number) => { const out = list.filter((s) => !used.has(s.id)).slice(0, n); out.forEach((s) => used.add(s.id)); return out; };
+const [hero] = take(all.filter((s) => s.data.hero).concat(all), 1);
+const [week] = take(all.filter((s) => s.data.weekTopic), 1);
+const opening = take(all, 3);
+const worth = take(all.filter((s) => s.data.worthReading), 6);
+const latest = take(all, 4);
+const of = (slug: string, n: number) => take(all.filter((s) => s.data.rubric === slug), n);
+const home = of('dom-i-wnetrza', 4);
+const health = of('zdrowie-i-dobre-samopoczucie', 3);
+const mind = of('psychologia-i-relacje', 3);
+const travel = of('podroze-i-odpoczynek', 3);
+const shelf = rubricsWithCounts(all).map((r) => ({ ...r, lead: all.find((s) => s.data.rubric === r.slug)! }));
+---
+<Base title={`${MAGAZINE.name} – ${MAGAZINE.tagline}`} description={MAGAZINE.description}
+  ld={[{ '@context': 'https://schema.org', '@type': 'CollectionPage', name: MAGAZINE.name, url: new URL('/', Astro.site).href, inLanguage: 'pl-PL' }]}>
+  <h1 class="sr-only">{MAGAZINE.name} – magazyn o świadomym stylu życia</h1>
+
+  <section class="cover" aria-labelledby="cover-title">
+    <a class="cover__media" href={storyUrl(hero)} tabindex="-1" aria-hidden="true"><Picture slug={hero.id} alt={hero.data.visualAlt} ratio="wide" sizes="100vw" eager /></a>
+    <div class="cover__card">
+      <RubricLabel slug={hero.data.rubric} sponsored={hero.data.sponsored} />
+      <h2 id="cover-title" class="cover__title"><a href={storyUrl(hero)}>{hero.data.title}</a></h2>
+      <p class="cover__lead">{hero.data.standfirst}</p>
+      <p class="cover__meta"><time datetime={isoDate(hero.data.published)}>{longDate(hero.data.published)}</time> · {minutes(hero.body)} min czytania</p>
+    </div>
+  </section>
+
+  <section class="opening shell" aria-labelledby="h-opening">
+    <h2 id="h-opening" class="section-title"><span>Na początek</span></h2>
+    <div class="opening__grid">
+      <StoryCard story={opening[0]} variant="tall" heading="h3" showLead />
+      <div class="opening__pair">{opening.slice(1).map((s) => <StoryCard story={s} variant="square" />)}</div>
+    </div>
+  </section>
+
+  <section class="week" aria-labelledby="h-week">
+    <div class="shell week__grid">
+      <a class="week__media" href={storyUrl(week)} tabindex="-1" aria-hidden="true"><Picture slug={week.id} alt={week.data.visualAlt} ratio="classic" sizes="(min-width: 900px) 58vw, 100vw" /></a>
+      <div class="week__text">
+        <p class="week__badge">Temat tygodnia <span>· wybór redakcji</span></p>
+        <h2 id="h-week" class="week__title"><a href={storyUrl(week)}>{week.data.title}</a></h2>
+        <p class="week__lead">{week.data.standfirst}</p>
+        <a class="button" href={storyUrl(week)}>Czytaj tekst</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="split shell">
+    <section class="split__main" aria-labelledby="h-latest">
+      <h2 id="h-latest" class="section-title"><span>Najnowsze</span></h2>
+      <StoryCard story={latest[0]} variant="wide" heading="h3" showLead />
+      <div class="duo">{latest.slice(1).map((s) => <StoryCard story={s} variant="square" />)}</div>
+      <a class="more" href={archiveUrl()}>Wszystkie teksty</a>
+    </section>
+    <aside class="split__side" aria-labelledby="h-worth">
+      <h2 id="h-worth" class="section-title"><span>Warto przeczytać</span></h2>
+      <ol class="worth">{worth.map((s, i) => <li><span class="worth__no">{String(i + 1).padStart(2, '0')}</span><div><p class="worth__rubric">{rubric(s.data.rubric).short}</p><a href={storyUrl(s)}>{s.data.title}</a></div></li>)}</ol>
+    </aside>
+  </div>
+
+  <section class="band" aria-labelledby="h-home">
+    <div class="shell">
+      <header class="band__head"><h2 id="h-home" class="section-title section-title--left"><span>Dom i wnętrza</span></h2><a class="more" href={rubricUrl('dom-i-wnetrza')}>Cała rubryka</a></header>
+      <div class="rail">{home.map((s) => <StoryCard story={s} variant="tall" />)}</div>
+    </div>
+  </section>
+
+  <div class="pair shell">
+    <section aria-labelledby="h-health">
+      <header class="band__head"><h2 id="h-health" class="section-title section-title--left"><span>Zdrowie i dobre samopoczucie</span></h2></header>
+      <StoryCard story={health[0]} variant="wide" showLead />
+      {health.slice(1).map((s) => <StoryCard story={s} variant="row" />)}
+      <a class="more" href={rubricUrl('zdrowie-i-dobre-samopoczucie')}>Więcej o zdrowiu</a>
+    </section>
+    <section aria-labelledby="h-mind">
+      <header class="band__head"><h2 id="h-mind" class="section-title section-title--left"><span>Psychologia i relacje</span></h2></header>
+      {mind.map((s, i) => <StoryCard story={s} variant={i === 0 ? 'square' : 'row'} showLead={i === 0} />)}
+      <a class="more" href={rubricUrl('psychologia-i-relacje')}>Więcej o relacjach</a>
+    </section>
+  </div>
+
+  <section class="journey" aria-labelledby="h-travel">
+    <div class="shell journey__grid">
+      <div class="journey__intro">
+        <h2 id="h-travel" class="journey__title">Podróże i odpoczynek</h2>
+        <p>{rubric('podroze-i-odpoczynek').lede}</p>
+        <a class="button button--ghost" href={rubricUrl('podroze-i-odpoczynek')}>Zobacz rubrykę</a>
+      </div>
+      <div class="rail rail--three">{travel.map((s) => <StoryCard story={s} variant="square" />)}</div>
+    </div>
+  </section>
+
+  <section class="shelf shell" aria-labelledby="h-shelf">
+    <h2 id="h-shelf" class="section-title"><span>Rubryki</span></h2>
+    <ul class="shelf__grid">
+      {shelf.map((r) => (
+        <li class="shelf__item">
+          <a href={rubricUrl(r.slug)}>
+            <Picture slug={r.lead.id} alt={r.lead.data.visualAlt} ratio="square" sizes="(min-width: 900px) 25vw, 50vw" />
+            <span class="shelf__name">{r.title}</span>
+            <span class="shelf__count">{r.count} tekstów</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="shelf__months">Archiwum: {monthsOf(all).map((m) => <a href={monthUrl(m.ym)}>{monthLabel(m.ym)}</a>)}</p>
+  </section>
+</Base>

@@ -1,0 +1,18 @@
+---
+import Paper from '../layouts/Paper.astro';
+import { RUBRICS, INFO_PAGES } from '../config/magazine';
+import { allStories, storyUrl, rubricUrl, archiveUrl, monthsOf, monthUrl, monthLabel } from '../lib/stories';
+const all = await allStories();
+---
+<Paper title="Spis treści" description="Spis treści magazynu Przestrzeń Wyboru: wszystkie rubryki, teksty, archiwum miesięczne i strony informacyjne w jednym miejscu." lede="Wszystkie teksty magazynu pogrupowane według rubryk.">
+  {RUBRICS.map((r) => (
+    <section>
+      <h2><a href={rubricUrl(r.slug)}>{r.title}</a></h2>
+      <ul>{all.filter((s) => s.data.rubric === r.slug).map((s) => <li><a href={storyUrl(s)}>{s.data.title}</a></li>)}</ul>
+    </section>
+  ))}
+  <h2>Archiwum</h2>
+  <ul><li><a href={archiveUrl()}>Wszystkie teksty</a></li>{monthsOf(all).map((m) => <li><a href={monthUrl(m.ym)}>{monthLabel(m.ym)}</a></li>)}<li><a href="/rubryka/">Przegląd rubryk</a></li></ul>
+  <h2>O magazynie</h2>
+  <ul>{INFO_PAGES.filter((p) => p.href !== '/spis-tresci/').map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul>
+</Paper>

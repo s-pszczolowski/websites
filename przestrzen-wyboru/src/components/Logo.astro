@@ -1,0 +1,8 @@
+---
+const { as: Tag = 'p', small = false } = Astro.props as { as?: 'p' | 'div'; small?: boolean };
+---
+<Tag class:list={['logo', small && 'logo--small']}>
+  <a href="/" aria-label="Przestrzeń Wyboru – strona główna">
+    <span class="logo__a">Przestrzeń</span><span class="logo__b">Wyboru</span>
+  </a>
+</Tag>

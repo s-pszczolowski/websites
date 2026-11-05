@@ -1,0 +1,9 @@
+---
+import Paper from '../layouts/Paper.astro';
+import { deployment } from '../lib/publisher';
+---
+<Paper title="Pliki cookies" description="Informacja o plikach cookies w magazynie Przestrzeń Wyboru: jakie pliki są używane, w jakim celu i jak zarządzać nimi w przeglądarce." lede="Krótko i konkretnie o plikach cookies w naszym serwisie." legal>
+  <p>{deployment.analityka.wlaczona ? `Serwis korzysta z plików cookies narzędzia ${deployment.analityka.narzedzie} w celach statystycznych – wyłącznie po wyrażeniu zgody.` : 'W obecnej wersji serwis nie zapisuje plików cookies: nie używa narzędzi analitycznych, reklamowych ani zewnętrznych czcionek wczytywanych z serwerów innych firm.'}</p>
+  <h2>Zarządzanie plikami cookies</h2>
+  <p>Ustawienia plików cookies możesz zmienić w przeglądarce – zablokować je lub usunąć zapisane pliki. Jeśli w przyszłości serwis zacznie korzystać z narzędzi wymagających zgody, informacja na tej stronie zostanie zaktualizowana przed ich uruchomieniem.</p>
+</Paper>

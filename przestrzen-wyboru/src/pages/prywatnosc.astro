@@ -1,0 +1,20 @@
+---
+import Paper from '../layouts/Paper.astro';
+import { deployment, publisherReady } from '../lib/publisher';
+const w = deployment.wydawca;
+---
+<Paper title="Polityka prywatności" description="Polityka prywatności magazynu Przestrzeń Wyboru: administrator danych, zakres przetwarzania, pliki cookies, prawa użytkowników." lede="Jakie dane przetwarzamy i jakie prawa Ci przysługują." legal>
+  <h2>Administrator danych</h2>
+  <p>{publisherReady ? `Administratorem danych osobowych jest ${w.nazwa}, ${w.adres}.` : 'Dane administratora zostaną uzupełnione przez wydawcę przed publicznym uruchomieniem serwisu.'}</p>
+  <h2>Jakie dane przetwarzamy</h2>
+  <ul>
+    <li>Serwis jest stroną statyczną – nie zakłada kont użytkowników i nie zawiera formularzy.</li>
+    <li>Serwer hostingu może zapisywać standardowe logi techniczne (np. adres IP, czas żądania, typ przeglądarki) w celu zapewnienia bezpieczeństwa i działania usługi.</li>
+    <li>Jeśli napiszesz do redakcji e-mailem, przetwarzamy dane z wiadomości w celu udzielenia odpowiedzi.</li>
+    <li>{deployment.analityka.wlaczona ? `Korzystamy z narzędzia analitycznego: ${deployment.analityka.narzedzie}.` : 'Serwis nie korzysta obecnie z narzędzi analitycznych ani reklamowych.'}</li>
+  </ul>
+  <h2>Twoje prawa</h2>
+  <p>Przysługuje Ci prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, wniesienia sprzeciwu oraz skargi do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+  <h2>Linki zewnętrzne</h2>
+  <p>Teksty zawierają odnośniki do stron instytucji i partnerów. Za przetwarzanie danych na tych stronach odpowiadają ich administratorzy.</p>
+</Paper>

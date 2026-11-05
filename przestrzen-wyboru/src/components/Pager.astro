@@ -1,0 +1,11 @@
+---
+interface Props { current: number; total: number; url: (n: number) => string; label?: string }
+const { current, total, url, label = 'Kolejne strony' } = Astro.props;
+---
+{total > 1 && (
+  <nav class="pager" aria-label={label}>
+    {current > 1 ? <a class="pager__step" rel="prev" href={url(current - 1)}>← Nowsze</a> : <span class="pager__step is-off">← Nowsze</span>}
+    <ol>{Array.from({ length: total }, (_, i) => i + 1).map((n) => <li>{n === current ? <span aria-current="page">{n}</span> : <a href={url(n)}>{n}</a>}</li>)}</ol>
+    {current < total ? <a class="pager__step" rel="next" href={url(current + 1)}>Starsze →</a> : <span class="pager__step is-off">Starsze →</span>}
+  </nav>
+)}

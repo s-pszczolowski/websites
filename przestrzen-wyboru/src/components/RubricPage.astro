@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import Trail from './Trail.astro';
+import StoryCard from './StoryCard.astro';
+import Pager from './Pager.astro';
+import { MAGAZINE, RUBRICS, rubric } from '../config/magazine';
+import { allStories, rubricUrl, pageCount, pageSlice, storyUrl } from '../lib/stories';
+const { slug, page } = Astro.props as { slug: string; page: number };
+const r = rubric(slug);
+const all = await allStories();
+const mine = all.filter((s) => s.data.rubric === slug);
+const total = pageCount(mine.length);
+const items = pageSlice(mine, page);
+const picks = all.filter((s) => s.data.rubric !== slug && s.data.worthReading).slice(0, 4);
+const title = page === 1 ? `${r.title} – teksty i poradniki | ${MAGAZINE.name}` : `${r.title} – strona ${page} | ${MAGAZINE.name}`;
+const description = page === 1 ? `${r.lede} Wszystkie teksty z rubryki ${r.title} w magazynie ${MAGAZINE.name}.` : `Rubryka ${r.title} – strona ${page} z ${total}. Starsze teksty magazynu ${MAGAZINE.name}.`;
+const ld = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: r.title, url: new URL(rubricUrl(slug, page), Astro.site).href, inLanguage: 'pl-PL',
+  mainEntity: { '@type': 'ItemList', itemListElement: items.map((s, i) => ({ '@type': 'ListItem', position: (page - 1) * MAGAZINE.perPage + i + 1, url: new URL(storyUrl(s), Astro.site).href })) } };
+---
+<Base title={title} description={description} current={slug} ld={[ld]}>
+  <div class="shell">
+    <Trail items={page === 1 ? [{ name: r.title }] : [{ name: r.title, href: rubricUrl(slug) }, { name: `Strona ${page}` }]} />
+    <header class="rubric-head">
+      <p class="rubric-head__count">{mine.length} tekstów</p>
+      <h1>{r.title}{page > 1 && <span class="rubric-head__page"> · strona {page}</span>}</h1>
+      <p class="rubric-head__lede">{r.lede}</p>
+    </header>
+    <div class="rubric-grid">
+      {items.map((s, i) => <StoryCard story={s} variant={page === 1 && i === 0 ? 'wide' : i % 5 === 1 ? 'tall' : 'square'} heading="h2" showLead={page === 1 && i === 0} />)}
+    </div>
+    <Pager current={page} total={total} url={(n) => rubricUrl(slug, n)} label={`Strony rubryki ${r.title}`} />
+    <aside class="aside-picks" aria-labelledby="inne-rubryki">
+      <h2 id="inne-rubryki" class="section-title"><span>Warto przeczytać w innych rubrykach</span></h2>
+      <div class="further__grid further__grid--four">{picks.map((s) => <StoryCard story={s} variant="plain" />)}</div>
+      <p class="rubric-switch">{RUBRICS.filter((x) => x.slug !== slug).map((x) => <a href={rubricUrl(x.slug)}>{x.title}</a>)}</p>
+    </aside>
+  </div>
+</Base>

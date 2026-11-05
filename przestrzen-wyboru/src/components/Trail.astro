@@ -1,0 +1,12 @@
+---
+import JsonLd from './JsonLd.astro';
+interface Crumb { name: string; href?: string }
+const { items } = Astro.props as { items: Crumb[] };
+const site = Astro.site!;
+const all: Crumb[] = [{ name: 'Strona główna', href: '/' }, ...items];
+const ld = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: all.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, ...(c.href ? { item: new URL(c.href, site).href } : { item: new URL(Astro.url.pathname, site).href }) })) };
+---
+<nav class="trail" aria-label="Ścieżka nawigacji">
+  <ol>{all.map((c, i) => <li>{c.href && i < all.length - 1 ? <a href={c.href}>{c.name}</a> : <span aria-current="page">{c.name}</span>}</li>)}</ol>
+</nav>
+<JsonLd data={ld} />

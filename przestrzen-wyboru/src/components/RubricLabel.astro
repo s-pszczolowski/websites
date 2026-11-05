@@ -1,0 +1,10 @@
+---
+import { rubric } from '../config/magazine';
+import { rubricUrl } from '../lib/stories';
+const { slug, link = true, sponsored = false } = Astro.props as { slug: string; link?: boolean; sponsored?: boolean };
+const r = rubric(slug);
+---
+<p class="eyebrow">
+  {link ? <a href={rubricUrl(r.slug)}>{r.title}</a> : <span>{r.title}</span>}
+  {sponsored && <span class="eyebrow__partner">Materiał partnerski</span>}
+</p>

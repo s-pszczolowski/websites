@@ -1,0 +1,15 @@
+---
+import Base from './Base.astro';
+import Trail from '../components/Trail.astro';
+import { publisherReady } from '../lib/publisher';
+interface Props { title: string; description: string; lede?: string; legal?: boolean }
+const { title, description, lede, legal = false } = Astro.props;
+---
+<Base title={`${title} | Przestrzeń Wyboru`} description={description} noindex={legal && !publisherReady}>
+  <div class="paper shell">
+    <Trail items={[{ name: title }]} />
+    <header class="paper__head"><h1>{title}</h1>{lede && <p class="paper__lede">{lede}</p>}</header>
+    {legal && !publisherReady && <aside class="notice" role="note"><strong>Wersja przedpremierowa.</strong> Dane wydawcy nie zostały jeszcze uzupełnione w pliku <code>deployment.config.json</code>. Do tego czasu strona nie jest indeksowana i nie stanowi kompletnego dokumentu prawnego.</aside>}
+    <div class="prose"><slot /></div>
+  </div>
+</Base>

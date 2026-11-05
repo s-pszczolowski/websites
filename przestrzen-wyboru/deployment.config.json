@@ -1,0 +1,9 @@
+{
+  "_opis": "Dane uzupełnia rzeczywisty wydawca przed publicznym uruchomieniem. Dopóki pola są puste, strony Kontakt, Polityka prywatności i Pliki cookies pokazują informację o wersji przedwdrożeniowej (noindex, poza sitemap), a npm run build:production kończy się błędem.",
+  "wydawca": { "nazwa": null, "adres": null, "nip": null, "regon_krs": null },
+  "kontakt": { "email_redakcji": null, "email_partnerstwa": null, "telefon": null },
+  "redakcja": { "redaktor_prowadzacy": null },
+  "analityka": { "wlaczona": false, "narzedzie": null },
+  "newsletter": { "wlaczony": false, "dostawca": null },
+  "daty_demonstracyjne_zastapione": false
+}

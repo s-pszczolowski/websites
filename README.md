@@ -60,3 +60,7 @@ Katalog `horyzont-praktyczny/` zawiera siódmy, niezależny portal – **Horyzon
 ## Puls Regionów (Astro)
 
 Katalog `puls-regionow/` zawiera ósmy, niezależny portal – **Puls Regionów** („Ludzie, miejsca, sprawy codzienne”): regionalny serwis informacyjno-poradnikowy (Szczecin, Pomorze Zachodnie, wybrzeże Bałtyku i inne regiony), 50 artykułów w 8 działach i 4 wydaniach regionalnych, 10 artykułów sponsorowanych z linkami do klientów z trzeciego, niezależnego losowania (`puls-regionow/selected-clients.json`), projekt w stylu prasowym, walidator i test przeglądarkowy. Instrukcje: `puls-regionow/README.md`, wynik kontroli: `puls-regionow/RAPORT-WALIDACJI.md`.
+
+## Przestrzeń Wyboru (Astro)
+
+Katalog `przestrzen-wyboru/` zawiera dziewiąty, niezależny portal – magazyn lifestyle'owo-poradnikowy **Przestrzeń Wyboru** („Świadome decyzje. Lepsza codzienność”): 50 tekstów w 8 rubrykach, 10 materiałów partnerskich z linkami do klientów z czwartego, niezależnego losowania (`przestrzen-wyboru/selected-clients.json`), własny projekt graficzny w stylu magazynu online, generowane wizualizacje WebP, walidator i test przeglądarkowy. Instrukcje: `przestrzen-wyboru/README.md`, wynik kontroli: `przestrzen-wyboru/RAPORT-WALIDACJI.md`.

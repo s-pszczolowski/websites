@@ -1,0 +1,21 @@
+---
+import Logo from './Logo.astro';
+import { MAGAZINE, RUBRICS, INFO_PAGES } from '../config/magazine';
+import { rubricUrl } from '../lib/stories';
+import { deployment } from '../lib/publisher';
+const year = 2026;
+---
+<footer class="colophon">
+  <div class="shell colophon__grid">
+    <div class="colophon__brand">
+      <Logo small />
+      <p>{MAGAZINE.description}</p>
+    </div>
+    <nav aria-label="Rubryki w stopce"><p class="colophon__head">Rubryki</p><ul>{RUBRICS.map((r) => <li><a href={rubricUrl(r.slug)}>{r.title}</a></li>)}</ul></nav>
+    <nav aria-label="Informacje o magazynie"><p class="colophon__head">Magazyn</p><ul>{INFO_PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}<li><a href="/rss.xml">Kanał RSS</a></li></ul></nav>
+  </div>
+  <div class="shell colophon__base">
+    <p>© {year} {MAGAZINE.name}. Teksty mają charakter informacyjny i nie zastępują porady lekarza, prawnika ani doradcy finansowego.</p>
+    {!deployment.daty_demonstracyjne_zastapione && <p class="colophon__note">Wersja przedpremierowa: daty przy tekstach są demonstracyjne i zostaną zastąpione rzeczywistymi datami publikacji.</p>}
+  </div>
+</footer>

@@ -1,0 +1,21 @@
+---
+import Picture from './Picture.astro';
+import { rubric } from '../config/magazine';
+import { storyUrl, shortDate, isoDate, minutes, type Story } from '../lib/stories';
+interface Props { story: Story; variant?: 'tall' | 'wide' | 'square' | 'row' | 'plain'; heading?: 'h2' | 'h3'; showLead?: boolean; sizes?: string }
+const { story, variant = 'square', heading = 'h3', showLead = false, sizes } = Astro.props;
+const d = story.data;
+const H = heading;
+const ratio = variant === 'tall' ? 'tall' : variant === 'wide' ? 'wide' : variant === 'row' ? 'square' : 'classic';
+// Karty pionowe i kwadratowe przycinają kadr 16:10, więc potrzebują szerszego źródła niż wynika z szerokości karty.
+const auto = variant === 'row' ? '220px' : variant === 'wide' ? '(min-width: 900px) 60vw, 100vw' : variant === 'tall' ? '(min-width: 1100px) 50vw, (min-width: 700px) 70vw, 140vw' : '(min-width: 1100px) 36vw, (min-width: 700px) 60vw, 120vw';
+---
+<article class:list={['tile', `tile--${variant}`]}>
+  {variant !== 'plain' && <a class="tile__media" href={storyUrl(story)} tabindex="-1" aria-hidden="true"><Picture slug={story.id} alt={d.visualAlt} ratio={ratio} sizes={sizes ?? auto} /></a>}
+  <div class="tile__body">
+    <p class="tile__kicker"><span>{rubric(d.rubric).short}</span>{d.sponsored && <span class="tile__partner">Partner</span>}</p>
+    <H class="tile__title"><a href={storyUrl(story)}>{d.title}</a></H>
+    {showLead && <p class="tile__lead">{d.standfirst}</p>}
+    <p class="tile__meta"><time datetime={isoDate(d.published)}>{shortDate(d.published)}</time> · {minutes(story.body)} min czytania</p>
+  </div>
+</article>

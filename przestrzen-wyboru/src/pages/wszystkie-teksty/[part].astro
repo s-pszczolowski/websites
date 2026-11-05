@@ -1,0 +1,14 @@
+---
+import ArchivePage from '../../components/ArchivePage.astro';
+import { MAGAZINE } from '../../config/magazine';
+import { allStories, monthsOf, pageCount } from '../../lib/stories';
+// Jeden szablon dla stron archiwum (/wszystkie-teksty/strona-2/) i archiwów miesięcznych (/wszystkie-teksty/2026-09/).
+export async function getStaticPaths() {
+  const all = await allStories();
+  const pages = Array.from({ length: pageCount(all.length, MAGAZINE.archivePerPage) - 1 }, (_, i) => ({ params: { part: `strona-${i + 2}` }, props: { page: i + 2 } }));
+  const months = monthsOf(all).map((m) => ({ params: { part: m.ym }, props: { month: m.ym } }));
+  return [...pages, ...months];
+}
+const { page, month } = Astro.props as { page?: number; month?: string };
+---
+<ArchivePage page={page} month={month} />

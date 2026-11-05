@@ -1,0 +1,24 @@
+{
+  "name": "przestrzen-wyboru",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Przestrzeń Wyboru – magazyn o świadomym stylu życia (Astro, SSG)",
+  "scripts": {
+    "dev": "astro dev",
+    "visuals": "node scripts/render-visuals.mjs",
+    "build": "node scripts/render-visuals.mjs && astro build",
+    "build:production": "node scripts/check-deploy-config.mjs && npm run build && node scripts/validate-content.mjs",
+    "validate": "node scripts/validate-content.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "preview": "astro preview",
+    "draw-clients": "node scripts/draw-clients.mjs"
+  },
+  "engines": { "node": ">=18.20.8" },
+  "dependencies": {
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource-variable/playfair-display": "5.3.0",
+    "astro": "5.18.2"
+  },
+  "devDependencies": { "sharp": "0.34.5" }
+}

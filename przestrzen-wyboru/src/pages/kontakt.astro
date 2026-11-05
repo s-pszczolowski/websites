@@ -1,0 +1,21 @@
+---
+import Paper from '../layouts/Paper.astro';
+import { deployment, publisherReady } from '../lib/publisher';
+const k = deployment.kontakt; const w = deployment.wydawca;
+---
+<Paper title="Kontakt" description="Kontakt z redakcją magazynu Przestrzeń Wyboru: sprawy redakcyjne, korekty, współpraca z partnerami i dane wydawcy." lede="Napisz do nas w sprawie tekstów, poprawek lub współpracy." legal>
+  {publisherReady ? (
+    <dl class="facts">
+      <dt>Wydawca</dt><dd>{w.nazwa}, {w.adres}</dd>
+      {w.nip && <><dt>NIP</dt><dd>{w.nip}</dd></>}
+      {w.regon_krs && <><dt>REGON / KRS</dt><dd>{w.regon_krs}</dd></>}
+      <dt>Redakcja</dt><dd><a href={`mailto:${k.email_redakcji}`}>{k.email_redakcji}</a></dd>
+      {k.email_partnerstwa && <><dt>Współpraca</dt><dd><a href={`mailto:${k.email_partnerstwa}`}>{k.email_partnerstwa}</a></dd></>}
+      {k.telefon && <><dt>Telefon</dt><dd>{k.telefon}</dd></>}
+    </dl>
+  ) : (
+    <p>Dane kontaktowe wydawcy i adres poczty redakcji zostaną opublikowane przed uruchomieniem serwisu. Nie podajemy danych zastępczych ani przykładowych.</p>
+  )}
+  <h2>W jakich sprawach pisać</h2>
+  <ul><li>korekty i uwagi do opublikowanych tekstów,</li><li>propozycje tematów,</li><li>współpraca partnerska – na zasadach opisanych w <a href="/zasady-publikacji/">Zasadach publikacji i współpracy</a>.</li></ul>
+</Paper>

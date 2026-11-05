@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import Trail from '../../components/Trail.astro';
+import Picture from '../../components/Picture.astro';
+import { MAGAZINE } from '../../config/magazine';
+import { allStories, rubricsWithCounts, rubricUrl } from '../../lib/stories';
+const all = await allStories();
+const list = rubricsWithCounts(all).map((r) => ({ ...r, lead: all.find((s) => s.data.rubric === r.slug)! }));
+---
+<Base title={`Rubryki magazynu | ${MAGAZINE.name}`} description={`Osiem rubryk magazynu ${MAGAZINE.name}: zdrowie, psychologia, dom, uroda, podróże, rodzina, rozwój oraz świadome zakupy i usługi.`}>
+  <div class="shell">
+    <Trail items={[{ name: 'Rubryki' }]} />
+    <header class="rubric-head"><h1>Rubryki</h1><p class="rubric-head__lede">Osiem obszarów codziennych decyzji – od zdrowia i relacji po dom, podróże i rozsądne zakupy.</p></header>
+    <ul class="index-rubrics">
+      {list.map((r) => <li><a href={rubricUrl(r.slug)}><Picture slug={r.lead.id} alt={r.lead.data.visualAlt} ratio="classic" sizes="(min-width: 900px) 40vw, 100vw" /><span class="index-rubrics__name">{r.title}</span><span class="index-rubrics__lede">{r.lede}</span><span class="index-rubrics__count">{r.count} tekstów</span></a></li>)}
+    </ul>
+  </div>
+</Base>
